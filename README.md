@@ -78,7 +78,17 @@ Daily, a five-letter word is selected and players have six tries to guess it. Ea
 - Add the ability to select different wordfiles
 - Add the ability to manually enter today's date (for units that aren't Y2K fixed)
 
+## FAQ
+### About the word files and today's word
+The wordfiles we use in **m100le** are based on the the **original** javascript WORDLE, which contained the entire set of daily words (the wordfile) within the program code.  Over six years worth of words. 
 
+### How wordfiles work
+Big wordfiles wouldn't work for our little units, so we broke each wordfile into manageable chunks of one year each. 
+
+The wordfiles are all appropriately named for the year they correspond to.  On program load, **m100le** checks the system **DATE$** for the current date and scans the appropriate wordfile for the matching daily word.
+
+### Will my m100le word be the same as today's NYT Wordle word?
+Maybe. m100le wordlists are based on the javascript version that was running online prior to the NYT acquisition of WORDLE. So today's word in m100le may be the same word in NYT WORDLE, or not.
 
 ## Feedback
 
@@ -97,4 +107,5 @@ If you have any feedback, please reach out to us:
 ## Authors
 
 - [@bgrier](http://blog.bradgrier.com)
+
 
