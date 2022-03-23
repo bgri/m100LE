@@ -14,6 +14,8 @@ WORDLE'S instructions are very simple:
 - Each guess must be a valid 5 letter word. Hit the enter button to submit.
 - After each guess, the colour of the tiles will change to show how close your guess was to the word.
 
+![image](https://user-images.githubusercontent.com/14062627/159618578-ef980bb7-de0f-47d1-a496-b3f191d9700f.png)
+
 ## Differences from Wordle
 ### Valid 5 letter word
 We've chosen to eliminate this constraint, given the limited onboard memory of the Model 100. 
@@ -25,6 +27,8 @@ WORDLE initially checks the date and loads today's word from the wordlist. When 
 Implementing the WORDLE method, would require the model 100 to have the entire wordlist in memory to check for valid words. The Wordle wordlist is about 17k bytes (spanning six years of words);  just over half of the maximum memory of a Tandy Model 100. 
 
 Rather than impose this burden, **m100le** reads the **current year's** wordfile for the appropriate word based on today's **Date$**. Currently, **m100le** is using the 2022 version of the wordfile 'WL2022.DO'.
+
+
 
 ### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the ability to use colours to provide the clues. 
