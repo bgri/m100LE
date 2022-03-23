@@ -14,6 +14,8 @@ WORDLE'S instructions are very simple:
 - Each guess must be a valid 5 letter word. Hit the enter button to submit.
 - After each guess, the colour of the tiles will change to show how close your guess was to the word.
 
+![image](https://user-images.githubusercontent.com/14062627/159618578-ef980bb7-de0f-47d1-a496-b3f191d9700f.png)
+
 ## Differences from Wordle
 ### Valid 5 letter word
 We've chosen to eliminate this constraint, given the limited onboard memory of the Model 100. 
@@ -25,6 +27,8 @@ WORDLE initially checks the date and loads today's word from the wordlist. When 
 Implementing the WORDLE method, would require the model 100 to have the entire wordlist in memory to check for valid words. The Wordle wordlist is about 17k bytes (spanning six years of words);  just over half of the maximum memory of a Tandy Model 100. 
 
 Rather than impose this burden, **m100le** reads the **current year's** wordfile for the appropriate word based on today's **Date$**. Currently, **m100le** is using the 2022 version of the wordfile 'WL2022.DO'.
+
+
 
 ### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the ability to use colours to provide the clues. 
@@ -39,6 +43,9 @@ For each guess, a line in the **Clue Panel** will be filled in with the clue for
 
 #### *an asterix will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel** 
 
+![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
+
+
 ### End of game
 When either a word is guessed correctly, or no correct word is guessed after six attempts, the game ends and you have a few options:
 - [A]GAIN? - Restarts today's game
@@ -47,6 +54,7 @@ When either a word is guessed correctly, or no correct word is guessed after six
 - [Q]UIT? - End the program execution and return to the main menu. 
 
 ### Gameplay
+![image](https://user-images.githubusercontent.com/14062627/159623862-c2d431f8-f88a-48b0-ac1d-45fa83ce3df9.png)
 Daily, a five-letter word is selected and players have six tries to guess it. Each guess is rewarded with clues. After every guess, each letter is evaluated and marked in the **Clue Panel** as either [X], [**\***], [?], or [.] (CORRECT LETTER, QUESTION MARK, or PERIOD). CORRECT LETTER in **Clue Panel** indicates that letter is correct and in the correct position. QUESTION MARK indicates that the letter is in the answer but not in the proper position. PERIOD means that the letter is not in the answer at all. Multiple instances of the same letter in a guess, such as the "P"s in "POPPY", will be CORRECT LETTER or QUESTION MARK only if the letter also appears multiple times in the answer; otherwise, excess repeating letters will be a PERIOD.
 
 ## Installation
