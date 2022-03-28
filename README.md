@@ -24,7 +24,7 @@ WORDLE initially checks the date and loads today's word from the wordlist. When 
 
 **m100le** initially **loads** today's word based on the system **DATE$** value. When a guess is submitted, **m100le** compares it to today's word, and provides the resultant clue. **m100le** does not test to verify the word appears in the wordlist. A guess of 'MOIST' is valid, as is a guess of 'DDDDD'.
 
-Implementing the WORDLE method, would require the model 100 to have the entire wordlist in memory to check for valid words. The Wordle wordlist is about 17k bytes (spanning six years of words);  just over half of the maximum memory of a Tandy Model 100. 
+Implementing the WORDLE method, would require the Model 100 to have the entire wordlist in memory to check for valid words. The Wordle wordlist is about 17k bytes (spanning six years of words);  just over half of the maximum memory of a Tandy Model 100. 
 
 Rather than impose this burden, **m100le** reads the **current year's** wordfile for the appropriate word based on today's **Date$**. Currently, **m100le** is using the 2022 version of the wordfile 'WL2022.DO'.
 
@@ -60,7 +60,7 @@ Daily, a five-letter word is selected and players have six tries to guess it. Ea
 ## Installation
 
 1. Download the most recent .zip file from the [RELEASES section](https://github.com/bgri/m100LE/releases).
-2. Extract and copy 'M100LE.DO' to your model 100.
+2. Extract and copy 'M100LE.DO' to your Model 100.
 3. Extract and copy 'WL20XX.DO' to your Model 100 replacing XX with the current year. For 2022 you want WL2022.DO.
 4. Enter BASIC on the Model 100, and type:
 ```LOAD "M100LE.DO"```
