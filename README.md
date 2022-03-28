@@ -74,8 +74,6 @@ Daily, a five-letter word is selected and players have six tries to guess it. Ea
     
 ## Roadmap
 
-- Add the ability to manually enter today's date (for units that aren't Y2K fixed)
-----
 - Port to the NEC PC-8201
 - Add the ability to save and display statistics
 - Add the ability to select different wordfiles
