@@ -46,6 +46,14 @@ For each guess, a line in the **Clue Panel** will be filled in with the clue for
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
 
 
+## Setting the Date
+If your m100 doesn't have a ROM that has a Y2K patch (or some other method to bring your unit into this century, like the most excellent [REX# ROM](http://bitchin100.com/wiki/index.php?title=REXsharp) ), then to you'll need to edit line 16 so that the program promts you for the current date when playing a non-random, daily-sequental game. This will let you share relevant screenshots to your various social media and impress your friends :)
+
+So in line 16, change the value of MD from Zero to One if you want to be prompted for the date.
+```
+16 AD$=DATE$:MD=0: 'DEFINE DATE$ AND MANUAL DATE FLAG
+```
+
 ### End of game
 When either a word is guessed correctly, or no correct word is guessed after six attempts, the game ends and you have a few options:
 - [A]GAIN? - Restarts today's game
