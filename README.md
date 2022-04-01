@@ -75,10 +75,9 @@ Daily, a five-letter word is selected and players have six tries to guess it. Ea
 ## Roadmap
 
 - Game end and Social Screen - update how they exit so user isn't dumped to OK prompt. Exit gracefully or restart menu.
-- Port to the NEC PC-8201
 - Add the ability to save and display statistics
 - Add the ability to select different wordfiles
-
+- Port to the NEC PC-8201
 
 
 ## FAQ
