@@ -135,8 +135,9 @@
 6001 'LOAD WORD OF THE DAY
 6002 PRINT @ 72, RV$ "LOADING" NV$;
 6005 WL$=WF$
-6009 REM Set WA to RAM addr of file
+6009 ' Search directory for "WL20xx.CO",       set WA to its address in RAM.
 6010 GOSUB 2000
+6015 IF WA=0 THEN PRINT "Error: File '";WF$;"' File not found.": END
 6019 REM Set TW$ to today's word from either compressed .CO or ASCII .DO file.
 6020 IF RIGHT$(WF$,2)="CO" THEN GOSUB 6100 ELSE GOSUB 6200
 6060 FOR I=1 TO 5: WD$(I) = MID$(TW$,I,1):NEXT I: 'COPY WORD INTO ARRAY'
