@@ -68,11 +68,12 @@
 2006 REM
 2007 ' Normalize WL$ to 8 chars, no dot
 2008 GOSUB 2100
-2009 ' HW ID 51=M100, 171=T200, 148=NEC,             35=M10,  225=K85
+2009 ' HW ID 51=M100, 171=T200, 148=NEC,            167=T102,  35=M10,  225=K85
 2010 ID=PEEK(1)
-2014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100 and 62034 for T200.)
+2014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
 2015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-2016 RD=-( 63842*(ID=51) + 62034*(ID=171) + 63633*(ID=148) )
+2016 RD=-( 63842*(ID=51 OR ID=167) + 62034*(ID=171) + 63633*(ID=148) )
+2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
 2019 ' Search directory for WL$
 2020 FOR T1 = RD TO 65535 STEP 11
 2029 ' Attribute flag: See Oppedahl's "Inside the TRS-80 Model 100" for details.
@@ -142,7 +143,7 @@
 6065 PRINT @ 72, "       ": PRINT @ 80-LEN(STR$(DY)),DY:IF DB=1 THEN TW$="HIPPY": 'CLEAR LOADING TEXT, PRINT WORD SEQ. NUM, OVERRIDE CURRENT WORD IF DB=1(DEBUG ON)'
 6070 RETURN
 6100 REM READ WORD FROM BINARY .CO FILE
-6101 ' INPUT: WA is address of file,                   DY is day of the year
+6101 ' INPUT: WA is address of file,                  DY is day of the year
 6102 ' OUTPUT: TW$ is today's word
 6103 ' TEMP: A, B, X, I
 6110 X=WA+6+(DY-1)*3
@@ -268,13 +269,13 @@
 8305 ' If user inputs a day number without a year (e.g., "213"), presume current year.
 8306 IF INSTR(1, AD$, "/")=0 THEN AD$=AD$+RIGHT$(DATE$,3)
 8307 ' If user inputs "DY/YR" (e.g., "213/22"), then use DY as ordinal date.
-8308 IF MID$(AD$,6, 1) <> "/" THEN DY=VAL(AD$): GOTO 8338
+8308 IF MID$(AD$,6, 1) <> "/" THEN DY=VAL(AD$): GOTO 8337
 8310 '
 8320 CM=VAL(LEFT$(AD$,2)): 'GET NUMBER OF THE CURRENT MONTH'
 8322 'PRINT CM
 8325 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
 8335 IF RF<>1 AND CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
-8336 IF RF<>1 THEN: DY=DY+VAL(MID$(AD$,4,2))
+8336 IF RF<>1 THEN: DY=DY+VAL(RIGHT$(AD$,2))
 8337 Y=2000+VAL(MID$(AD$,7,2)): 'FOUR DIGIT YEAR
 8338 LP=-( (Y MOD 4 = 0) AND ( (Y MOD 100 <> 0) OR (Y MOD 400 = 0) ) ): ' LP is 1 in leap years, 0 otherwise.
 8339 IF CM>2 THEN DY=DY+LP
