@@ -24,6 +24,7 @@
 25 GU$="_____":BG$=".....":GW$=BG$
 26 DL=400: 'DELAY'
 27 CC=1:   'WITTY COMMENT VALUE 
+28 SV=0:   'SOCIAL SCREEN VIEWED? BOOL
 30 'Row positions for guesses and words
 31 FOR I=1 TO 6
 32 G$(I)=AT$+CHR$(32+I)+CHR$(32+1)
