@@ -329,15 +329,15 @@
 8201 ' IN: AD$ is YY/MM/DD or MM/DD/YY
 8202 '         or YY/ddd   or ddd/YY 
 8203 '         or ddd  (ordinal day #)
-8203 ' OUT: YY$ is two-digit year.
-8204 '      DF$ is "EU" or "US"
-8204 ' TEMP: ID, IX, DT$
-8204 '
+8204 ' OUT: YY$ is two-digit year.
+8205 '      DF$ is "EU" or "US"
+8206 ' TEMP: ID, IX, DT$
+8209 '
 8210 ID=PEEK(1)
 8211 '  51=M100, 167=T102, 171=T200
 8213 ' 225=K85,  125=Olivetti M10 (US)
-8212 ' 148=NEC,   35=M10 (Europe)
-8213 '
+8214 ' 148=NEC,   35=M10 (Europe)
+8215 '
 8219 ' Use ID to determine date format
 8220 IF ID=148 OR ID=35 THEN DF$="EU"   :                       ELSE DF$="US"
 8229 ' Check for ordinal day w/o year
