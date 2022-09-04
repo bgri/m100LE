@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Show all the lines which are the target destination of a jump in BASIC.
+# Handles GOTO, GOSUB, THEN.
+
+# This is useful so that we can make sure that lines which are
+# destinations do not get removed when we shrink the program by
+# removing comments.
+
+# This could be done more simply, but has added complexity because
+# commas allowed for ON GOSUB and ON GOTO. Also, this program expanded
+# to make the output more aestheticlly pleasing.
+#
+# hackerb9 2022 Sep 4
+
+
+file=${1:-M100LEl.DO}		# Default file to check if not specified 
+
+cat "$file" |
+    egrep -io '(THEN|GOTO|GOSUB)(\s*,?\s*[0-9]+)+' |
+    sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi' |	      # Add " " in GOSUB4200 
+    tr ',' '\t' |				      # Commas become tabs
+    while read jump alldestinations
+    do
+	set -- $alldestinations
+	for destination; do
+	    printf "%5s %5s\n" $jump $destination
+	done
+    done |
+    sort | uniq | sort -n -k2
+
