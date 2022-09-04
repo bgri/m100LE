@@ -288,9 +288,10 @@
 7395 IF GN=6 THEN GOTO 8900
 7399 GN=GN+1: TM$="":GOSUB 7600:GOTO 7190: 'RESET AND GET NEXT GUESS'
 7400 ' UPDATE ALPHABET BOARD
-7401 ' IN: TM$ is the word guessed.
-7401 '     SO$(GN,I) are symbols to draw
-7403 ' OUT: None
+7401 ' IN: TM$: the word guessed.
+7402 '     GN: guess number
+7403 '     SO$(GN,I): symbols to draw
+7404 ' OUT: None
 7405 ' For each letter (I) in TM$,
 7406 ' SO$(GN,I) is replacement symbol,        "*" for right place,                    "?" for wrong place,                    "." for wrong letter.
 7410 FOR I = 1 TO 5
