@@ -10,13 +10,36 @@ output=${2:-/dev/stdout} # Write to stdout if not second file.
 
 echo "Reading from $input, writing to $output" >&2
 
-{   # Remove all comments 
-    cat "$input" | sed -r "s/\s*(REM|').*//i" | egrep -v '^\s*[0-9]+\s*$'
 
-    # Add back in lines which are jump destinations
-    `dirname $0`/jumpdestinations -l "$input" | sed "s/$/ '/"
-} |
+# An array of line numbers to keep
+declare -a jumps=($(`dirname $0`/jumpdestinations -l "$input"))
+declare -i i=0
 
-    tr -d $'\cZ' | grep -v '^\s*$' | 		# Remove ^Z and blank lines
+# Remove all comments and lines with no content
+cat "$input" | sort -n |
+    while read line; do
+	# Extract line number, discarding leading whitespace and zeroes.
+	lineno=$(echo "$line" | sed -rn 's/^\s*0*([0-9]+).*$/\1/p')
+
+	# Progress meter for long files
+	echo -n $lineno$'\r' >&2
+
+	# Make sure we have the next jump destination queued up.
+	while [[  $jumps[i]  &&  $lineno -gt ${jumps[i]}  ]]; do
+	    i=i+1
+	done
+
+	# Is the line number equal (numerically) to the current jump point?
+	if [[ $lineno -eq ${jumps[i]} ]]; then
+	    # Keep this line as it is a jump destination.
+	    echo "$line"
+	else
+	    # Trim this line of comments.
+	    echo "$line" | sed -r "s/\s*(REM|').*//i" 
+	fi
+    done |
+
+    # Remove ^Z, blank lines, and line numbers with no content
+    tr -d $'\cZ' | grep -v '^\s*[0-9]*\s*$' |
 
     sort -n > "$output"
