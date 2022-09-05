@@ -32,10 +32,10 @@ cat "$input" | sort -n |
 	# Is the line number equal (numerically) to the current jump point?
 	if [[ $lineno -eq ${jumps[i]} ]]; then
 	    # Keep this line as it is a jump destination.
-	    echo "$line"
+	    echo "$line" | sed -r "s/\s*(REM|')[^\r]*/ '/i" 
 	else
-	    # Trim this line of comments.
-	    echo "$line" | sed -r "s/\s*(REM|').*//i" 
+	    # Trim this line of comments. (Potentially removing it later).
+	    echo "$line" | sed -r "s/\s*(REM|')[^\r]*//i" 
 	fi
     done |
 
