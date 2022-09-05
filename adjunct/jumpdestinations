@@ -14,18 +14,25 @@
 # hackerb9 2022 Sep 4
 
 
+if [[ $1 == "-l" ]]; then LFLAG=true; shift; fi
+
 file=${1:-M100LEl.DO}		# Default file to check if not specified 
 
 cat "$file" |
     egrep -io '(THEN|GOTO|GOSUB)(\s*,?\s*[0-9]+)+' |
-    sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi' |	      # Add " " in GOSUB4200 
+    sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
+    	    s/([^0-9])0+/\1/g' |	     	      # Remove leading zeroes
     tr ',' '\t' |				      # Commas become tabs
     while read jump alldestinations
     do
 	set -- $alldestinations
 	for destination; do
-	    printf "%5s %5s\n" $jump $destination
+	    if ! [[ $LFLAG ]]; then 
+		printf "%5s %5s\n" $jump $destination
+	    else
+		printf "%s\n" $destination
+	    fi
 	done
     done |
-    sort | uniq | sort -n -k2
+    sort -n -k1 | uniq | sort --stable -n -k2
 
