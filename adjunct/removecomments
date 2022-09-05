@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Remove comments to shrink the size of a Tandy Model 100 BASIC program.
+
+# Lines which start with a comment remain if they are used as jump
+# destinations by GOTO, GOSUB, or THEN. (See jumpdestinations program).
+
+input=${1:-M100LEl.DO} # Default file to check if not specified
+output=${2:-/dev/stdout} # Write to stdout if not second file.
+
+echo "Reading from $input, writing to $output" >&2
+
+{   # Remove all comments 
+    cat "$input" | sed -r "s/\s*(REM|').*//i" | egrep -v '^\s*[0-9]+\s*$'
+
+    # Add back in lines which are jump destinations
+    `dirname $0`/jumpdestinations -l "$input" | sed "s/$/ '/"
+} |
+
+    tr -d $'\cZ' | grep -v '^\s*$' | 		# Remove ^Z and blank lines
+
+    sort -n > "$output"
