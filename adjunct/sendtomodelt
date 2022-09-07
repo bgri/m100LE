@@ -1,0 +1,111 @@
+#!/bin/bash
+
+# sendtomodelt: Send a BASIC text file to a Tandy portable over a serial port.
+# At the end of the file, sends ^Z (the Tandy BASIC EOF marker).
+
+# Why use this instead of TELCOM? Each line is tokenized as it is
+# read, which saves memory. TELCOM requires downloading the entire
+# text file before it can be loaded in BASIC, so enough RAM must exist
+# for both the untokenized and tokenized versions simultaneously. This
+# program only keeps one line of untokenized text in RAM at any time.
+
+# Note: If you get repeated "?DS" errors and see garbled text when you
+# try LIST, then it is likely that you are using a serial port on your
+# PC which does not have hardware support for XON/XOFF flow control.
+# Be sure to purchase a serial card or USB adapter which advertises
+# "ON CHIP SOFTWARE FLOW CONTROL". Tip: an FTDI USB cable will work.
+
+# BUGS:
+
+# * This is a glorified one-line program with lots of error checking. 
+#   It ought to be just a simple 'cat $1 > /dev/ttyUSB0'.
+
+# * And yet.... there is more that I could add that is missing. It
+#   does not yet check if the serial port is writable by the user. 
+#   Nor does it check if the port is already open by another program.
+
+# * Should probably give a hint to users if the tty is unwritable by
+# * the user but is writeable by the a group. (E.g., `sudo addgroup
+# * dialout $USER` then re-login to get access. )
+
+# * Not tested on MacOS. 
+
+#
+# hackerb9, 2022
+
+basename=$(basename $0)
+
+usage() {
+        cat >&2 <<EOF
+$basename: Send a BASIC text file to a Model T portable over the serial port.
+	     Each line is tokenized as it is read, which saves memory.
+
+Usage: $basename <filename> [serial port]
+
+Longer example:
+    On Tandy Model 200/102/100, type:
+
+	    LOAD "COM:98N1ENN"
+
+    On UNIX host, type:
+
+	$basename FILENAME.DO
+	[wait for the Tandy to say "Ok"]
+	[hit Enter to close the serial port]
+
+    Optionally, on Tandy, type:
+
+	    SAVE "FILENM"
+
+EOF
+}
+
+listports() {
+    ls /dev/cu.* /dev/ttyUSB* /dev/ttyS* /dev/ttyACM* 2>/dev/null
+}
+
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    usage
+    exit
+fi
+
+if [[ $2 ]]; then
+    serial=$2
+else
+    serial=$(listports | head -1)
+fi
+
+if [[ ! -e $serial ]]; then
+    echo "$serial does not exist. Maybe try $basename $1 /dev/ttyS0?"
+    exit 1
+fi
+
+
+# Configure serial port the way the Tandy portables like.
+#
+#  ixon: Enable processing of software flow control in received data.
+# ixoff: Enable sending XON/XOFF if PC gets overwhelmed by Model T (unlikely).
+#  stop ^S: Use the standard software flow control character for XOFF...
+# start ^Q: ... same for XON.
+# -onlcr: Do not turn newlines into carriage returns on output...
+# -icrnl: ... nor vice versa.
+# eof ^Z: Typing a ^Z character will send an End-of-File. (Not used here).
+# 19200: Bits per second ("baud rate").
+#
+stty -F $serial ixon ixoff  stop ^S start ^Q  -onlcr -icrnl  eof ^Z  19200
+
+# Sidenote: Running with no filename sets up the serial port before exiting. 
+if [[ -z $1 ]]; then
+    usage
+    exit 1
+fi
+
+
+echo "cat $1 >$serial" >&2;
+{
+    cat "$1";
+    echo $'\cZ';
+    read -p "Hit ENTER when Model T has finished. ";
+} >$serial
+    
