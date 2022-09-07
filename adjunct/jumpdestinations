@@ -19,7 +19,7 @@ if [[ $1 == "-l" ]]; then LFLAG=true; shift; fi
 file=${1:-M100LE+comments.DO}	# Default file to check if not specified 
 
 cat "$file" |
-    egrep -io '(THEN|GOTO|GOSUB)(\s*,?\s*[0-9]+)+' |
+    egrep -io '(GOTO|GOSUB|THEN|ELSE|RESTORE|)(\s*,?\s*[0-9]+)+' |
     sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
     	    s/([^0-9])0+/\1/g' |	     	      # Remove leading zeroes
     tr ',' '\t' |				      # Commas become tabs
