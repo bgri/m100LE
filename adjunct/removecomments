@@ -5,7 +5,7 @@
 # Lines which start with a comment remain if they are used as jump
 # destinations by GOTO, GOSUB, or THEN. (See jumpdestinations program).
 
-input=${1:-M100LEl.DO} # Default file to check if not specified
+input=${1:-M100LE+comments.DO} # Default file to check if not specified
 output=${2:-/dev/stdout} # Write to stdout if not second file.
 
 echo "Reading from $input, writing to $output" >&2

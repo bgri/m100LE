@@ -16,7 +16,7 @@
 
 if [[ $1 == "-l" ]]; then LFLAG=true; shift; fi
 
-file=${1:-M100LEl.DO}		# Default file to check if not specified 
+file=${1:-M100LE+comments.DO}	# Default file to check if not specified 
 
 cat "$file" |
     egrep -io '(THEN|GOTO|GOSUB)(\s*,?\s*[0-9]+)+' |
