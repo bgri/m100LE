@@ -61,7 +61,8 @@ EOF
 }
 
 listports() {
-    ls /dev/cu.* /dev/ttyUSB* /dev/ttyS* /dev/ttyACM* 2>/dev/null
+    shopt -s nullglob
+    printf "%s\n" /dev/cu.* /dev/ttyUSB* /dev/ttyS* /dev/ttyACM* 
 }
 
 
