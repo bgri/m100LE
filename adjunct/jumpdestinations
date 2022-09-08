@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Show all the lines which are the target destination of a jump in BASIC.
-# Handles GOTO, GOSUB, THEN.
+# Handles GOTO, GOSUB, THEN, ELSE, and RESTORE.
 
 # This is useful so that we can make sure that lines which are
 # destinations do not get removed when we shrink the program by
@@ -14,12 +14,16 @@
 # hackerb9 2022 Sep 4
 
 
+# -l flag: remove the jump column, list only the target line numbers.
 if [[ $1 == "-l" ]]; then LFLAG=true; shift; fi
+
+# -c flag: add a column counting how many lines jump to a specific destination.
+if [[ $1 == "-c" ]]; then CFLAG=-c; shift; fi
 
 file=${1:-M100LE+comments.DO}	# Default file to check if not specified 
 
 cat "$file" |
-    egrep -io '(GOTO|GOSUB|THEN|ELSE|RESTORE|)(\s*,?\s*[0-9]+)+' |
+    egrep -io '(GOTO|GOSUB|THEN|ELSE|RESTORE)(\s*,?\s*[0-9]+)+' |
     sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
     	    s/([^0-9])0+/\1/g' |	     	      # Remove leading zeroes
     tr ',' '\t' |				      # Commas become tabs
@@ -28,11 +32,15 @@ cat "$file" |
 	set -- $alldestinations
 	for destination; do
 	    if ! [[ $LFLAG ]]; then 
-		printf "%5s %5s\n" $jump $destination
+		printf "%7s %5s\n" $jump $destination
 	    else
 		printf "%s\n" $destination
 	    fi
 	done
     done |
-    sort -n -k1 | uniq | sort --stable -n -k2
+    sort -n -k1 | uniq $CFLAG | sort --stable -n -k2 | sort --stable -n -k3
 
+
+# Footnote: Why sort three times? Because it is a simple way to
+# handle any of the possible output formats and still guarantee that
+# the it will always be sorted by line number.
