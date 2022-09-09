@@ -1,16 +1,27 @@
 #!/bin/bash
 #
 # Show all the lines which are the target destination of a jump in BASIC.
-# Handles GOTO, GOSUB, THEN, ELSE, and RESTORE.
+# Handles all BASIC commands which can reference a line number:
+# GOTO, GO TO, GOSUB, THEN, ELSE, RESTORE, RESUME, RETURN, and RUN.
 
 # This is useful so that we can make sure that lines which are
 # destinations do not get removed when we shrink the program by
 # removing comments.
 
-# This could be done more simply, but has added complexity because
-# commas allowed for ON GOSUB and ON GOTO. Also, this program expanded
-# to make the output more aestheticlly pleasing.
-#
+# BUGS
+
+# BUG 1: This could be done more simply, but has added complexity
+# because commas allowed for ON var GOSUB and ON var GOTO. Also, this
+# program expanded to make the output more aestheticlly pleasing.
+
+# BUG 2: Note the name of this program is misleading as RESTORE is not
+# actually a jump. What this program actually does is list references
+# to line number which should not be removed or changed willynilly.
+
+# BUG 3: Does not handle LIST, LLIST, or RENUM. Should it? Those
+# commands are rarely used in programs and doing so would complicate
+# this script as those commands can take two line numbers.
+
 # hackerb9 2022 Sep 4
 
 
@@ -23,8 +34,9 @@ if [[ $1 == "-c" ]]; then CFLAG=-c; shift; fi
 file=${1:-M100LE+comments.DO}	# Default file to check if not specified 
 
 cat "$file" |
-    egrep -io '(GOTO|GOSUB|THEN|ELSE|RESTORE)(\s*,?\s*[0-9]+)+' |
-    sed -r 's/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
+    egrep -io '(GO\s*TO|GOSUB|THEN|ELSE|RESTORE|RESUME|RETURN|RUN)(\s*,?\s*[0-9]+)+' |
+    sed -r 's/GO\s*TO/GOTO/gi;			      # "GO TO" -> "GOTO"
+    	    s/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
     	    s/([^0-9])0+/\1/g' |	     	      # Remove leading zeroes
     tr ',' '\t' |				      # Commas become tabs
     while read jump alldestinations
