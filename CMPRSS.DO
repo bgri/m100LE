@@ -1,9 +1,9 @@
 0 CLEAR
 1 REM CMPRSS By hackerb9, 2022
 5 REM Read five letter words from one file and output a three byte representations to a new .CO file.
-6 REM Uses Ram Directory to POKE the data dirctly into the .CO file.
+6 REM Uses Ram Directory to POKE the          data directly into the .CO file.
 7 REM Note The .CO file is currently hardcoded to fit 366 three-byte words.
-9 ON ERROR GOTO 950
+9 ON ERROR GOTO 990
 10 IN$="COM:98N1ENN"
 30 PRINT "File to read ["IN$"]";
 39 'Enter will not change IN$
@@ -28,7 +28,7 @@
 225 ON ERROR GOTO 930
 230 GOSUB 8000 ' WA=addr of .CO file
 240 IF WA=0 THEN GOTO 930
-250 ON ERROR GOTO 950
+250 ON ERROR GOTO 990
 255 B(0)=223:B(1)=73:B(2)=168
 256 FOR I=0 TO 2: POKE WA+6+365*3+I, B(I): NEXT I
 300 REM LOOP: Read, Encode, Write
@@ -83,18 +83,23 @@
 880 A$=FN$+"."+EX$
 890 RETURN
 900 REM Error handling
-910 PRINT"Could not open "IN$" for reading": END
-920 PRINT "Could not allocate" SZ "bytes for " WL$: END
-930 PRINT"Error finding address of "WL$: GOTO 950
-950 REM Generic error handler
-960 PRINT"Got error" ERR "in line" ERL
-999 END
+910 PRINT"Could not open "IN$" for reading": GOTO 999
+920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 999
+930 PRINT"Error finding address of "WL$: GOTO 999
+989 REM Generic error handler
+990 PRINT"Got error" ERR "in line" ERL
+999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .co file to hold compressed wordlist
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3 - 1
-7030 IF (ID=148) THEN BSAVE WL$,0, SZ: ELSE SAVEM WL$, 0, SZ
+7030 IF (ID=148) THEN GOSUB 7500: ELSE SAVEM WL$, 0, SZ
 7040 RETURN
+7500 REM NEC BSAVE DROPS TO DIRECT MODE
+7510 PRINT "Please type RETURN and hit ENTER now."
+7520 BSAVE WL$,0,SZ+1
+7530 REM NEC BASIC NEVER GETS HERE
+7540 STOP: RETURN
 7999 END
 8000 REM RNDACC subroutine
 8001 REM Input: WL$ is file to locate.
