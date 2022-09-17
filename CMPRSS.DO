@@ -90,18 +90,14 @@
 990 PRINT"Got error" ERR "in line" ERL
 999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .co file to hold compressed wordlist
+7004 'For NEC, use BSAVE (at line 8201)
+7005 'For others, use SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
-7020 SZ=366 * 3 - 1
-7030 IF (ID=148) THEN GOSUB 7500: ELSE SAVEM WL$, 0, SZ
+7020 SZ=366 * 3
+7030 IF (ID=148) THEN GOSUB 8201:            ELSE SAVEM WL$, 0, SZ-1
 7040 RETURN
-7500 REM NEC BSAVE DROPS TO DIRECT MODE
-7510 PRINT "Please type RETURN and hit ENTER now."
-7520 BSAVE WL$,0,SZ+1
-7530 REM NEC BASIC NEVER GETS HERE
-7540 STOP: RETURN
-7999 END
-8000 REM RNDACC subroutine
+8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
 8002 REM Output: WA is address in RAM.
 8003 REM Temp: ID, RD, FL, FN$, T1, T2
@@ -110,7 +106,7 @@
 8006 REM
 8007 ' Set WL$ to 8 chars, no dot
 8008 GOSUB 8100
-8009 ' HW ID. 51=M100, 171=T200, 148=NEC,      35=M10, 225=K85
+8009 ' HW ID:51=M100, 171=T200, 148=NEC,       35=M10, 225=K85
 8010 ID=PEEK(1)
 8014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100 and 62034 for T200.)
 8015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
@@ -147,3 +143,27 @@
 8173 WL$=WL$+CHR$(T2)
 8175 NEXT T1
 8180 RETURN
+8200 REM NEC BSAVE BUG WORKAROUND
+8201 ' BSAVE on the NEC drops the user
+8202 ' into DIRECT MODE, halting the
+8203 ' running program. The solution is
+8204 ' to have the user type "RETURN"
+8205 ' and hit the Enter key to jump
+8206 ' back into the program. 
+8207 ' A nicer method is to fill the
+8208 ' keyboard buffer as if the user
+8209 ' had typed RETURN.
+8210 PRINT "NEC detected! Fixing BSAVE."
+8219 REM NEC Keyboard buffer and count.
+8220 KB=65129: KC=65128
+8230 R$="RETURN"+CHR$(13)
+8239 ' "Type" into keyboard buffer.
+8240 FOR I=0 TO LEN(R$)-1
+8250 POKE KB+I*2, ASC(MID$(R$,I+1,1))
+8260 NEXT I
+8269 ' Number of keys "typed".
+8270 POKE KC, LEN(R$) 
+8280 BSAVE WL$,0,SZ
+8289 REM NEC BASIC NEVER GETS HERE
+8290 STOP: RETURN
+8300 END
