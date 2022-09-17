@@ -5,21 +5,29 @@
 7 REM Note The .CO file is currently hardcoded to fit 366 three-byte words.
 9 ON ERROR GOTO 990
 10 IN$="COM:98N1ENN"
-30 PRINT "File to read ["IN$"]";
-39 'Enter will not change IN$
+14 ID=PEEK(1) ' ID=148 on NEC machines.
+15 IF (ID=148) THEN IN$="COM:9N81XN"
+20 FILES
+25 PRINT "Which Wordlist .DO file to read?"
+30 PRINT "or hit Enter to compress data from RS232 ["IN$"]";
+39 'N.B. "Enter" does not change IN$
 40 INPUT IN$
 55 A$=IN$: DX$="DO"
 60 GOSUB 800: REM Sanity check filename
 65 IN$=A$
 70 IF A$="" THEN GOTO 10 ' Not sane
-110 WL$="WL20XX.CO"
-130 PRINT "File to write ["WL$"]";
-139 'Enter will not change WL$
-140 INPUT WL$
-155 A$=WL$: DX$="CO" 'default extension
-160 GOSUB 800:REM Sanity check filename
-165 WL$=A$
-170 IF A$="" THEN GOTO 110 'Not sane
+99 REM If we get here, IN$ is the input.
+100 WL$="WL20XX.CO"
+110 IF RIGHT$(IN$,3) <> ".DO" THEN 140
+120 IX=INDEX(1, IN$, ".")
+130 WL$=LEFT$(IN$, IX)+"CO"
+140 PRINT "File to write ["WL$"]";
+149 'Enter will not change WL$
+150 INPUT WL$
+160 A$=WL$: DX$="CO" 'default extension
+170 GOSUB 800:REM Sanity check filename
+180 WL$=A$
+190 IF A$="" THEN GOTO 110 'Not sane
 200 REM OPEN FILES
 205 ON ERROR GOTO 910
 210 OPEN IN$ FOR INPUT AS #1
