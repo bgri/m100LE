@@ -9,7 +9,7 @@
 15 IF (ID=148) THEN IN$="COM:9N81XN"
 20 FILES
 25 PRINT "Which Wordlist .DO file to read?"
-30 PRINT "or hit Enter to compress data from RS232 ["IN$"]";
+30 PRINT "(Hit Enter to read from ["IN$"])"
 39 'N.B. "Enter" does not change IN$
 40 INPUT IN$
 55 A$=IN$: DX$="DO"
@@ -18,8 +18,8 @@
 70 IF A$="" THEN GOTO 10 ' Not sane
 99 REM If we get here, IN$ is the input.
 100 WL$="WL20XX.CO"
-110 IF RIGHT$(IN$,3) <> ".DO" THEN 140
-120 IX=INDEX(1, IN$, ".")
+110 IF RIGHT$(IN$,3) <> ".DO" AND RIGHT$(IN$,3) <> ".do" THEN 140
+120 IX=INSTR(1, IN$, ".")
 130 WL$=LEFT$(IN$, IX)+"CO"
 140 PRINT "File to write ["WL$"]";
 149 'Enter will not change WL$
@@ -31,6 +31,8 @@
 200 REM OPEN FILES
 205 ON ERROR GOTO 910
 210 OPEN IN$ FOR INPUT AS #1
+212 ON ERROR GOTO 940 ' IO error
+213 IF EOF(1) THEN GOTO 400
 215 ON ERROR GOTO 920
 220 GOSUB 7000 ' Create .CO file
 225 ON ERROR GOTO 930
@@ -41,9 +43,11 @@
 256 FOR I=0 TO 2: POKE WA+6+365*3+I, B(I): NEXT I
 300 REM LOOP: Read, Encode, Write
 305 DY=0
+308 ON ERROR GOTO 940
 310 IF EOF(1) THEN GOTO 400
 315 IF DY>=366 THEN PRINT "Stopped reading at 366 words": GOTO 400
 320 LINE INPUT #1, A$
+325 ON ERROR GOTO 990
 330 GOSUB 500 'compress to 3 bytes=
 340 PRINT INT(100*DY/366)"%",
 345 PRINT B(0) ", " B(1) ", " B(2) "     " CHR$(13);
@@ -91,13 +95,14 @@
 880 A$=FN$+"."+EX$
 890 RETURN
 900 REM Error handling
-910 PRINT"Could not open "IN$" for reading": GOTO 999
+910 PRINT "Could not open "IN$" for reading": GOTO 999
 920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 999
-930 PRINT"Error finding address of "WL$: GOTO 999
+930 PRINT "Error finding address of "WL$: GOTO 999
+940 PRINT "Error reading from "IN$: GOTO 999
 989 REM Generic error handler
 990 PRINT"Got error" ERR "in line" ERL
 999 ON ERROR GOTO 0: ERROR ERR: END
-7000 REM Create .co file to hold compressed wordlist
+7000 REM Create .CO file to hold compressed wordlist
 7004 'For NEC, use BSAVE (at line 8201)
 7005 'For others, use SAVEM.
 7010 ID=PEEK(1)
