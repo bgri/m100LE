@@ -8,12 +8,14 @@ A version of Wordle created for a fourty-year-old computer, the Tandy TRS-80 Mod
 ### A note about this update
 Though the look of the game hasn't changed much, a lot has gone on behind the scenes, thanks to the amazing work by [hackerb9](https://github.com/hackerb9):
 
-- Hardware agnostic - runs on any m100 platform
+- Hardware agnostic - runs on any of the Kyotronic sisters
 - Speed increase - due to the following...
-- Compressed binary word list files - smaller size and discourages peeking :)
+  - Random, instead of sequential, access to RAM file
+  - Compressed binary word list files - smaller size and discourages peeking :)
+  - Smarter string handling (avoid concatenations, `CLEAR` plenty of space)
 - Commented and uncommented code files
 - VT52 character positioning vs Tandy/NEC-specific routines
-- Harmonized date and manual date entry - play tomorrow's game today!
+- Harmonized auto and manual date entry — play tomorrow's game today!
 - Synchronized with the 'official' NYT Wordle list
 - Data cleanup, code cleanup, and other optimizations
 
@@ -24,29 +26,49 @@ Whew, lots there -- and more detail on a few things below!
 --
 
 ### Hardware agnostic
-**m100le** should be able to run m100le on ANY Kyocera-based computer (Kyocera KY-85, NEC PC-8201a, NEC PC-8201, NEC PC-8300, NEC PC-8400\*, Olivetti M10\*, Tandy Model-100, Tandy Model-102, Tandy Model-200). 
+<details><summary>
+**m100le** should run unmodified on all eight Kyocera portable computer platforms.
+</summary>
+
+(Kyocera Kyotronic-85<sup>&dagger;</sup>, NEC PC-8201a, NEC
+PC-8201<sup>&dagger;</sup>, NEC PC-8300, Olivetti M10<sup>&dagger;</sup>, 
+TRS-80 Model 100, Tandy 102, and Tandy 200).
+
+(<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
+</details>
 
 ### Code versions
-Four versions of code now in repository
+Multiple versions of the code are available, but you only need one for
+your machine. Most likely you will use [M100LE.BA][4]. Please see the
+[Formats](#Formats) section for more details.
 
-Filename|Size|Meaning
----|---:|---
-M100LE+comments.DO | 16KB | The actual source code, including all comments, in ASCII format
-M100LE+comments.BA  | 14KB | Tokenized Tandy BASIC format, including all comments 
-M100LE.DO | 8.5KB | All comments removed, in ASCII format
-M100LE.BA | 6.6KB | All comments removed, in tokenized Tandy BASIC format
-
-### Date
-You can now enable the ability to manually enter the date or accept the system date. You could use this to replay a specific game or enter today's date on a vintage system that doesn't understand dates beyond 1999. `LINE 16 MD=1` will enable. When run, the system will prompt you for the date **` YY/MM/DD `** OR you could enter the ordinal 'Day-of-year' ex. `200` for the 200th day of the loaded year.
-
-The date must be typed exactly in **` YY/MM/DD `** format.
+	 
+| Filename                |  Size | Meaning                                                         |
+|-------------------------|------:|-----------------------------------------------------------------|
+| _ALL PLATFORMS_         |       |                                                                 |
+| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
+| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
+| _TANDY / TRS-80_        |       |                                                                 |
+| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
+| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
+| _NEC_                   |       |                                                                 |
+| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
+| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
 ### Word list files
-Word list files are now compressed binary files. The system looks at the date (see above) to load the appropriate .CO word list file, based on year. As before, this file must be in RAM along with `m100le.ba`
+Word list files are now compressed binary files. The system looks at
+the date (see below) to load the appropriate `WL20xx.CO` word list
+file, based on year. As before, this file must be in RAM along with
+`M100LE.BA`
 
 --
 ## Documentation
-**m100le** is an implementation of [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80 Model 100 family of computers. It is written in the unit's on-board BASIC, a subset of [Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with the device.
+**m100le** is an implementation of
+[WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
+Model 100 family of computers. It is written in the unit's on-board
+BASIC, a subset of [Microsoft
+BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with
+the device.
 
 As far as possible, we have attempted to remain faithful to the original game and gameplay. 
 
@@ -74,15 +96,18 @@ Rather than impose this burden, **m100le** reads the **current year's** wordfile
 
 
 ### Coloured tiles
-As the Model 100 uses a monochrome LCD display, we don't have the ability to use colours to provide the clues. 
+As the Model 100 uses a monochrome LCD display, we don't have the
+ability to use colours to provide the clues.
 
-For each guess, a line in the **Clue Panel** will be filled in with the clue for that guess, and the cumulative **Alphabet Panel** will be updated.
+For each guess, a line in the **Clue Panel** will be filled in with
+the clue for that guess, and the cumulative **Alphabet Panel** will be
+updated.
 
-| Clue | Meaning             |
-|:----:|:-------------------|
-|   .  | Wrong letter        |
-|   ?  | Letter is in word, wrong location   |
-|  */X | X = Any letter in proper location* | 
+| Clue | Meaning                            |
+|:----:|:-----------------------------------|
+| .    | Wrong letter                       |
+| ?    | Letter is in word, wrong location  |
+| */X  | X = Any letter in proper location* |
 
 #### *an asterix will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel** 
 
@@ -90,28 +115,64 @@ For each guess, a line in the **Clue Panel** will be filled in with the clue for
 
 
 ## Setting the Date
-If your m100 doesn't have a ROM that has a Y2K patch (or some other method to bring your unit into this century, like the most excellent [REX# ROM](http://bitchin100.com/wiki/index.php?title=REXsharp) ), then to you'll need to edit line 16 so that the program promts you for the current date when playing a non-random, daily-sequental game. This will let you share relevant screenshots to your various social media and impress your friends :)
 
-So in line 16, change the value of MD from Zero to One if you want to be prompted for the date.
+When you restart the game with the <kbd>A</kbd> (AGAIN) key, you will
+be prompted for the date you wish to play. If your DATE$ is never set
+correctly or you'd like to replay a specific game, you can change
+M100LE to always prompt for manual date entry at startup by changing line
+16 and setting MD to 1:
+```BASIC
+16 MD=1
 ```
-16 MD=0: 'DEFINE DATE$ AND MANUAL DATE FLAG
-```
 
-This will allow you to play a game from any date from any word file loaded into your unit's memory. When enabled and run, the system will prompt you for the date **` YY/MM/DD `** OR you could enter the ordinal 'Day-of-year' ex. `200` for the 200th day of the loaded year.
+This will allow you to play a game from any date from any word file
+loaded into your unit's memory. When enabled and run, the system will
+prompt you for the date **` YY/MM/DD `**. The date must be typed
+exactly in **` YY/MM/DD `** format. If you hit Enter, it will use the
+the system's date.
 
-The date must be typed exactly in **` YY/MM/DD `** format.
+Alternately, you could enter the ordinal 'Day-of-Year' ex. `200` for
+the 200th day of the loaded year. You may also specify a year before
+the ordinal day. For example, `21/170` would give you the 170th day of
+the year 2021, which happens to be the first day in the official
+Wordle wordlist. The ordinal day is shown on the right side of the
+screen while playing. You can play the previous day's word by
+subtracting one.
+
+By the way, M100LE works fine whether or not your m100 has a [Y2K
+patched ROM](http://bitchin100.com/wiki/index.php?title=REXsharp).
+The century number is just cosmetic as the m100 only keeps track of
+the last two digits and the game presumes you are in the 21st century.
+For example, if you set `DATE$="06/20/26"`, you'll get the same game
+no matter whether the MENU shows 1926 or 2026.
 
 ### End of game
-When either a word is guessed correctly, or no correct word is guessed after six attempts, the game ends and you have a few options:
+When either a word is guessed correctly, or no correct word is guessed
+after six attempts, the game ends and you have a few options:
 
-- [A]GAIN? - Restarts today's game
-- [R]ANDOM? - Starts a new game with the word chosen randomly from this year's wordlist
-- [S]OCIAL? - Display your game's progress in a way suitable for sharing on social networks (Take a photo of the display)
-- [Q]UIT? - End the program execution and return to the main system menu. 
+- [A]GAIN? - Prompt for a new date to play
+- [R]ANDOM? - Starts a new game with the word chosen randomly from
+  this year's wordlist
+- [S]OCIAL? - Display your game's progress in a way suitable for
+  sharing on social networks (Take a photo of the display & impress
+  your friends :)
+- [Q]UIT? - End the program execution and return to the main system menu.
 
 ### Gameplay
 ![image](https://user-images.githubusercontent.com/14062627/159623862-c2d431f8-f88a-48b0-ac1d-45fa83ce3df9.png)
-Daily, a five-letter word is selected and players have six tries to guess it. Each guess is rewarded with clues. After every guess, each letter is evaluated and marked in the **Clue Panel** as either [X], [**\***], [?], or [.] (CORRECT LETTER, QUESTION MARK, or PERIOD). CORRECT LETTER in **Clue Panel** indicates that letter is correct and in the correct position. QUESTION MARK indicates that the letter is in the answer but not in the proper position. PERIOD means that the letter is not in the answer at all. Multiple instances of the same letter in a guess, such as the "P"s in "POPPY", will be CORRECT LETTER or QUESTION MARK only if the letter also appears multiple times in the answer; otherwise, excess repeating letters will be a PERIOD.
+Daily, a five-letter word is selected and players have six tries to
+guess it. Each guess is rewarded with clues. After every guess, each
+letter is evaluated and marked in the **Clue Panel** as either
+<kbd>X</kbd>, <kbd>\*</kbd>, <kbd>?</kbd>, or <kbd>.</kbd> (CORRECT
+LETTER, QUESTION MARK, or PERIOD). CORRECT LETTER in **Clue Panel**
+indicates that letter is correct and in the correct position. QUESTION
+MARK indicates that the letter is in the answer but not in the proper
+position. PERIOD means that the letter is not in the answer at all. To
+play the same as the official Wordle, M100LE now marks multiple
+instances of the same letter in a guess, such as the "P"s in "POPPY",
+with a QUESTION MARK even if the letter only appears once in the
+answer. (In previous version of m100le, excess repeating letters were
+shown as a PERIOD.)
 
 ## Installation
 
@@ -125,24 +186,82 @@ Daily, a five-letter word is selected and players have six tries to guess it. Ea
 6. Delete the now-unnecessary .DO file to free up RAM:
 `KILL "M100LE.DO"`
 
+<details>
+<summary>
+### If you don't have enough RAM
+</summary>
+
+Since the source code is a bit large, it is possible that trying to
+LOAD the file will fail with an Out of Memory (`?OM`) Error. There are
+two possible workarounds: load the tokenized BASIC version for your
+platform or tokenize the ASCII version one line at a time over the
+serial port by using `LOAD "COM:98N1ENN"`.
     
+### Formats
+
+As mentioned above, there are multipe versions of the program
+available. Only one file, ([M100LE+comments.DO](M100LE+comments.DO)),
+is the true source code. All others are derived automatically, mostly
+for smaller file size and to ease installation.
+
+There are two variables that cause the proliferation of files: 
+
+1. By default files have comments stripped to keep the size down.
+   Versions which contain "+comments" in the filename include notes
+   for developers who wish to edit or improving M100LE.
+2. Files can be in ASCII or one of four binary formats.
+   * ASCII BASIC source code has two main benefits: it will run on any
+     of the platforms and it can be downloaded by the builtin TELCOM
+     program. ASCII format can be read on any machine and will run on
+     any of the platforms. However, downloading requires an extra
+     tokenization step which may require more memory than your
+     computer has. (But, see [installation](#Installation) for a
+     workaround.)
+     * **.DO** Runs on any of the Kyotronic Sisters
+   * Tokenized BASIC format which saves memory during transfer, but
+     requires using a program such as TEENY which can download binary
+     files. Tokenization is specific to each family of machines.
+	 * **.BA** Runs only on Model 100, Tandy 102 (US and UK), and Tandy 200.
+	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
+	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
+	 * **.BA.M10** Runs only on Olivetti M10
+
+
+
 ## Roadmap
 
 - Add the ability to save and display statistics
 - Improve clues, guess feedback and messages
-
+- Do the impossible: Cram Wordle's 72 KB spelling dictionary into 10 KB (or less).
 
 ## FAQ
 ### About the word files and today's word
-The current version of **m100le** (greater than v0.l) uses the New York Times Wordle word lists. Prevously, the wordfiles used were based on the the **original** javascript WORDLE, which contained the entire set of daily words (the wordfile) within the program code.  Over six years worth of words. 
+The current version of **m100le** (greater than v0.l) uses the New
+York Times Wordle word lists. Prevously, the wordfiles used were based
+on the the **original** javascript WORDLE, which contained the entire
+set of daily words (the wordfile) within the program code. Over six
+years worth of words. 
+
+While the order changed, there are 
+[very few differences](https://github.com/jackgreenburg/wordle-wordlists)
+between the original and the current word lists.
 
 ### How wordfiles work
-Big wordfiles wouldn't work for our little units, so we broke each wordfile into manageable chunks of one year each. 
+Big wordfiles wouldn't work for our little units, so we broke each
+wordfile into manageable chunks of one year each. The .CO files are
+also compressed so each five-letter word takes only three bytes. If
+you have enough memory and you'd like to see and change the words, you
+may want to download the plain text WL20xx.DO files instead. M100LE
+will automatically use the .DO file if the .CO file is not found.
 
-The wordfiles are all appropriately named for the year they correspond to.  On program load, **m100le** checks the system **DATE$** for the current date OR the manually entered date (if enabled) and scans the appropriate wordfiles for the matching daily word.
+The wordfiles are all appropriately named for the year they correspond
+to. On program load, **m100le** checks the system **DATE$** for the
+current date OR the manually entered date (if enabled) and scans the
+appropriate wordfiles for the matching daily word.
 
 ### Will my m100le word be the same as today's NYT Wordle word?
-Maybe. Mostly. The NYT may change their word list at any time. If that happens, and we don't catch it, let us know and we'll update ours.
+Maybe. Mostly. The NYT may change their word list at any time. If that
+happens, and we don't catch it, let us know and we'll update ours.
 
 ## Feedback
 
@@ -164,4 +283,8 @@ If you have any feedback, please reach out to us:
 - [@bgrier](http://blog.bradgrier.com)
 - [hackerb9](https://github.com/hackerb9)
 
-
+	[1]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.DO
+	[2]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.DO
+	[3]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA
+	[4]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA
+	
