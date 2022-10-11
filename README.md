@@ -23,11 +23,11 @@ Whew, lots there -- and more detail on a few things below!
 
 --bgrier Oct. 8, 2022
 
---
+____
 
 ### Hardware agnostic
 <details><summary>
-**m100le** should run unmodified on all eight Kyocera portable computer platforms.
+M100LE now runs unmodified on all eight Kyocera portable computer platforms.
 </summary>
 
 (Kyocera Kyotronic-85<sup>&dagger;</sup>, NEC PC-8201a, NEC
@@ -45,13 +45,13 @@ your machine. Most likely you will use [M100LE.BA][4]. Please see the
 	 
 | Filename                |  Size | Meaning                                                         |
 |-------------------------|------:|-----------------------------------------------------------------|
-| _ALL PLATFORMS_         |       |                                                                 |
+| **ALL PLATFORMS**       |       |                                                                 |
 | [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
 | [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| _TANDY / TRS-80_        |       |                                                                 |
+| **TANDY / TRS-80**      |       |                                                                 |
 | [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
 | [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| _NEC_                   |       |                                                                 |
+| **NEC**                 |       |                                                                 |
 | M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
