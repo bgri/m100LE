@@ -43,17 +43,16 @@ $basename: Send a BASIC text file to a Model T portable over the serial port.
 Usage: $basename <filename> [serial port]
 
 Longer example:
-    On Tandy Model 200/102/100, type:
+    1) On Tandy Model 100/102/200, type:
 
 	    LOAD "COM:98N1ENN"
 
-    On UNIX host, type:
+    2)	a. On UNIX host, type:
+	   $basename FILENAME.DO
+	b. Wait for the Tandy to say "Ok"
+	c. Hit Enter to close the serial port
 
-	$basename FILENAME.DO
-	[wait for the Tandy to say "Ok"]
-	[hit Enter to close the serial port]
-
-    Optionally, on Tandy, type:
+    3) OPTIONAL: When done, you may want to:
 
 	    SAVE "FILENM"
 
@@ -108,5 +107,5 @@ echo "cat $1 >$serial" >&2;
 {
     cat "$1";
     echo $'\cZ';
-    read -p "Hit ENTER when Model T has finished. ";
+    read -p 'Hit Enter when Model T says, "Ok". ';
 } >$serial
