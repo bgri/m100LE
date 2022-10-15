@@ -43,17 +43,16 @@ $basename: Send a BASIC text file to a Model T portable over the serial port.
 Usage: $basename <filename> [serial port]
 
 Longer example:
-    On Tandy Model 200/102/100, type:
+    1) On Tandy Model 100/102/200, type:
 
 	    LOAD "COM:98N1ENN"
 
-    On UNIX host, type:
+    2)	a. On UNIX host, type:
+	   $basename FILENAME.DO
+	b. Wait for the Tandy to say "Ok"
+	c. Hit Enter to close the serial port
 
-	$basename FILENAME.DO
-	[wait for the Tandy to say "Ok"]
-	[hit Enter to close the serial port]
-
-    Optionally, on Tandy, type:
+    3) OPTIONAL: When done, you may want to:
 
 	    SAVE "FILENM"
 
@@ -85,16 +84,17 @@ fi
 
 # Configure serial port the way the Tandy portables like.
 #
-#  ixon: Enable processing of software flow control in received data.
-# ixoff: Enable sending XON/XOFF if PC gets overwhelmed by Model T (unlikely).
+#   icanon: Read from serial port one line at a time. (Not used here).
+#     ixon: Enable processing of software flow control in received data.
+#    ixoff: Enable sending XON/XOFF if PC gets overwhelmed by Model T (unlikely).
 #  stop ^S: Use the standard software flow control character for XOFF...
 # start ^Q: ... same for XON.
-# -onlcr: Do not turn newlines into carriage returns on output...
-# -icrnl: ... nor vice versa.
-# eof ^Z: Typing a ^Z character will send an End-of-File. (Not used here).
-# 19200: Bits per second ("baud rate").
+#   -onlcr: Do not turn newlines into carriage returns on output...
+#   -icrnl: ... nor vice versa.
+#   eof ^Z: Typing a ^Z character will send an End-of-File. (Not used here).
+#    19200: Bits per second ("baud rate").
 #
-stty -F $serial ixon ixoff  stop ^S start ^Q  -onlcr -icrnl  eof ^Z  19200
+stty -F $serial icanon ixon ixoff  stop ^S start ^Q  -onlcr -icrnl  eof ^Z  19200
 
 # Sidenote: Running with no filename sets up the serial port before exiting.
 if [[ -z $1 ]]; then
@@ -107,5 +107,5 @@ echo "cat $1 >$serial" >&2;
 {
     cat "$1";
     echo $'\cZ';
-    read -p "Hit ENTER when Model T has finished. ";
+    read -p 'Hit Enter when Model T says, "Ok". ';
 } >$serial
