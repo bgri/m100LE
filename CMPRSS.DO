@@ -65,7 +65,7 @@
 500 REM Encode string in A$ to B(0..2)
 501 REM modifies X,Y,T,A
 510 X=0
-515 IF LEN(A$) <> 5 THEN PRINT"Length of "A$" is not 5.": STOP
+515 IF LEN(A$) <> 5 THEN PRINT"Length of "A$" is not 5.": ERROR 0
 520 FOR T=5 TO 1 STEP -1
 530 A=ASC(MID$(A$,T,1))
 540 A=A AND 31
@@ -96,12 +96,14 @@
 880 A$=FN$+"."+EX$
 890 RETURN
 900 REM Error handling
-910 PRINT "Could not open "IN$" for reading": GOTO 999
-920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 999
-930 PRINT "Error finding address of "WL$: GOTO 999
-940 PRINT "Error reading from "IN$: GOTO 999
+910 PRINT "Could not open "IN$" for reading": GOTO 996
+920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 996
+930 PRINT "Error finding address of "WL$: GOTO 996
+940 PRINT "Error reading from "IN$: GOTO 996
 989 REM Generic error handler
 990 PRINT"Got error" ERR "in line" ERL
+995 ' Do we need to remove the .CO file?
+996 IF NK=1 THEN KILL WL$
 999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .CO file to hold compressed wordlist
 7004 'For NEC, use BSAVE (at line 8201)
@@ -110,7 +112,8 @@
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3
 7030 IF (ID=148) THEN GOSUB 8201:            ELSE SAVEM WL$, 0, SZ-1
-7040 RETURN
+7040 NK=1     ' On error, kill .CO file
+7050 RETURN
 8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
 8002 REM Output: WA is address in RAM.
