@@ -56,10 +56,21 @@ your machine. Most likely you will use [M100LE.BA][4]. Please see the
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
 ### Word list files
-Word list files are now compressed binary files. The system looks at
-the date (see below) to load the appropriate `WL20xx.CO` word list
-file, based on year. As before, this file must be in RAM along with
-`M100LE.BA`
+Word list files are now compressed binary files with the extension
+`.CO`. You only need to download the wordlist for the year you wish to
+play.
+
+| Filename          | Size | Notes                                                         |
+|-------------------|-----:|---------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                               |
+| [WL2021.CO][21]   |   1K | Words before June 19th, 2021 are bonus words, added by M100LE |
+| [WL2022.CO][22]   |   1K |                                                               |
+| [WL2023.CO][23]   |   1K |                                                               |
+| [WL2024.CO][24]   |   1K |                                                               |
+| [WL2025.CO][25]   |   1K |                                                               |
+| [WL2026.CO][26]   |   1K |                                                               |
+| [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
+
 
 --
 ## Documentation
@@ -83,17 +94,33 @@ WORDLE'S instructions are very simple:
 
 ## Differences from Wordle
 ### Valid 5 letter word
-We've chosen to eliminate this constraint, given the limited onboard memory of the Model 100. 
+We've chosen to eliminate this constraint, given the limited onboard
+memory of the Model 100.
 
-WORDLE initially checks the date and loads today's word from the wordlist. When a guess is submitted, WORDLE checks the guess to verify that it's a word in the wordlist. If the guess doesn't appear in the wordlist the guess is invalid. WORDLE will not accept and evaluate an invalid guess and the game doesn't progress.
+WORDLE initially checks the date and loads today's word from the
+wordlist. When a guess is submitted, WORDLE checks the guess to verify
+that it's a word in the wordlist. If the guess doesn't appear in the
+wordlist the guess is invalid. WORDLE will not accept and evaluate an
+invalid guess and the game doesn't progress.
 
-**m100le** initially **loads** today's word based on the system **DATE$** value. When a guess is submitted, **m100le** compares it to today's word, and provides the resultant clue. **m100le** does not test to verify the word appears in the wordlist. A guess of 'MOIST' is valid, as is a guess of 'DDDDD'.
+**m100le** initially **loads** today's word based on the system
+**DATE$** value. When a guess is submitted, **m100le** compares it to
+today's word, and provides the resultant clue. **m100le** does _not_
+test to verify the word appears in the wordlist. A guess of 'MOIST' is
+valid, as is a guess of 'DDDDD'.
 
-Implementing the WORDLE method, would require the Model 100 to have the entire wordlist in memory to check for valid words. The Wordle wordlist is about 17k bytes (spanning six years of words);  just over half of the maximum memory of a Tandy Model 100. 
+### Every possible daily word
+WORDLE contains a wordlist of over 2000 five-letter words, one per day
+for six years. Uncompressed, the data is over 17 Kbytes; over half of
+the memory on a TRS-80 Model 100.
 
-Rather than impose this burden, **m100le** reads the **current year's** wordfile for the appropriate word based on today's **Date$**. Currently, **m100le** is using the 2022 version of the wordfile 'WL2022.CO'. If you've enabled the Date Entry function, then the program will attempt to load whatever wordlist file that corresponds to the year entered.
-
-
+Rather than impose this burden, **m100le** has split the wordlist into
+seven files, based on the year so you need only download the **current
+year's** wordfile. For example, in the year 2023, **m100le** sees the
+two digit year of "23" in **DATE$** and loads the wordfile
+`WL2023.CO`. If you've enabled the Manual Date Entry function (see
+below), then the program will attempt to load whatever wordlist file
+that corresponds to the year entered.
 
 ### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the
@@ -107,20 +134,20 @@ updated.
 |:----:|:-----------------------------------|
 | .    | Wrong letter                       |
 | ?    | Letter is in word, wrong location  |
-| */X  | X = Any letter in proper location* |
+| */X  | X = Any letter in proper location<sup>&ddagger;</sup> |
 
-#### *an asterix will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel** 
+#### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel** 
 
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
 
 
-## Setting the Date
+### Setting the Date
 
 When you restart the game with the <kbd>A</kbd> (AGAIN) key, you will
 be prompted for the date you wish to play. If your DATE$ is never set
 correctly or you'd like to replay a specific game, you can change
-M100LE to always prompt for manual date entry at startup by changing line
-16 and setting MD to 1:
+M100LE to always prompt for Manual Date Entry at startup by changing line
+16 to set `MD` to 1:
 ```BASIC
 16 MD=1
 ```
@@ -136,19 +163,20 @@ the 200th day of the loaded year. You may also specify a year before
 the ordinal day. For example, `21/170` would give you the 170th day of
 the year 2021, which happens to be the first day in the official
 Wordle wordlist. The ordinal day is shown on the right side of the
-screen while playing. You can play the previous day's word by
-subtracting one.
+screen while playing. Subtract one to play the previous day's word.
 
-By the way, M100LE works fine whether or not your m100 has a [Y2K
-patched ROM](http://bitchin100.com/wiki/index.php?title=REXsharp).
-The century number is just cosmetic as the m100 only keeps track of
-the last two digits and the game presumes you are in the 21st century.
-For example, if you set `DATE$="06/20/26"`, you'll get the same game
-no matter whether the MENU shows 1926 or 2026.
+### Y2K Compliance
+
+M100LE works fine whether or not your m100 has a [Y2K patched
+ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). The century
+number is just cosmetic as the m100 only keeps track of the last two
+digits and the game presumes you are in the 21st century. For example,
+if you set `DATE$="06/20/26"`, you'll get the same game no matter
+whether the MENU shows 1926 or 2026.
 
 ### End of game
-When either a word is guessed correctly, or no correct word is guessed
-after six attempts, the game ends and you have a few options:
+When either the word is guessed correctly, or no correct word is
+guessed after six attempts, the game ends and you have a few options:
 
 - [A]GAIN? - Prompt for a new date to play
 - [R]ANDOM? - Starts a new game with the word chosen randomly from
@@ -176,15 +204,24 @@ shown as a PERIOD.)
 
 ## Installation
 
-1. Download the most recent .zip file from the [RELEASES section](https://github.com/bgri/m100LE/releases).
-2. Extract and copy 'M100LE.DO' to your Model 100.
-3. Extract and copy 'WL20XX.CO' to your Model 100 replacing XX with the current year. For 2022 you want WL2022.CO.
-4. Enter BASIC on the Model 100, and type:
-`LOAD "M100LE.DO"`
-5. Then save the file as a .BA file:
-`SAVE "M100LE.BA"`
-6. Delete the now-unnecessary .DO file to free up RAM:
-`KILL "M100LE.DO"`
+1. Download the most recent .zip file from the
+   [RELEASES section](https://github.com/bgri/m100LE/releases). 
+1. Extract and copy 'M100LE.DO' to your Model 100.
+1. Enter BASIC on the Model 100, and type:
+   `LOAD "M100LE.DO"`
+1. Then save the file as a .BA file:
+   `SAVE "M100LE.BA"`
+1. Delete the now-unnecessary .DO file to free up RAM:
+   `KILL "M100LE.DO"`
+1. Extract and copy 'WL20XX.CO' to your Model 100 replacing XX with
+   the current year. 
+   
+   Note that .CO files cannot be transferred via the builtin TELCOM
+   program. If you do not have a better transfer program, you can
+   download the uncompressed .DO version of the wordlist instead.
+   M100LE will automatically use it if the .CO file is missing.
+   Optionally, you may use the [CMPRSS](CMPRSS.DO) program to convert
+   WL20XX.DO into WL20XX.CO.
 
 <details>
 <summary>
@@ -227,7 +264,6 @@ There are two variables that cause the proliferation of files:
 	 * **.BA.M10** Runs only on Olivetti M10
 
 
-
 ## Roadmap
 
 - Add the ability to save and display statistics
@@ -252,16 +288,17 @@ wordfile into manageable chunks of one year each. The .CO files are
 also compressed so each five-letter word takes only three bytes. If
 you have enough memory and you'd like to see and change the words, you
 may want to download the plain text WL20xx.DO files instead. M100LE
-will automatically use the .DO file if the .CO file is not found.
+will automatically use a .DO file if the .CO file is not found.
 
-The wordfiles are all appropriately named for the year they correspond
-to. On program load, **m100le** checks the system **DATE$** for the
-current date OR the manually entered date (if enabled) and scans the
+The wordfiles are all named for the year they correspond to. On
+program load, **m100le** checks the system **DATE$** for the current
+date OR the manually entered date (if enabled) and scans the
 appropriate wordfiles for the matching daily word.
 
 ### Will my m100le word be the same as today's NYT Wordle word?
-Maybe. Mostly. The NYT may change their word list at any time. If that
-happens, and we don't catch it, let us know and we'll update ours.
+Maybe. Mostly. It ought to, anyhbow. The NYT may change their word
+list at any time. If that happens, and we don't catch it, let us know
+and we'll update ours.
 
 ## Feedback
 
@@ -287,4 +324,11 @@ If you have any feedback, please reach out to us:
 	[2]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.DO
 	[3]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA
 	[4]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA
+	[21]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2021.CO
+	[22]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2022.CO
+	[23]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2023.CO
+	[24]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2024.CO
+	[25]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2025.CO
+	[26]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2026.CO
+	[27]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2027.CO
 	
