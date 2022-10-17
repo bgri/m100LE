@@ -243,7 +243,7 @@ shown as a PERIOD.)
 
 <details>
 <summary>
-### If you don't have enough RAM
+If you don't have enough RAM.
 </summary>
 
 Since the source code is a bit large, it is possible that trying to
