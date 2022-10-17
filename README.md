@@ -8,6 +8,10 @@ A version of Wordle created for a fourty-year-old computer, the Tandy TRS-80 Mod
 ### A note about this update
 Though the look of the game hasn't changed much, a lot has gone on behind the scenes, thanks to the amazing work by [hackerb9](https://github.com/hackerb9):
 
+<details><summary>
+Click to see summary of changes.
+</summary>
+
 - Hardware agnostic - runs on any of the Kyotronic sisters
 - Speed increase - due to the following...
   - Random, instead of sequential, access to RAM file
@@ -22,8 +26,9 @@ Though the look of the game hasn't changed much, a lot has gone on behind the sc
 Whew, lots there -- and more detail on a few things below!
 
 --bgrier Oct. 8, 2022
+	*	*	*	*	*
+</details>
 
-____
 
 ### Hardware agnostic
 <details><summary>
@@ -43,6 +48,10 @@ your machine. Most likely you will use [M100LE.BA][4]. Please see the
 [Formats](#Formats) section for more details.
 
 	 
+<details><summary>
+Table of all code versions.
+</summary>
+
 | Filename                |  Size | Meaning                                                         |
 |-------------------------|------:|-----------------------------------------------------------------|
 | **ALL PLATFORMS**       |       |                                                                 |
@@ -55,10 +64,16 @@ your machine. Most likely you will use [M100LE.BA][4]. Please see the
 | M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
+</details>
+
 ### Word list files
 Word list files are now compressed binary files with the extension
 `.CO`. You only need to download the wordlist for the year you wish to
 play.
+
+<details><summary>
+Table of all Word Lists.
+</summary>
 
 | Filename          | Size | Notes                                                         |
 |-------------------|-----:|---------------------------------------------------------------|
@@ -70,6 +85,7 @@ play.
 | [WL2025.CO][25]   |   1K |                                                               |
 | [WL2026.CO][26]   |   1K |                                                               |
 | [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
+</detail>
 
 
 --
@@ -77,9 +93,9 @@ play.
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
 Model 100 family of computers. It is written in the unit's on-board
-BASIC, a subset of [Microsoft
-BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with
-the device.
+BASIC, a subset of 
+[Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) 
+included with the device.
 
 As far as possible, we have attempted to remain faithful to the original game and gameplay. 
 
