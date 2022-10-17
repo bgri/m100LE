@@ -85,10 +85,12 @@ Table of all Word Lists.
 | [WL2025.CO][25]   |   1K |                                                               |
 | [WL2026.CO][26]   |   1K |                                                               |
 | [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
-</detail>
+
+----
+
+</details>
 
 
---
 ## Documentation
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
