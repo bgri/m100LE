@@ -37,7 +37,7 @@ Whew, lots there -- and more detail on a few things below!
 M100LE now runs unmodified on any "Model T" type portable computer.
 </summary>
 
-<img a href="README.md.d/pc8201-small.png" align="right">
+<img src="README.md.d/pc8201-small.png" align="right">
 
 * Kyocera Kyotronic-85<sup>&dagger;</sup>,
 * TRS-80 Model 100, Tandy 102, and Tandy 200
