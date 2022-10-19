@@ -1,4 +1,4 @@
-m100le - Wordle for the Tandy TRS-80 Model 100  
+m100le - Wordle for the Tandy TRS-80 Model 100
 # m100le
 A version of Wordle created for a fourty-year-old computer, the Tandy TRS-80 Model 100.
 ![m100le](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
@@ -12,7 +12,9 @@ Though the look of the game hasn't changed much, a lot has gone on behind the sc
 Click to see summary of changes.
 </summary>
 
-- Hardware agnostic - runs on any of the Kyotronic sisters
+- Hardware agnostic - runs on any of the eight Kyotronic sisters
+  (TRS-80 Model 100, Tandy 200, Tandy 102, Kyocera Kyotronic-85,
+  Olivetti M-10, NEC PC-8201, NEC PC-8201A, and NEC PC-8300).
 - Speed increase - due to the following...
   - Random, instead of sequential, access to RAM file
   - Compressed binary word list files - smaller size and discourages peeking :)
@@ -32,12 +34,15 @@ Whew, lots there -- and more detail on a few things below!
 
 ### Hardware agnostic
 <details><summary>
-M100LE now runs unmodified on all eight Kyocera portable computer platforms.
+M100LE now runs unmodified on any "Model T" type portable computer.
 </summary>
 
-(Kyocera Kyotronic-85<sup>&dagger;</sup>, NEC PC-8201a, NEC
-PC-8201<sup>&dagger;</sup>, NEC PC-8300, Olivetti M10<sup>&dagger;</sup>, 
-TRS-80 Model 100, Tandy 102, and Tandy 200).
+<img a href="README.md.d/pc8201-small.png" align="right">
+
+* Kyocera Kyotronic-85<sup>&dagger;</sup>,
+* TRS-80 Model 100, Tandy 102, and Tandy 200
+* NEC PC-8201a, NEC PC-8201, NEC PC-8300,
+* Olivetti M10<sup>&dagger;</sup>,
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details>
@@ -47,7 +52,7 @@ Multiple versions of the code are available, but you only need one for
 your machine. Most likely you will use [M100LE.BA][4]. Please see the
 [Formats](#Formats) section for more details.
 
-	 
+
 <details><summary>
 Table of all code versions.
 </summary>
@@ -90,16 +95,39 @@ Table of all Word Lists.
 
 </details>
 
+Also available are the uncompressed wordlists (.DO), which are mainly
+of use if you wish to edit the words or if you are transfering the
+files using the builtin TELCOM program which can only send ASCII
+files. M100LE is smart enough to use the .DO files if .CO cannot be
+found.
+
+<details><summary>
+Table of uncompressed Word Lists.
+</summary>
+
+| Filename          | Size | Notes                                                         |
+|-------------------|-----:|---------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                               |
+| [WL2021.DO][31]   | 2.5K | Words before June 19th, 2021 are bonus words, added by M100LE |
+| [WL2022.DO][32]   | 2.5K |                                                               |
+| [WL2023.DO][33]   | 2.5K |                                                               |
+| [WL2024.DO][34]   | 2.6K |                                                               |
+| [WL2025.DO][35]   | 2.5K |                                                               |
+| [WL2026.DO][36]   | 2.5K |                                                               |
+| [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027             |
+
+----
+</details>
 
 ## Documentation
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
 Model 100 family of computers. It is written in the unit's on-board
-BASIC, a subset of 
-[Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) 
+BASIC, a subset of
+[Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC)
 included with the device.
 
-As far as possible, we have attempted to remain faithful to the original game and gameplay. 
+As far as possible, we have attempted to remain faithful to the original game and gameplay.
 
 WORDLE'S instructions are very simple:
 
@@ -154,7 +182,7 @@ updated.
 | ?    | Letter is in word, wrong location  |
 | */X  | X = Any letter in proper location<sup>&ddagger;</sup> |
 
-#### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel** 
+#### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
 
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
 
@@ -222,8 +250,21 @@ shown as a PERIOD.)
 
 ## Installation
 
+If you already know how to transfer binary files to your Model 100,
+you only need two files: the tokenized basic for your system (e.g.,
+[M100LE.BA][4]), and the compressed wordlist for the current year
+(e.g., [WL2023.CO][23]).
+
+Otherwise, read on for more specific advice. 
+
+<details.
+<summary>
+If you are using a stock Model 100 and just the built-in TELCOM program.
+</summary>
+
+
 1. Download the most recent .zip file from the
-   [RELEASES section](https://github.com/bgri/m100LE/releases). 
+   [RELEASES section](https://github.com/bgri/m100LE/releases).
 1. Extract and copy 'M100LE.DO' to your Model 100.
 1. Enter BASIC on the Model 100, and type:
    `LOAD "M100LE.DO"`
@@ -231,9 +272,12 @@ shown as a PERIOD.)
    `SAVE "M100LE.BA"`
 1. Delete the now-unnecessary .DO file to free up RAM:
    `KILL "M100LE.DO"`
-1. Extract and copy 'WL20XX.CO' to your Model 100 replacing XX with
-   the current year. 
-   
+1. Extract and copy 'WL20XX.DO' to your Model 100 replacing XX with
+   the current year.
+
+</details>
+
+
    Note that .CO files cannot be transferred via the builtin TELCOM
    program. If you do not have a better transfer program, you can
    download the uncompressed .DO version of the wordlist instead.
@@ -251,7 +295,7 @@ LOAD the file will fail with an Out of Memory (`?OM`) Error. There are
 two possible workarounds: load the tokenized BASIC version for your
 platform or tokenize the ASCII version one line at a time over the
 serial port by using `LOAD "COM:98N1ENN"`.
-    
+
 ### Formats
 
 As mentioned above, there are multipe versions of the program
@@ -259,12 +303,12 @@ available. Only one file, ([M100LE+comments.DO](M100LE+comments.DO)),
 is the true source code. All others are derived automatically, mostly
 for smaller file size and to ease installation.
 
-There are two variables that cause the proliferation of files: 
+There are two variables that cause the proliferation of files:
 
-1. By default files have comments stripped to keep the size down.
+1. **Comments** By default files have comments stripped to keep the size down.
    Versions which contain "+comments" in the filename include notes
    for developers who wish to edit or improving M100LE.
-2. Files can be in ASCII or one of four binary formats.
+2. **Tokenization** Files can be in ASCII or one of four binary formats.
    * ASCII BASIC source code has two main benefits: it will run on any
      of the platforms and it can be downloaded by the builtin TELCOM
      program. ASCII format can be read on any machine and will run on
@@ -294,9 +338,9 @@ The current version of **m100le** (greater than v0.l) uses the New
 York Times Wordle word lists. Prevously, the wordfiles used were based
 on the the **original** javascript WORDLE, which contained the entire
 set of daily words (the wordfile) within the program code. Over six
-years worth of words. 
+years worth of words.
 
-While the order changed, there are 
+While the order changed, there are
 [very few differences](https://github.com/jackgreenburg/wordle-wordlists)
 between the original and the current word lists.
 
@@ -331,7 +375,7 @@ If you have any feedback, please reach out to us:
  - [Josh Wardle - Wordle's creator](https://en.wikipedia.org/wiki/Josh_Wardle)
  - [hackerb9](https://github.com/hackerb9) - significant optimization and improvements. This thing rocks!!
  - [TRS-80 Model 100 BASIC - based on Microsoft BASIC, with special support for the RAM file store, LCD display, and other built-in hardware of the TRS-80 Model 100 and Tandy 102 portable computers](https://archive.org/details/MasteringBasicOnTheTrs80Model100/page/n5/mode/2up)
- 
+
 
 ## Authors
 
@@ -348,5 +392,11 @@ If you have any feedback, please reach out to us:
 	[24]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2024.CO
 	[25]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2025.CO
 	[26]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2026.CO
-	[27]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2027.CO
-	
+ 	[27]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2027.CO
+  	[31]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2021.DO
+	[32]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2022.DO
+	[33]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2023.DO
+	[34]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2024.DO
+	[35]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2025.DO
+	[36]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2026.DO
+	[37]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2027.DO
