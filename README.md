@@ -10,6 +10,7 @@ Though the look of the game hasn't changed much, a lot has gone on
 behind the scenes, thanks to the amazing work by
 [hackerb9](https://github.com/hackerb9):
 
+<ul>
 <details><summary>
 Click to see summary of changes.
 </summary>
@@ -32,9 +33,11 @@ Whew, lots there -- and more detail on a few things below!
 --bgrier Oct. 8, 2022
 	*	*	*	*	*
 </details>
+</ul>
 
 ### Hardware agnostic
 <details><summary>
+<ul>
 M100LE now runs unmodified on any "Model T" type portable computer.
 </summary>
 
@@ -64,6 +67,7 @@ files using the builtin TELCOM program which can only send ASCII
 files. M100LE is smart enough to use the .DO files if .CO cannot be
 found.
 ____
+</ul>
 </details>
 
 
@@ -210,6 +214,7 @@ you only need two files: the tokenized basic for your system (e.g.,
 Table of all code versions.
 </summary>
 
+<ul>
 | Filename                |  Size | Meaning                                                         |
 |-------------------------|------:|-----------------------------------------------------------------|
 | **ALL PLATFORMS**       |       |                                                                 |
@@ -226,6 +231,7 @@ Table of all code versions.
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
 need ASCII.)
 ____
+</ul>
 </details>
 
 <details><summary>
@@ -292,7 +298,7 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 [sendfile.md](sendfile.md).
 
 
-<details><summary>Click to see the explanation of CMPRSS</summary>
+<details><summary>Click to learn more about CMPRSS.</summary>
 
 CMPRSS is a basic program that runs on your Model T to create the
 binary file, `WL20_xx_.CO` from the ASCII file `WL20_xx_.DO`, both of
