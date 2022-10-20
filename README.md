@@ -1,7 +1,7 @@
 m100le - Wordle for the Tandy TRS-80 Model 100
 # m100le
 A version of Wordle created for a fourty-year-old computer, the 
-Tandy TRS-80 Model 100. Runs on any of the eight [Kyotronic Sisters](#Hardware Agnostic).
+Tandy TRS-80 Model 100. Runs on any of the eight [Kyotronic Sisters](#Hardware).
 
 ![M100LE on a NEC PC-8201](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
 
@@ -59,7 +59,7 @@ ____
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the TRS-80
 Model 100 and related computers. 
 
-### Hardware Agnostic
+### Hardware
 <ul><details><summary>
 M100LE runs unmodified on all eight of the Kyotronic sisters.
 </summary>
@@ -67,9 +67,9 @@ M100LE runs unmodified on all eight of the Kyotronic sisters.
 <img src="README.md.d/pc8201-small.png" align="right" width="33%">
 
 * Kyocera Kyotronic-85<sup>&dagger;</sup>,
-* TRS-80 Model 100, Tandy 102, and Tandy 200
+* TRS-80 Model 100, Tandy 102, and Tandy 200,
 * NEC PC-8201a, NEC PC-8201, NEC PC-8300,
-* Olivetti M10<sup>&dagger;</sup>,
+* Olivetti M10<sup>&dagger;</sup>.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details></ul>
@@ -218,21 +218,20 @@ Table of all code versions.
 | **ALL PLATFORMS**       |       |                                                                 |
 | [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
 | [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      | ----- | <hr/>                                                           |
+| **TANDY / TRS-80**      | <hr/> | <hr/>                                                           |
 | [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
 | [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 | ----- | ____ |
+| **NEC**                 | <hr/> | <hr/>                                                           |
 | M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
 (Note that the .BA files above are _tokenized BASIC_ and cannot be
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
 need ASCII.)
-____
 </details></ul>
 
 <ul><details><summary>
-Table of all Word Lists.
+Table of compressed daily Word Lists.
 </summary>
 
 | Filename          | Size | Notes                                                         |
@@ -248,8 +247,7 @@ Table of all Word Lists.
 
 (Note that the .CO files above are _compressed binary_ and cannot be
 transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
-.DO versions below if you need ASCII.)
-
+.DO versions if you need ASCII.)
 </details></ul>
 
 **Tip**: You can transfer all of the above files, and more, to a modern
