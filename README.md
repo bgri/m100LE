@@ -1,7 +1,7 @@
 m100le - Wordle for the Tandy TRS-80 Model 100
 # m100le
 A version of Wordle created for a fourty-year-old computer, the 
-Tandy TRS-80 Model 100. Runs on any of the eight [Kyotronic Sisters](#Hardware).
+Tandy TRS-80 Model 100. Runs on any of the eight Kyotronic Sisters.
 
 ![M100LE on a NEC PC-8201](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
 
@@ -15,7 +15,7 @@ behind the scenes, thanks to the amazing work by
 Click to see summary of changes.
 </summary>
 
-- Hardware agnostic - runs on any of the eight Kyotronic sisters
+- Hardware agnostic - runs on any of the Kyotronic sisters
   (TRS-80 Model 100, Tandy 200, Tandy 102, Kyocera Kyotronic-85,
   Olivetti M-10, NEC PC-8201, NEC PC-8201A, and NEC PC-8300).
 - Speed increase - due to the following...
@@ -54,14 +54,14 @@ ____
 </details></ul>
 
 
+
 ## Documentation
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the TRS-80
 Model 100 and related computers. 
 
-### Hardware
 <ul><details><summary>
-M100LE runs unmodified on all eight of the Kyotronic sisters.
+The same code runs unmodified on all eight of the Kyotronic sisters.
 </summary>
 
 <img src="README.md.d/pc8201-small.png" align="right" width="33%">
