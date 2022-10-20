@@ -10,8 +10,7 @@ Though the look of the game hasn't changed much, a lot has gone on
 behind the scenes, thanks to the amazing work by
 [hackerb9](https://github.com/hackerb9):
 
-<ul>
-<details><summary>
+<ul><details><summary>
 Click to see summary of changes.
 </summary>
 
@@ -32,8 +31,7 @@ Whew, lots there -- and more detail on a few things below!
 
 --bgrier Oct. 8, 2022
 	*	*	*	*	*
-</details>
-</ul>
+</details></ul>
 
 ### Hardware agnostic
 <ul><details><summary>
@@ -230,7 +228,7 @@ need ASCII.)
 ____
 </details></ul>
 
-<details><summary>
+<ul><details><summary>
 Table of all Word Lists.
 </summary>
 
@@ -249,7 +247,7 @@ Table of all Word Lists.
 transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
 .DO versions below if you need ASCII.)
 
-</details>
+</details></ul>
 
 **Tip**: You can transfer all of the above files, and more, to a modern
 computer by downloading the most recent .zip file from the 
@@ -266,7 +264,7 @@ instructions include some tricks to save memory.
 [Again, if you _do_ know how to transfer binary files, just grab the two
 files mentioned above in the [Quickstart section](#Quickstart).]
 
-<details><summary>Click to see the steps for an ASCII install</summary>
+<ul><details><summary>Click to see the steps for an ASCII install</summary>
 
 #### Step 1: Connect Model 100 to a modern computer
 
@@ -294,7 +292,7 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 [sendfile.md](sendfile.md).
 
 
-<details><summary>Click to learn more about CMPRSS.</summary>
+<ul><details><summary>Click to learn more about CMPRSS.</summary>
 
 CMPRSS is a basic program that runs on your Model T to create the
 binary file, `WL20_xx_.CO` from the ASCII file `WL20_xx_.DO`, both of
@@ -325,12 +323,12 @@ words from the serial port from a personal computer that is sending the
 wordlist in ASCII. CMPRSS writes them out to a binary file in the RAM
 storage, usually named WL20_xx_.CO. (Where 20xx is a year.)
 ____
-</details>
+</details></ul>
 
 #### Step 3: Pick an uncompressed, ASCII wordlist
 Download one of the following files to your personal computer:
 
-<details><summary>
+<ul><details><summary>
 Table of uncompressed Word Lists.
 </summary>
 
@@ -346,14 +344,14 @@ Table of uncompressed Word Lists.
 | [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027             |
 
 ____
-</details>
+</details></ul>
 
 #### Step 4: Run CMPRSS
 
 Run CMPRSS to load words from the serial port and use the connected
 computer to send the WL20_xx_.DO file. 
 
-<details><summary>Explanation of running CMPRSS</summary>
+<ul><details><summary>Explanation of running CMPRSS</summary>
 
 When run, CMPRSS will ask you for where to load the words from and
 where to save them. CMPRSS can load data over the serial port or a .DO
@@ -378,7 +376,7 @@ or
 SAVE "CMPRSS.BA"
 ```
 ____
-</details>
+</details></ul>
 
 
 #### Step 5
