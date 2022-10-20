@@ -33,7 +33,6 @@ Whew, lots there -- and more detail on a few things below!
 	*	*	*	*	*
 </details>
 
-
 ### Hardware agnostic
 <details><summary>
 M100LE now runs unmodified on any "Model T" type portable computer.
@@ -48,15 +47,11 @@ M100LE now runs unmodified on any "Model T" type portable computer.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 
-</details>
-
 ### Code versions
 Multiple versions of the code are now available, but you only need one
 for your machine. For TRS-80 and Tandy computers, you will use
 [M100LE.BA][4]. For others, or if you want the original source code,
 see the [Formats](#Formats) section for more details.
-
-
 
 ### Word list files
 Word list files are now compressed binary files with the extension
@@ -68,6 +63,9 @@ of use if you wish to edit the words or if you are transfering the
 files using the builtin TELCOM program which can only send ASCII
 files. M100LE is smart enough to use the .DO files if .CO cannot be
 found.
+____
+</details>
+
 
 ## Documentation
 **m100le** is an implementation of
@@ -217,17 +215,17 @@ Table of all code versions.
 | **ALL PLATFORMS**       |       |                                                                 |
 | [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
 | [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      | ----- | --------------------------------------------------------------- |
+| **TANDY / TRS-80**      | ----- | <hr/>                                                           |
 | [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
 | [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 | ----- | --------------------------------------------------------------- |
+| **NEC**                 | ----- | ____ |
 | M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
 (Note that the .BA files above are _tokenized BASIC_ and cannot be
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
 need ASCII.)
-   
+____
 </details>
 
 <details><summary>
@@ -285,7 +283,7 @@ with serial ports, you will likely also need a USB to Serial adapter.
 On your Model T, type this to load the program from the serial port:
 
 ```BASIC
-LOAD "COM:98N1ENN"				:REM FOR NEC, USE COM:9N81XN
+LOAD "COM:98N1ENN"	 :REM FOR NEC, USE COM:9N81XN
 ```
 
 Then, use your connected personal computer's "send file" ability to
@@ -397,6 +395,8 @@ port at 19.2 Kbps.
 **Important**: don't forget to `SAVE "M100LE"` after transferring the
 program over the serial port.
 
+You now have M100LE.BA on your machine and can play today's Wordle!
+Try `RUN`.
 
 ### Formats
 
