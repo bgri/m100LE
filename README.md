@@ -45,55 +45,21 @@ M100LE now runs unmodified on any "Model T" type portable computer.
 * Olivetti M10<sup>&dagger;</sup>,
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
+
 </details>
 
 ### Code versions
-Multiple versions of the code are available, but you only need one for
-your machine. Most likely you will use [M100LE.BA][4]. Please see the
-[Formats](#Formats) section for more details.
+Multiple versions of the code are now available, but you only need one
+for your machine. For TRS-80 and Tandy computers, you will use
+[M100LE.BA][4]. For others, or if you want the original source code,
+see the [Formats](#Formats) section for more details.
 
 
-<details><summary>
-Table of all code versions.
-</summary>
-
-| Filename                |  Size | Meaning                                                         |
-|-------------------------|------:|-----------------------------------------------------------------|
-| **ALL PLATFORMS**       |       |                                                                 |
-| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
-| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      |       |                                                                 |
-| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
-| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 |       |                                                                 |
-| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
-| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
-
-</details>
 
 ### Word list files
 Word list files are now compressed binary files with the extension
-`.CO`. You only need to download the wordlist for the year you wish to
-play.
-
-<details><summary>
-Table of all Word Lists.
-</summary>
-
-| Filename          | Size | Notes                                                         |
-|-------------------|-----:|---------------------------------------------------------------|
-| **ALL PLATFORMS** |      |                                                               |
-| [WL2021.CO][21]   |   1K | Words before June 19th, 2021 are bonus words, added by M100LE |
-| [WL2022.CO][22]   |   1K |                                                               |
-| [WL2023.CO][23]   |   1K |                                                               |
-| [WL2024.CO][24]   |   1K |                                                               |
-| [WL2025.CO][25]   |   1K |                                                               |
-| [WL2026.CO][26]   |   1K |                                                               |
-| [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
-
-----
-
-</details>
+`.CO`, although the old `.DO` format still works. As before, you only
+need to download the wordlist for the year you wish to play.
 
 Also available are the uncompressed wordlists (.DO), which are mainly
 of use if you wish to edit the words or if you are transfering the
@@ -145,9 +111,10 @@ memory of the Model 100.
 
 WORDLE initially checks the date and loads today's word from the
 wordlist. When a guess is submitted, WORDLE checks the guess to verify
-that it's a word in the wordlist. If the guess doesn't appear in the
-wordlist the guess is invalid. WORDLE will not accept and evaluate an
-invalid guess and the game doesn't progress.
+that it's a word in a [large dictionary](adjunct/allowedwords.txt). If
+the guess doesn't appear in the dictionary, the guess is invalid and
+will not be accepted. The game does not progress until a valid guess
+is made. 
 
 **m100le** initially **loads** today's word based on the system
 **DATE$** value. When a guess is submitted, **m100le** compares it to
@@ -250,16 +217,57 @@ shown as a PERIOD.)
 
 ## Installation
 
+### Quickstart Guide
+
 If you already know how to transfer binary files to your Model 100,
 you only need two files: the tokenized basic for your system (e.g.,
 [M100LE.BA][4]), and the compressed wordlist for the current year
-(e.g., [WL2023.CO][23]).
+(e.g., [WL2023.CO][23]). Pick one from each of the tables below. 
 
-Otherwise, read on for more specific advice. 
+<details><summary>
+Table of all code versions.
+</summary>
+
+| Filename                |  Size | Meaning                                                         |
+|-------------------------|------:|-----------------------------------------------------------------|
+| **ALL PLATFORMS**       |       |                                                                 |
+| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
+| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
+| **TANDY / TRS-80**      |       |                                                                 |
+| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
+| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
+| **NEC**                 |       |                                                                 |
+| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
+| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
+
+</details>
+
+<details><summary>
+Table of all Word Lists.
+</summary>
+
+| Filename          | Size | Notes                                                         |
+|-------------------|-----:|---------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                               |
+| [WL2021.CO][21]   |   1K | Words before June 19th, 2021 are bonus words, added by M100LE |
+| [WL2022.CO][22]   |   1K |                                                               |
+| [WL2023.CO][23]   |   1K |                                                               |
+| [WL2024.CO][24]   |   1K |                                                               |
+| [WL2025.CO][25]   |   1K |                                                               |
+| [WL2026.CO][26]   |   1K |                                                               |
+| [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
+
+</details>
+
+### Standard install
+
+If you do not know how to transfer binary files to your Model 100,
+read on for more specific advice on how to transfer both the program
+and at least one wordlist file. 
 
 <details.
 <summary>
-If you are using a stock Model 100 and just the built-in TELCOM program.
+Installing  over RS232C serial using a stock Model 100 and BASIC
 </summary>
 
 
@@ -278,9 +286,9 @@ If you are using a stock Model 100 and just the built-in TELCOM program.
 </details>
 
 
-   Note that .CO files cannot be transferred via the builtin TELCOM
-   program. If you do not have a better transfer program, you can
-   download the uncompressed .DO version of the wordlist instead.
+   Note that .CO files cannot be transferred via BASIC or the builtin
+   TELCOM program. If you do not have a better transfer program, you
+   can download the uncompressed .DO version of the wordlist instead.
    M100LE will automatically use it if the .CO file is missing.
    Optionally, you may use the [CMPRSS](CMPRSS.DO) program to convert
    WL20XX.DO into WL20XX.CO.
@@ -308,6 +316,7 @@ There are two variables that cause the proliferation of files:
 1. **Comments** By default files have comments stripped to keep the size down.
    Versions which contain "+comments" in the filename include notes
    for developers who wish to edit or improving M100LE.
+
 2. **Tokenization** Files can be in ASCII or one of four binary formats.
    * ASCII BASIC source code has two main benefits: it will run on any
      of the platforms and it can be downloaded by the builtin TELCOM
@@ -324,7 +333,6 @@ There are two variables that cause the proliferation of files:
 	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
 	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
 	 * **.BA.M10** Runs only on Olivetti M10
-
 
 ## Roadmap
 
