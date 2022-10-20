@@ -56,10 +56,10 @@ ____
 
 ## Documentation
 **m100le** is an implementation of
-[WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
-Model 100 family of computers. 
+[WORDLE](https://en.wikipedia.org/wiki/Wordle) for the TRS-80
+Model 100 and related computers. 
 
-### Hardware agnostic
+### Hardware Agnostic
 <ul><details><summary>
 M100LE runs unmodified on all eight of the Kyotronic sisters.
 </summary>
