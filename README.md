@@ -302,7 +302,7 @@ ____
 Tell it to load over the serial port.
 Alternately, it works fine to run CMPRSS on a file.
 
-#### Step 2E: Delete CMPRSS
+#### Step 2E: Delete CMPRSSf
 
 
 
