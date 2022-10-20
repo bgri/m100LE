@@ -36,8 +36,7 @@ Whew, lots there -- and more detail on a few things below!
 </ul>
 
 ### Hardware agnostic
-<details><summary>
-<ul>
+<ul><details><summary>
 M100LE now runs unmodified on any "Model T" type portable computer.
 </summary>
 
@@ -67,8 +66,7 @@ files using the builtin TELCOM program which can only send ASCII
 files. M100LE is smart enough to use the .DO files if .CO cannot be
 found.
 ____
-</ul>
-</details>
+</details></ul>
 
 
 ## Documentation
@@ -210,11 +208,10 @@ you only need two files: the tokenized basic for your system (e.g.,
 [M100LE.BA][4]), and the compressed wordlist for the current year
 (e.g., [WL2023.CO][23]). Pick one from each of the tables below. 
 
-<details><summary>
+<ul><details><summary>
 Table of all code versions.
 </summary>
 
-<ul>
 | Filename                |  Size | Meaning                                                         |
 |-------------------------|------:|-----------------------------------------------------------------|
 | **ALL PLATFORMS**       |       |                                                                 |
@@ -231,8 +228,7 @@ Table of all code versions.
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
 need ASCII.)
 ____
-</ul>
-</details>
+</details></ul>
 
 <details><summary>
 Table of all Word Lists.
