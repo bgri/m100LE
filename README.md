@@ -6,7 +6,9 @@ A version of Wordle created for a fourty-year-old computer, the Tandy TRS-80 Mod
 --
 ## Updates v0.m
 ### A note about this update
-Though the look of the game hasn't changed much, a lot has gone on behind the scenes, thanks to the amazing work by [hackerb9](https://github.com/hackerb9):
+Though the look of the game hasn't changed much, a lot has gone on
+behind the scenes, thanks to the amazing work by
+[hackerb9](https://github.com/hackerb9):
 
 <details><summary>
 Click to see summary of changes.
@@ -66,24 +68,6 @@ of use if you wish to edit the words or if you are transfering the
 files using the builtin TELCOM program which can only send ASCII
 files. M100LE is smart enough to use the .DO files if .CO cannot be
 found.
-
-<details><summary>
-Table of uncompressed Word Lists.
-</summary>
-
-| Filename          | Size | Notes                                                         |
-|-------------------|-----:|---------------------------------------------------------------|
-| **ALL PLATFORMS** |      |                                                               |
-| [WL2021.DO][31]   | 2.5K | Words before June 19th, 2021 are bonus words, added by M100LE |
-| [WL2022.DO][32]   | 2.5K |                                                               |
-| [WL2023.DO][33]   | 2.5K |                                                               |
-| [WL2024.DO][34]   | 2.6K |                                                               |
-| [WL2025.DO][35]   | 2.5K |                                                               |
-| [WL2026.DO][36]   | 2.5K |                                                               |
-| [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027             |
-
-----
-</details>
 
 ## Documentation
 **m100le** is an implementation of
@@ -259,15 +243,72 @@ Table of all Word Lists.
 
 </details>
 
-### Standard install
+### Standard (ASCII) install
 
-If you do not know how to transfer binary files to your Model 100,
-read on for more specific advice on how to transfer both the program
-and at least one wordlist file. 
+If you do not know how to transfer binary files to your Model 100, read on
+for more specific advice on how to transfer both the program and at
+least one wordlist file. Because the ASCII versions are larger, we
+will have to do some tricks to save memory.
 
-<details.
+#### Step 1: Connect Model 100 to a modern computer
+
+You will need a NULL modem cable. Since current computers do not come
+with serial ports, you will likely also need a USB to Serial adapter.
+
+> Warning: if you get certain serial adapters, your transfers will be
+> garbled. Technically, you'll need a device that has hardware-level
+> XON/XOFF flow-control, but that's rarely listed on the box. Some
+> keywords you _might_ see in advertising: "on-chip flow control",
+> "16950 UART", "MU860", or "FTDI". Additionally, _most_ adapters
+> labelled "PL2303" will work, but not all of them.
+
+#### Step 2: Pick a wordlist and run CMPRSS
+
+Because it takes extra RAM that might not be available once the M100LE
+program is loaded, it is best to load and run [CMPRSS](CMPRSS.DO)
+first. CMPRSS is a BASIC program that runs on the Model 100. It reads
+words from the serial port from a personal computer that is sending the
+wordlist in ASCII. CMPRSS writes them out to a binary file in the RAM
+storage, usually named WL20_xx_.CO. (Where 20xx is a year.)
+
+##### Step 2A: Pick an uncompressed, ASCII wordlist
+Download one of the following files to your personal computer:
+
+<details><summary>
+Table of uncompressed Word Lists.
+</summary>
+
+| Filename          | Size | Notes                                                         |
+|-------------------|-----:|---------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                               |
+| [WL2021.DO][31]   | 2.5K | Words before June 19th, 2021 are bonus words, added by M100LE |
+| [WL2022.DO][32]   | 2.5K |                                                               |
+| [WL2023.DO][33]   | 2.5K |                                                               |
+| [WL2024.DO][34]   | 2.6K |                                                               |
+| [WL2025.DO][35]   | 2.5K |                                                               |
+| [WL2026.DO][36]   | 2.5K |                                                               |
+| [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027             |
+
+____
+</details>
+
+##### Step 2B: Download CMPRSS.DO to the PC.
+
+##### Step 2C: Transfer CMPRSS.DO from PC to the Model 100.
+
+
+##### Step 2D: Run CMPRSS on the Model 100
+
+Tell it to load over the serial port.
+Alternately, it works fine to run CMPRSS on a file.
+
+#### Step 2E: Delete CMPRSS
+
+
+
+<details>
 <summary>
-Installing  over RS232C serial using a stock Model 100 and BASIC
+Program: Installing over RS232C serial using a stock Model 100 and BASIC
 </summary>
 
 
