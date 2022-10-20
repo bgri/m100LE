@@ -3,7 +3,7 @@ m100le - Wordle for the Tandy TRS-80 Model 100
 A version of Wordle created for a fourty-year-old computer, the Tandy TRS-80 Model 100.
 ![m100le](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
 
---
+
 ## Updates v0.m
 ### A note about this update
 Though the look of the game hasn't changed much, a lot has gone on
@@ -33,20 +33,6 @@ Whew, lots there -- and more detail on a few things below!
 	*	*	*	*	*
 </details></ul>
 
-### Hardware agnostic
-<ul><details><summary>
-M100LE now runs unmodified on any "Model T" type portable computer.
-</summary>
-
-<img src="README.md.d/pc8201-small.png" align="right">
-
-* Kyocera Kyotronic-85<sup>&dagger;</sup>,
-* TRS-80 Model 100, Tandy 102, and Tandy 200
-* NEC PC-8201a, NEC PC-8201, NEC PC-8300,
-* Olivetti M10<sup>&dagger;</sup>,
-
-(<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
-
 ### Code versions
 Multiple versions of the code are now available, but you only need one
 for your machine. For TRS-80 and Tandy computers, you will use
@@ -70,10 +56,27 @@ ____
 ## Documentation
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the Tandy TRS-80
-Model 100 family of computers. It is written in the unit's on-board
-BASIC, a subset of
-[Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC)
-included with the device.
+Model 100 family of computers. 
+
+### Hardware agnostic
+<ul><details><summary>
+M100LE runs unmodified on all eight of the Kyotronic sisters.
+</summary>
+
+<img src="README.md.d/pc8201-small.png" align="right" width="33%">
+
+* Kyocera Kyotronic-85<sup>&dagger;</sup>,
+* TRS-80 Model 100, Tandy 102, and Tandy 200
+* NEC PC-8201a, NEC PC-8201, NEC PC-8300,
+* Olivetti M10<sup>&dagger;</sup>,
+
+(<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
+
+
+
+It is written in the unit's on-board BASIC, a subset of [Microsoft
+BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with
+the device.
 
 As far as possible, we have attempted to remain faithful to the original game and gameplay.
 
