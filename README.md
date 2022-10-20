@@ -201,7 +201,7 @@ shown as a PERIOD.)
 
 ## Installation
 
-### Quickstart Guide
+### Quickstart
 
 If you already know how to transfer binary files to your Model 100,
 you only need two files: the tokenized basic for your system (e.g.,
@@ -217,13 +217,17 @@ Table of all code versions.
 | **ALL PLATFORMS**       |       |                                                                 |
 | [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
 | [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      |       |                                                                 |
+| **TANDY / TRS-80**      | ----- | --------------------------------------------------------------- |
 | [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
 | [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 |       |                                                                 |
+| **NEC**                 | ----- | --------------------------------------------------------------- |
 | M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
 | M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
 
+(Note that the .BA files above are _tokenized BASIC_ and cannot be
+transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
+need ASCII.)
+   
 </details>
 
 <details><summary>
@@ -241,14 +245,28 @@ Table of all Word Lists.
 | [WL2026.CO][26]   |   1K |                                                               |
 | [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
 
+(Note that the .CO files above are _compressed binary_ and cannot be
+transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
+.DO versions below if you need ASCII.)
+
 </details>
 
-### Standard (ASCII) install
+**Tip**: You can transfer all of the above files, and more, to a modern
+computer by downloading the most recent .zip file from the 
+[RELEASES section](https://github.com/bgri/m100LE/releases).
 
-If you do not know how to transfer binary files to your Model 100, read on
-for more specific advice on how to transfer both the program and at
-least one wordlist file. Because the ASCII versions are larger, we
-will have to do some tricks to save memory.
+### ASCII install 
+
+If you do not know how (or lack the tools) to transfer _binary_ files
+to your Model 100, read on. You will need to transfer both the M100LE
+program and at least one wordlist file in ASCII and convert them to
+binary. Because the ASCII versions are significantly larger, these
+instructions include some tricks to save memory.
+
+[Again, if you _do_ know how to transfer binary files, just grab the two
+files mentioned above in the [Quickstart section](#Quickstart).]
+
+<details><summary>Click to see the steps for an ASCII install</summary>
 
 #### Step 1: Connect Model 100 to a modern computer
 
@@ -258,20 +276,58 @@ with serial ports, you will likely also need a USB to Serial adapter.
 > Warning: if you get certain serial adapters, your transfers will be
 > garbled. Technically, you'll need a device that has hardware-level
 > XON/XOFF flow-control, but that's rarely listed on the box. Some
-> keywords you _might_ see in advertising: "on-chip flow control",
-> "16950 UART", "MU860", or "FTDI". Additionally, _most_ adapters
-> labelled "PL2303" will work, but not all of them.
+> keywords to look for that you _might_ see in advertising: "on-chip
+> flow control", "16950 UART", "MU860", or "FTDI". Additionally,
+> _most_ adapters labelled "PL2303" will work, but not all of them.
 
-#### Step 2: Pick a wordlist and run CMPRSS
+#### Step 2: Load CMPRSS on your Model 100
+
+On your Model T, type this to load the program from the serial port:
+
+```BASIC
+LOAD "COM:98N1ENN"				:REM FOR NEC, USE COM:9N81XN
+```
+
+Then, use your connected personal computer's "send file" ability to
+send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
+19.2 Kbps. If you do not know how to send a file, please see
+[sendfile.md](sendfile.md).
+
+
+<details><summary>Click to see the explanation of CMPRSS</summary>
+
+CMPRSS is a basic program that runs on your Model T to create the
+binary file, `WL20_xx_.CO` from the ASCII file `WL20_xx_.DO`, both of
+which contain the daily words M100LE uses for a particular year,
+20_xx_. There are three ways of using CMPRSS:
+
+1. Serial port. CMPRSS can read the ASCII list of words over the
+   RS232C serial port from a modern computer. This is the recommended
+   method and what will be detailed below. It uses the least RAM. Its
+   primary downside is that it requires learning how to send ASCII
+   files from a personal computer.
+
+1. RAM storage. CMPRSS can also read from the Model 100's file system.
+   If you know how to transfer ASCII files using TELCOM, this may be a
+   useful alternative. (Note, if you know how to transfer files in a
+   different way, then you are in the wrong instructions. You can just
+   use the [precompressed wordlists](#Quickstart)). 
+
+1. Not at all. CMPRSS is optional. The M100LE program actually works
+   fine with uncompressed ASCII word lists. It just takes up
+   unnecessary space on the Model 100's limited RAM filesystem. (2.5
+   KB per year instead of 1 KB).
 
 Because it takes extra RAM that might not be available once the M100LE
 program is loaded, it is best to load and run [CMPRSS](CMPRSS.DO)
-first. CMPRSS is a BASIC program that runs on the Model 100. It reads
+firstd. CMPRSS is a BASIC program that runs on the Model 100. It reads
 words from the serial port from a personal computer that is sending the
 wordlist in ASCII. CMPRSS writes them out to a binary file in the RAM
 storage, usually named WL20_xx_.CO. (Where 20xx is a year.)
+____
+</details>
 
-##### Step 2A: Pick an uncompressed, ASCII wordlist
+#### Step 3: Pick an uncompressed, ASCII wordlist
 Download one of the following files to your personal computer:
 
 <details><summary>
@@ -292,62 +348,59 @@ Table of uncompressed Word Lists.
 ____
 </details>
 
-##### Step 2B: Download CMPRSS.DO to the PC.
+#### Step 4: Run CMPRSS
 
-##### Step 2C: Transfer CMPRSS.DO from PC to the Model 100.
+Run CMPRSS to load words from the serial port and use the connected
+computer to send the WL20_xx_.DO file. 
 
+<details><summary>Explanation of running CMPRSS</summary>
 
-##### Step 2D: Run CMPRSS on the Model 100
+When run, CMPRSS will ask you for where to load the words from and
+where to save them. CMPRSS can load data over the serial port or a .DO
+file. 
 
-Tell it to load over the serial port.
-Alternately, it works fine to run CMPRSS on a file.
+If you are using the serial port, the default (`COM:...`)should be
+correct and you can just hit <kbd>ENTER</kbd>.
 
-#### Step 2E: Delete CMPRSSf
+Once CMPRSS says, "Waiting for COM:", use the 
+"[send file](sendfile.md)" mechanism on your personal computer to send
+the WL20_xx_.DO ASCII word list over the serial port.
 
+After you are finished compressing all the wordlists you intend to use,
+you may delete CMPRSS.BA, or, if you have enough RAM, you may save it.
 
-
-<details>
-<summary>
-Program: Installing over RS232C serial using a stock Model 100 and BASIC
-</summary>
-
-
-1. Download the most recent .zip file from the
-   [RELEASES section](https://github.com/bgri/m100LE/releases).
-1. Extract and copy 'M100LE.DO' to your Model 100.
-1. Enter BASIC on the Model 100, and type:
-   `LOAD "M100LE.DO"`
-1. Then save the file as a .BA file:
-   `SAVE "M100LE.BA"`
-1. Delete the now-unnecessary .DO file to free up RAM:
-   `KILL "M100LE.DO"`
-1. Extract and copy 'WL20XX.DO' to your Model 100 replacing XX with
-   the current year.
-
+```BASIC
+NEW
+KILL "CMPRSS.BA"
+```
+or
+```BASIC
+SAVE "CMPRSS.BA"
+```
+____
 </details>
 
 
-   Note that .CO files cannot be transferred via BASIC or the builtin
-   TELCOM program. If you do not have a better transfer program, you
-   can download the uncompressed .DO version of the wordlist instead.
-   M100LE will automatically use it if the .CO file is missing.
-   Optionally, you may use the [CMPRSS](CMPRSS.DO) program to convert
-   WL20XX.DO into WL20XX.CO.
+#### Step 5
 
-<details>
-<summary>
-If you don't have enough RAM.
-</summary>
+Now that the wordlist is transferred, all that is needed is the actual
+M100LE program. This is sent exactly the same as CMPRSS was in step 1. 
 
-Since the source code is a bit large, it is possible that trying to
-LOAD the file will fail with an Out of Memory (`?OM`) Error. There are
-two possible workarounds: load the tokenized BASIC version for your
-platform or tokenize the ASCII version one line at a time over the
-serial port by using `LOAD "COM:98N1ENN"`.
+```BASIC
+LOAD "COM:98N1ENN"				:REM FOR NEC, USE COM:9N81XN
+```
+
+Then, use your connected personal computer's "[send file](sendfile.md)" 
+ability to send the [M100LE.DO](M100LE.DO) ASCII file over the serial
+port at 19.2 Kbps. 
+
+**Important**: don't forget to `SAVE "M100LE"` after transferring the
+program over the serial port.
+
 
 ### Formats
 
-As mentioned above, there are multipe versions of the program
+As mentioned above, there are multiple versions of the program
 available. Only one file, ([M100LE+comments.DO](M100LE+comments.DO)),
 is the true source code. All others are derived automatically, mostly
 for smaller file size and to ease installation.
@@ -374,6 +427,8 @@ There are two variables that cause the proliferation of files:
 	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
 	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
 	 * **.BA.M10** Runs only on Olivetti M10
+
+
 
 ## Roadmap
 
