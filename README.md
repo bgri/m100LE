@@ -125,9 +125,9 @@ The same code runs unmodified on all eight of the Kyotronic sisters.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details></ul>
-It is written in the unit's on-board BASIC, a subset of [Microsoft
-BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with
-the device.
+It is written in the unit's on-board BASIC, a subset of 
+[Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC)
+included with the device.
 
 WORDLE'S instructions are very simple:
 
@@ -151,10 +151,10 @@ memory of the Model 100.
 
 WORDLE initially checks the date and loads today's word from the
 wordlist. When a guess is submitted, WORDLE checks the guess to verify
-that it's a word in a [large dictionary](adjunct/allowedwords.txt). If
-the guess doesn't appear in the dictionary, the guess is invalid and
-will not be accepted. The game does not progress until a valid guess
-is made. 
+that it's a word in a [large dictionary](adjunct/allowedwords.txt)
+(14,855 five-letter words). If the guess doesn't appear in the
+dictionary, the guess is invalid and will not be accepted. The game
+does not progress until a valid guess is made.
 
 **m100le** initially **loads** today's word based on the system
 **DATE$** value. When a guess is submitted, **m100le** compares it to
@@ -185,17 +185,18 @@ year entered.
 
 #### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the
-ability to use colours to provide the clues.
+ability to use colours to provide the clues. Instead, **m100le** shows
+symbols.
 
 For each guess, a line in the **Clue Panel** will be filled in with
 the clue for that guess, and the cumulative **Alphabet Panel** will be
 updated.
 
-| Clue                        | Meaning                                               |
-|:---------------------------:|:------------------------------------------------------|
-| <kbd>.</kbd>                | Wrong letter                                          |
-| <kbd>?</kbd>                | Letter is in word, wrong location                     |
-| _<kbd>X</kbd>_/<kbd>*</kbd> | X = Any letter in proper location<sup>&ddagger;</sup> |
+| Clue                        | Name               | Meaning                                                 |
+|:---------------------------:|--------------------|:--------------------------------------------------------|
+| <kbd>.</kbd>                | Period             | Wrong letter                                            |
+| <kbd>?</kbd>                | Question mark      | Letter is in word, wrong location                       |
+| <kbd>_X_</kbd>/<kbd>*</kbd> | Letter or asterisk | _X_ = Any letter in proper location<sup>&ddagger;</sup> |
 
 ##### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
 
