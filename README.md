@@ -216,6 +216,7 @@ letter is evaluated and marked in the **Clue Panel** as either
 LETTER, QUESTION MARK, or PERIOD). 
 
 <ul>
+
 <kbd>_X_</kbd>/<kbd>\*</kbd> CORRECT LETTER, a letter from A to Z in
 **Clue Panel** and an asterisk in **Alphabet Panel**, indicates that the
 letter is correct and in the correct position.
