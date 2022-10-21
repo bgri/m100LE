@@ -56,7 +56,7 @@ Table of compressed daily Word Lists.
 | [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
 
 (Note that the .CO files above are _compressed binary_ and cannot be
-transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
+transferred via BASIC's `LOAD` or the builtin TELCOM program. See the
 .DO versions if you need ASCII.)
 </details></ul>
 
@@ -106,7 +106,7 @@ Word list files are now compressed binary files with the extension
 need to download the wordlist for the year you wish to play.
 
 Also available are the uncompressed wordlists (.DO), which are mainly
-of use if you wish to edit the words or if you are transfering the
+of use if you wish to edit the words or if you are transferring the
 files using the builtin TELCOM program which can only send ASCII
 files. M100LE is smart enough to use the .DO files if .CO cannot be
 found.
@@ -518,7 +518,7 @@ There are two variables that cause the proliferation of files:
 ### About the word files and today's word
 
 The current version of **m100le** (starting with v0.m) uses the New
-York Times Wordle word lists. Prevously, the wordfiles used were based
+York Times Wordle word lists. Previously, the wordfiles used were based
 on the the **original** javascript WORDLE, which contained the entire
 set of daily words (the wordfile) within the program code. Over six
 years worth of words.
@@ -555,7 +555,7 @@ If you have any feedback, please reach out to us:
 
 
 
-## Acknowledgements
+## Acknowledgments
 
  - [Josh Wardle - Wordle's creator](https://en.wikipedia.org/wiki/Josh_Wardle)
  - [hackerb9](https://github.com/hackerb9) - significant optimization and improvements. This thing rocks!!
