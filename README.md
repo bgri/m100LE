@@ -158,7 +158,7 @@ dictionary, the guess is invalid and will not be accepted. The game
 does not progress until a valid guess is made.
 
 **m100le** initially checks the system `DATE$` and loads today's word
-from WL20_xx_.CO. When a guess is submitted, **m100le** compares it to
+from WL20*xx*.CO. When a guess is submitted, **m100le** compares it to
 today's word, and provides the resultant clue. **m100le** does _not_
 test to verify the word appears in the wordlist. A guess of 'MOIST' is
 valid, as is a guess of 'DDDDD'. </details></ul>
@@ -356,9 +356,9 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 <ul><details><summary>Click to learn more about CMPRSS.</summary>
 
 CMPRSS is a basic program that runs on your Model T to create the
-binary file, `WL20_xx_.CO` from the ASCII file `WL20_xx_.DO`, both of
+binary file, `WL20*xx*.CO` from the ASCII file `WL20*xx*.DO`, both of
 which contain the daily words **m100le** uses for a particular year,
-20_xx_. There are three ways of using CMPRSS:
+20*xx*. There are three ways of using CMPRSS:
 
 1. Serial port. CMPRSS can read the ASCII list of words over the
    RS232C serial port from a modern computer. This is the recommended
@@ -382,7 +382,7 @@ program is loaded, it is best to load and run [CMPRSS](CMPRSS.DO)
 firstd. CMPRSS is a BASIC program that runs on the Model 100. It reads
 words from the serial port from a personal computer that is sending the
 wordlist in ASCII. CMPRSS writes them out to a binary file in the RAM
-storage, usually named WL20_xx_.CO. (Where 20xx is a year.)
+storage, usually named WL20*xx*.CO. (Where 20xx is a year.)
 ____
 </details></ul>
 
@@ -410,7 +410,7 @@ ____
 #### Step 4: Run CMPRSS
 
 Run CMPRSS to load words from the serial port and use the connected
-computer to send the WL20_xx_.DO file. 
+computer to send the WL20*xx*.DO file. 
 
 <ul><details><summary>Explanation of running CMPRSS</summary>
 
@@ -423,7 +423,7 @@ correct and you can just hit <kbd>ENTER</kbd>.
 
 Once CMPRSS says, "Waiting for COM:", use the 
 "[send file](sendfile.md)" mechanism on your personal computer to send
-the WL20_xx_.DO ASCII word list over the serial port.
+the WL20*xx*.DO ASCII word list over the serial port.
 
 After you are finished compressing all the wordlists you intend to use,
 you may delete CMPRSS.BA, or, if you have enough RAM, you may save it.
