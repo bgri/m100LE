@@ -162,9 +162,9 @@ does not progress until a valid guess is made.
 from WL20*xx*.CO. When a guess is submitted, **m100le** compares it to
 today's word, and provides the resultant clue. **m100le** does _not_
 test to verify the word appears in the wordlist. A guess of
-<kbd>M</kbd><kbd>O</kbd><kbd>I</kbd><kbd>S</kbd><kbd>T</kbd> 
+<span><kbd>M</kbd><kbd>O</kbd><kbd>I</kbd><kbd>S</kbd><kbd>T</kbd></span>
 is valid, as is a guess of
-<kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd>.
+<span><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd></span>.
 </details></ul>
 
 
