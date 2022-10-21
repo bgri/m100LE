@@ -277,7 +277,7 @@ Date Entry at startup by changing line 16 to set `MD` to 1:
 ```
 
 This will prevent the game loading today's game from DATE$ on startup
-and lets you play a game from any date, presuming you have the word
+and lets you play a game from any date, provided you have the word
 file for that year loaded into your unit's memory.
 </details></ul>
 
@@ -287,18 +287,18 @@ If you have enabled Manual Date Entry or if you restart the game with
 the <kbd>A</kbd> (AGAIN) key, you will be prompted for the date you
 wish to play.
 
-## TODO XXX date entry screenshot here XXX
+###### TODO XXX date entry screenshot here XXX
 
 The system will prompt you for the date in **`MM/DD/YY`** format. (NEC
 portables use `YY/MM/DD`). Two digits _must_ be used for month, day,
 and year, so add a leading `0`, as needed.
 
-If you hit <kbd>Enter</kbd> without typing anything, it will use the
+If you hit <kbd>ENTER</kbd> without typing anything, it will use the
 default date which is either the previously played date (when the
 AGAIN option is used) or the system DATE$ (when first run).
 
-Alternately, you may enter the ordinal 'Day-of-Year' ex. `200` for the
-200th day of the loaded year. Optionally, you may specify a year
+Alternately, you may enter the ordinal 'Day-of-Year', e.g., `200` for
+the 200th day of the loaded year. Optionally, you may specify a year
 _before_ the ordinal day. For example, `21/170` would give you the
 170th day of the year 2021, which happens to be the first Wordle game
 in the official Wordle wordlist. The ordinal day is shown on the right
@@ -465,6 +465,7 @@ program over the serial port.
 
 You now have M100LE.BA on your machine and can play today's Wordle!
 Try `RUN`.
+</details></ul>
 
 ### Formats
 
