@@ -198,6 +198,8 @@ As the Model 100 uses a monochrome LCD display, we don't have the
 ability to use colours to provide the clues. Instead, **m100le** shows
 symbols.
 
+<ul><details>
+
 For each guess, a line in the **Clue Panel** will be filled in with
 the clue for that guess, and the cumulative **Alphabet Panel** will be
 updated.
@@ -211,7 +213,7 @@ updated.
 ##### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
 
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
-
+</details></ul>
 
 ## Gameplay
 ![image](https://user-images.githubusercontent.com/14062627/159623862-c2d431f8-f88a-48b0-ac1d-45fa83ce3df9.png)
@@ -481,15 +483,16 @@ available. Only one file, ([M100LE+comments.DO](M100LE+comments.DO)),
 is the true source code. All others are derived automatically, mostly
 for smaller file size and to ease installation.
 
-<details><summary>Click to learn more about the different formats.</summary>
+<ul><details><summary>Click to learn more about the different formats.</summary>
 
-There are two variables that cause the proliferation of files:
+### There are two variables that cause the proliferation of files:
 
 1. **Comments** By default files have comments stripped to keep the size down.
    Versions which contain "+comments" in the filename include notes
    for developers who wish to edit or improving **m100le**.
 
 2. **Tokenization** Files can be in ASCII or one of four binary formats.
+
    * **.DO** ASCII BASIC source code has two main benefits: it will
      run on any of the platforms and it can be downloaded using the
      builtin TELCOM program or BASIC. ASCII format can be read on any
@@ -497,13 +500,17 @@ There are two variables that cause the proliferation of files:
      downloading requires an extra tokenization step which may require
      more memory than your computer has. (But, see
      [installation](#ASCII Install) for a workaround.)
-   * **.BA** Tokenized BASIC format which saves memory during transfer, but
-     requires using a program such as TEENY which can download binary
+
+   * **.BA** Tokenized BASIC format which saves memory during
+     transfer, but requires using a program such as
+     [TEENY](https://youtu.be/H0xx9cOe97s) which can download binary
      files. Tokenization is specific to each family of machines.
 	 * **.BA** Runs only on Model 100, Tandy 102 (US and UK), and Tandy 200.
 	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
 	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
 	 * **.BA.M10** Runs only on Olivetti M10
+
+</details></ul>
 
 
 ## Roadmap
@@ -517,6 +524,8 @@ There are two variables that cause the proliferation of files:
 ## FAQ
 ### About the word files and today's word
 
+<ul><details>
+
 The current version of **m100le** (starting with v0.m) uses the New
 York Times Wordle word lists. Previously, the wordfiles used were based
 on the the **original** javascript WORDLE, which contained the entire
@@ -527,23 +536,32 @@ While the order changed, there are
 [very few differences](https://github.com/jackgreenburg/wordle-wordlists)
 between the original and the current word lists.
 
+</details></ul>
+
 ### How wordfiles work
+<ul><details>
+
 Big wordfiles wouldn't work for our little units, so we broke each
-wordfile into manageable chunks of one year each. The .CO files are
-also compressed so each five-letter word takes only three bytes. If
-you have enough memory and you'd like to see and change the words, you
-may want to download the plain text WL20xx.DO files instead. **m100le**
-will automatically use a .DO file if the .CO file is not found.
+wordfile into manageable chunks of one year each. The WL20*xx*.CO
+files are compressed so each five-letter word takes only three bytes.
+If you have enough memory and you'd like to see and change the words,
+you may want to download the plain text WL20*xx*.DO files instead.
+**m100le** will automatically use a .DO file if the .CO file is not
+found.
 
 The wordfiles are all named for the year they correspond to. On
 program load, **m100le** checks the system `DATE$` for the current
 date OR the manually entered date (if enabled) and scans the
 appropriate wordfiles for the matching daily word.
+</details></ul>
 
 ### Will my m100le word be the same as today's NYT Wordle word?
+<ul><details>
+
 Maybe. Mostly. It ought to, anyhow. The NYT may change their word
 list at any time. If that happens, and we don't catch it, let us know
 and we'll update ours.
+</details></ul>
 
 ## Feedback
 
