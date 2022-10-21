@@ -1,7 +1,7 @@
 m100le - Wordle for the Tandy TRS-80 Model 100
 # m100le
 A version of Wordle created for a fourty-year-old computer, the 
-Tandy TRS-80 Model 100. Runs on any of the eight Kyotronic Sisters.
+Tandy TRS-80 Model 100 and its sister computers.
 
 ![M100LE on a NEC PC-8201](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
 
@@ -86,7 +86,6 @@ Whew, lots there -- and more detail on a few things below!
 
 --bgrier Oct. 8, 2022
 	*	*	*	*	*
-</details></ul>
 
 ### Code versions
 Multiple versions of the code are now available, but you only need one
@@ -139,13 +138,12 @@ WORDLE'S instructions are very simple:
 
 ![image](https://user-images.githubusercontent.com/14062627/159618578-ef980bb7-de0f-47d1-a496-b3f191d9700f.png)
 
-## Differences from Wordle
+### Differences from Wordle
 
 As far as possible, we have attempted to remain faithful to the
 original game and gameplay. The following features were changed.
 
-
-### Valid 5 letter word
+#### Valid 5 letter word
 We've chosen to eliminate this constraint, given the limited onboard
 memory of the Model 100.
 
@@ -166,7 +164,7 @@ valid, as is a guess of 'DDDDD'.
 </details></ul>
 
 
-### All six years of daily words
+#### All six years of daily words
 WORDLE contains a wordlist of over 2000 five-letter words, one per day
 for six years. **m100le** has split the wordlist into seven files,
 based on the year, so you need only download the _current_ year's
@@ -185,7 +183,7 @@ will attempt to load whatever wordlist file that corresponds to the
 year entered. 
 </details></ul>
 
-### Coloured tiles
+#### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the
 ability to use colours to provide the clues.
 
@@ -199,7 +197,7 @@ updated.
 | <kbd>?</kbd>                | Letter is in word, wrong location                     |
 | _<kbd>X</kbd>_/<kbd>*</kbd> | X = Any letter in proper location<sup>&ddagger;</sup> |
 
-#### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
+##### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
 
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
 
@@ -289,7 +287,7 @@ and year, so add a leading `0`, as needed.
 
 If you hit <kbd>Enter</kbd> without typing anything, it will use the
 default date which is either the previously played date (when the
-AGAIN option is used) or the system's DATE$ (when first run).
+AGAIN option is used) or the system DATE$ (when first run).
 
 Alternately, you may enter the ordinal 'Day-of-Year' ex. `200` for the
 200th day of the loaded year. Optionally, you may specify a year
