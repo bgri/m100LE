@@ -447,7 +447,7 @@ ____
 </details></ul>
 
 
-#### Step 5
+#### Step 5: Load the M100LE program over serial
 
 Now that the wordlist is transferred, all that is needed is the actual
 **m100le** program. This is sent exactly the same as CMPRSS was in step 1. 
@@ -462,6 +462,8 @@ port at 19.2 Kbps.
 
 **Important**: don't forget to `SAVE "M100LE"` after transferring the
 program over the serial port.
+
+#### Step 6: Enjoy!
 
 You now have M100LE.BA on your machine and can play today's Wordle!
 Try `RUN`.
