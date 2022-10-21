@@ -363,7 +363,7 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 <ul><details><summary>Click to learn more about CMPRSS.</summary>
 
 CMPRSS is a basic program that runs on your Model T to create the
-binary file, `WL20*xx*.CO` from the ASCII file `WL20*xx*.DO`, both of
+binary file, WL20*xx*.CO from the ASCII file WL20*xx*.DO, both of
 which contain the daily words **m100le** uses for a particular year,
 20*xx*. There are three ways of using CMPRSS:
 
