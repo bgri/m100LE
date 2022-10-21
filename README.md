@@ -17,21 +17,27 @@ you only need two files: the tokenized basic for your system (e.g.,
 Table of all code versions.
 </summary>
 
-| Filename                |  Size | Meaning                                                         |
-|-------------------------|------:|-----------------------------------------------------------------|
-| **ALL PLATFORMS**       |       |                                                                 |
-| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
-| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      | <hr/> | <hr/>                                                           |
-| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
-| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 | <hr/> | <hr/>                                                           |
-| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
-| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
+| Filename                    |  Size | Meaning                                                         |
+|-----------------------------|------:|-----------------------------------------------------------------|
+| **ALL PLATFORMS**           | <hr/> | <hr/>                                                           |
+| [M100LE+comments.DO][1]     |  16KB | The actual source code, including all comments, in ASCII format |
+| [M100LE.DO][2]              | 8.5KB | All comments removed, in ASCII format                           |
+| **TANDY / TRS-80**          | <hr/> | <hr/>                                                           |
+| [M100LE+comments.BA][3]     |  14KB | Tokenized Tandy BASIC format, including all comments            |
+| [M100LE.BA][4]              | 6.6KB | Tokenized Tandy BASIC format, all comments removed              |
+| **NEC**                     | <hr/> | <hr/>                                                           |
+| [M100LE+comments.BA.NEC][5] |       | Tokenized NEC N82 BASIC format, including all comments          |
+| [M100LE.BA.NEC][6]          |       | Tokenized NEC N82 BASIC format, all comments removed            |
+| **Kyotronic-85**            | <hr/> | <hr/>                                                           |
+| M100LE+comments.BA.K85      |       | Tokenized Kyocera Kyotronic-85 BASIC format, including comments |
+| M100LE.BA.K85               |       | Tokenized Kyocera Kyotronic-85 BASIC, all comments removed      |
+| **M10**                     | <hr/> | <hr/>                                                           |
+| M100LE+comments.BA.M10      |       | Tokenized Olivetti M10 BASIC format, including all comments     |
+| M100LE.BA.M10               |       | Tokenized Olivetti M10 BASIC format, all comments removed       |
 
 (Note that the .BA files above are _tokenized BASIC_ and cannot be
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
-need ASCII.)
+need [ASCII](ASCII Install).)
 </details></ul>
 
 <ul><details><summary>
@@ -362,10 +368,13 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 
 <ul><details><summary>Click to learn more about CMPRSS.</summary>
 
-CMPRSS is a basic program that runs on your Model T to create the
-binary file, WL20*xx*.CO from the ASCII file WL20*xx*.DO, both of
-which contain the daily words **m100le** uses for a particular year,
-20*xx*. There are three ways of using CMPRSS:
+CMPRSS is a BASIC program that runs on the Model 100. It reads words
+from the serial port from a personal computer that is sending an ASCII
+wordlist (WL20*xx*.DO). (Where 20*xx* is a year.) CMPRSS compresses
+the five letter words to three bytes and writes them to a binary file
+in the RAM storage named WL20*xx*.CO.
+
+There are three ways of using CMPRSS:
 
 1. Serial port. CMPRSS can read the ASCII list of words over the
    RS232C serial port from a modern computer. This is the recommended
@@ -384,12 +393,8 @@ which contain the daily words **m100le** uses for a particular year,
    unnecessary space on the Model 100's limited RAM filesystem. (2.5
    KB per year instead of 1 KB).
 
-Because it takes extra RAM that might not be available once the **m100le**
-program is loaded, it is best to load and run [CMPRSS](CMPRSS.DO)
-firstd. CMPRSS is a BASIC program that runs on the Model 100. It reads
-words from the serial port from a personal computer that is sending the
-wordlist in ASCII. CMPRSS writes them out to a binary file in the RAM
-storage, usually named WL20*xx*.CO. (Where 20xx is a year.)
+Note that it is advisable to hold off on loading the M100LE.DO BASIC
+program until after CMPRSS has been run and deleted to free memory.
 ____
 </details></ul>
 
@@ -471,10 +476,12 @@ Try `RUN`.
 
 ### Formats
 
-As mentioned above, there are multiple versions of the program
+As mentioned above, there are multiple versions of the M100LE program
 available. Only one file, ([M100LE+comments.DO](M100LE+comments.DO)),
 is the true source code. All others are derived automatically, mostly
 for smaller file size and to ease installation.
+
+<details><summary>Click to learn more about the different formats.</summary>
 
 There are two variables that cause the proliferation of files:
 
@@ -483,22 +490,20 @@ There are two variables that cause the proliferation of files:
    for developers who wish to edit or improving **m100le**.
 
 2. **Tokenization** Files can be in ASCII or one of four binary formats.
-   * ASCII BASIC source code has two main benefits: it will run on any
-     of the platforms and it can be downloaded by the builtin TELCOM
-     program. ASCII format can be read on any machine and will run on
-     any of the platforms. However, downloading requires an extra
-     tokenization step which may require more memory than your
-     computer has. (But, see [installation](#Installation) for a
-     workaround.)
-     * **.DO** Runs on any of the Kyotronic Sisters
-   * Tokenized BASIC format which saves memory during transfer, but
+   * **.DO** ASCII BASIC source code has two main benefits: it will
+     run on any of the platforms and it can be downloaded using the
+     builtin TELCOM program or BASIC. ASCII format can be read on any
+     machine and will run on any of the platforms. However,
+     downloading requires an extra tokenization step which may require
+     more memory than your computer has. (But, see
+     [installation](#ASCII Install) for a workaround.)
+   * **.BA** Tokenized BASIC format which saves memory during transfer, but
      requires using a program such as TEENY which can download binary
      files. Tokenization is specific to each family of machines.
 	 * **.BA** Runs only on Model 100, Tandy 102 (US and UK), and Tandy 200.
 	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
 	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
 	 * **.BA.M10** Runs only on Olivetti M10
-
 
 
 ## Roadmap
@@ -511,7 +516,8 @@ There are two variables that cause the proliferation of files:
 
 ## FAQ
 ### About the word files and today's word
-The current version of **m100le** (greater than v0.l) uses the New
+
+The current version of **m100le** (starting with v0.m) uses the New
 York Times Wordle word lists. Prevously, the wordfiles used were based
 on the the **original** javascript WORDLE, which contained the entire
 set of daily words (the wordfile) within the program code. Over six
@@ -567,6 +573,12 @@ If you have any feedback, please reach out to us:
 	[2]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.DO
 	[3]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA
 	[4]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA
+	[5]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA.NEC
+	[6]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA.NEC
+	[7]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA.K85
+	[8]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA.K85
+	[9]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE%2Bcomments.BA.M10
+	[10]: https://raw.githubusercontent.com/bgri/m100LE/main/M100LE.BA.M10
 	[21]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2021.CO
 	[22]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2022.CO
 	[23]: https://raw.githubusercontent.com/bgri/m100LE/main/WL2023.CO
