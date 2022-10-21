@@ -126,11 +126,12 @@ The same code runs unmodified on all eight of the Kyotronic sisters.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details></ul>
+
 It is written in the unit's on-board BASIC, a subset of 
 [Microsoft BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC)
 included with the device.
 
-WORDLE'S instructions are very simple:
+##### WORDLE'S instructions are very simple:
 
 * Guess the WORDLE in 6 tries.
 * Every day you get a new WORDLE.
@@ -160,8 +161,11 @@ does not progress until a valid guess is made.
 **m100le** initially checks the system `DATE$` and loads today's word
 from WL20*xx*.CO. When a guess is submitted, **m100le** compares it to
 today's word, and provides the resultant clue. **m100le** does _not_
-test to verify the word appears in the wordlist. A guess of 'MOIST' is
-valid, as is a guess of 'DDDDD'. </details></ul>
+test to verify the word appears in the wordlist. A guess of
+<kbd>M</kbd><kbd>O</kbd><kbd>I</kbd><kbd>S</kbd><kbd>T</kbd> 
+is valid, as is a guess of
+<kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd><kbd>D</kbd>.
+</details></ul>
 
 
 #### All six years of daily words
@@ -208,10 +212,11 @@ updated.
 Daily, a five-letter word is selected and players have six tries to
 guess it. Each guess is rewarded with clues. After every guess, each
 letter is evaluated and marked in the **Clue Panel** as either
-<kbd>X</kbd>/<kbd>\*</kbd>, <kbd>?</kbd>, or <kbd>.</kbd> (CORRECT
+<kbd>_X_</kbd>/<kbd>\*</kbd>, <kbd>?</kbd>, or <kbd>.</kbd> (CORRECT
 LETTER, QUESTION MARK, or PERIOD). 
 
-_<kbd>X</kbd>_/<kbd>\*</kbd> CORRECT LETTER, a letter from A to Z in
+<ul>
+<kbd>_X_</kbd>/<kbd>\*</kbd> CORRECT LETTER, a letter from A to Z in
 **Clue Panel** and an asterisk in **Alphabet Panel**, indicates that the
 letter is correct and in the correct position.
 
@@ -219,12 +224,13 @@ letter is correct and in the correct position.
 but not in the proper position.
 
 <kbd>.</kbd> PERIOD means that the letter is not in the answer at all. 
+</ul>
 
 Note that to play the same as the official Wordle, **m100le** now
 marks multiple instances of the same letter in a guess, such as the
 "P"s in "POPPY", with a QUESTION MARK even if the letter only appears
-once in the answer. (In previous version of m100le, excess repeating
-letters were shown as a PERIOD.)
+once in the answer. (In previous version of **m100le**, excess
+repeating letters were shown as a PERIOD.)
 
 ### End of game
 When either the word is guessed correctly, or no correct word is
