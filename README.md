@@ -85,6 +85,7 @@ Click to see summary of changes.
 Whew, lots there -- and more detail on a few things below!
 
 --bgrier Oct. 8, 2022
+
 	*	*	*	*	*
 
 ### Code versions
@@ -120,7 +121,7 @@ The same code runs unmodified on all eight of the Kyotronic sisters.
 
 * Kyocera Kyotronic-85<sup>&dagger;</sup>,
 * TRS-80 Model 100, Tandy 102, and Tandy 200,
-* NEC PC-8201a, NEC PC-8201, NEC PC-8300,
+* NEC PC-8201, NEC PC-8201a, NEC PC-8300,
 * Olivetti M10<sup>&dagger;</sup>.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
@@ -156,12 +157,11 @@ that it's a word in a [large dictionary](adjunct/allowedwords.txt)
 dictionary, the guess is invalid and will not be accepted. The game
 does not progress until a valid guess is made.
 
-**m100le** initially **loads** today's word based on the system
-**DATE$** value. When a guess is submitted, **m100le** compares it to
+**m100le** initially checks the system `DATE$` and loads today's word
+from WL20_xx_.CO. When a guess is submitted, **m100le** compares it to
 today's word, and provides the resultant clue. **m100le** does _not_
 test to verify the word appears in the wordlist. A guess of 'MOIST' is
-valid, as is a guess of 'DDDDD'.
-</details></ul>
+valid, as is a guess of 'DDDDD'. </details></ul>
 
 
 #### All six years of daily words
@@ -220,11 +220,11 @@ but not in the proper position.
 
 <kbd>.</kbd> PERIOD means that the letter is not in the answer at all. 
 
-Note that to play the same as the official Wordle, M100LE now marks
-multiple instances of the same letter in a guess, such as the "P"s in
-"POPPY", with a QUESTION MARK even if the letter only appears once in
-the answer. (In previous version of m100le, excess repeating letters
-were shown as a PERIOD.)
+Note that to play the same as the official Wordle, **m100le** now
+marks multiple instances of the same letter in a guess, such as the
+"P"s in "POPPY", with a QUESTION MARK even if the letter only appears
+once in the answer. (In previous version of m100le, excess repeating
+letters were shown as a PERIOD.)
 
 ### End of game
 When either the word is guessed correctly, or no correct word is
@@ -262,8 +262,8 @@ damages your unit.
 <ul><details><summary>Enabling Manual Date Entry</summary>
 
 If your `DATE$` is never set correctly or you'd like to replay a
-specific game, you can change M100LE to always prompt for Manual Date
-Entry at startup by changing line 16 to set `MD` to 1:
+specific game, you can change **m100le** to always prompt for Manual
+Date Entry at startup by changing line 16 to set `MD` to 1:
 
 ```BASIC
 16 MD=1
@@ -300,7 +300,7 @@ day's word.
 
 ### Y2K Compliance
 
-M100LE works fine whether or not your m100 has a [Y2K patched
+**m100le** works fine whether or not your m100 has a [Y2K patched
 ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). The century
 is just cosmetic as the m100 only keeps track of the last two digits
 and the game presumes you are in the 21<sup>st</sup> century. For
@@ -319,7 +319,7 @@ If you do not know how (or lack the tools), read on.
 
 ### ASCII install 
 
-You will need to transfer both the M100LE program and at least one
+You will need to transfer both the **m100le** program and at least one
 wordlist file in ASCII and convert them to binary. Because the ASCII
 versions are significantly larger, these instructions include some
 tricks to save memory.
@@ -357,7 +357,7 @@ send the [CMPRSS.DO](CMPRSS.DO) ASCII file over the serial port at
 
 CMPRSS is a basic program that runs on your Model T to create the
 binary file, `WL20_xx_.CO` from the ASCII file `WL20_xx_.DO`, both of
-which contain the daily words M100LE uses for a particular year,
+which contain the daily words **m100le** uses for a particular year,
 20_xx_. There are three ways of using CMPRSS:
 
 1. Serial port. CMPRSS can read the ASCII list of words over the
@@ -372,12 +372,12 @@ which contain the daily words M100LE uses for a particular year,
    different way, then you are in the wrong instructions. You can just
    use the [precompressed wordlists](#Quickstart)). 
 
-1. Not at all. CMPRSS is optional. The M100LE program actually works
+1. Not at all. CMPRSS is optional. The **m100le** program actually works
    fine with uncompressed ASCII word lists. It just takes up
    unnecessary space on the Model 100's limited RAM filesystem. (2.5
    KB per year instead of 1 KB).
 
-Because it takes extra RAM that might not be available once the M100LE
+Because it takes extra RAM that might not be available once the **m100le**
 program is loaded, it is best to load and run [CMPRSS](CMPRSS.DO)
 firstd. CMPRSS is a BASIC program that runs on the Model 100. It reads
 words from the serial port from a personal computer that is sending the
@@ -393,16 +393,16 @@ Download one of the following files to your personal computer:
 Table of uncompressed Word Lists.
 </summary>
 
-| Filename          | Size | Notes                                                         |
-|-------------------|-----:|---------------------------------------------------------------|
-| **ALL PLATFORMS** |      |                                                               |
-| [WL2021.DO][31]   | 2.5K | Words before June 19th, 2021 are bonus words, added by M100LE |
-| [WL2022.DO][32]   | 2.5K |                                                               |
-| [WL2023.DO][33]   | 2.5K |                                                               |
-| [WL2024.DO][34]   | 2.6K |                                                               |
-| [WL2025.DO][35]   | 2.5K |                                                               |
-| [WL2026.DO][36]   | 2.5K |                                                               |
-| [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027             |
+| Filename          | Size | Notes                                                             |
+|-------------------|-----:|-------------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                                   |
+| [WL2021.DO][31]   | 2.5K | Words before June 19th, 2021 are bonus words, added by **m100le** |
+| [WL2022.DO][32]   | 2.5K |                                                                   |
+| [WL2023.DO][33]   | 2.5K |                                                                   |
+| [WL2024.DO][34]   | 2.6K |                                                                   |
+| [WL2025.DO][35]   | 2.5K |                                                                   |
+| [WL2026.DO][36]   | 2.5K |                                                                   |
+| [WL2027.DO][37]   | 2.0K | Wordle's official list ends on October 14th, 2027                 |
 
 ____
 </details></ul>
@@ -443,7 +443,7 @@ ____
 #### Step 5
 
 Now that the wordlist is transferred, all that is needed is the actual
-M100LE program. This is sent exactly the same as CMPRSS was in step 1. 
+**m100le** program. This is sent exactly the same as CMPRSS was in step 1. 
 
 ```BASIC
 LOAD "COM:98N1ENN"				:REM FOR NEC, USE COM:9N81XN
@@ -470,7 +470,7 @@ There are two variables that cause the proliferation of files:
 
 1. **Comments** By default files have comments stripped to keep the size down.
    Versions which contain "+comments" in the filename include notes
-   for developers who wish to edit or improving M100LE.
+   for developers who wish to edit or improving **m100le**.
 
 2. **Tokenization** Files can be in ASCII or one of four binary formats.
    * ASCII BASIC source code has two main benefits: it will run on any
@@ -514,11 +514,11 @@ Big wordfiles wouldn't work for our little units, so we broke each
 wordfile into manageable chunks of one year each. The .CO files are
 also compressed so each five-letter word takes only three bytes. If
 you have enough memory and you'd like to see and change the words, you
-may want to download the plain text WL20xx.DO files instead. M100LE
+may want to download the plain text WL20xx.DO files instead. **m100le**
 will automatically use a .DO file if the .CO file is not found.
 
 The wordfiles are all named for the year they correspond to. On
-program load, **m100le** checks the system **DATE$** for the current
+program load, **m100le** checks the system `DATE$` for the current
 date OR the manually entered date (if enabled) and scans the
 appropriate wordfiles for the matching daily word.
 
