@@ -505,7 +505,9 @@ There are two variables that cause the proliferation of files:
 
 - Add the ability to save and display statistics
 - Improve clues, guess feedback and messages
-- Do the impossible: Cram Wordle's 72 KB spelling dictionary into 10 KB (or less).
+- Do the impossible: Cram Wordle's 72 KB 
+  [spelling dictionary](adjunct/allowedwords.txt) 
+  into 10 KB (or less). 
 
 ## FAQ
 ### About the word files and today's word
@@ -533,15 +535,17 @@ date OR the manually entered date (if enabled) and scans the
 appropriate wordfiles for the matching daily word.
 
 ### Will my m100le word be the same as today's NYT Wordle word?
-Maybe. Mostly. It ought to, anyhbow. The NYT may change their word
+Maybe. Mostly. It ought to, anyhow. The NYT may change their word
 list at any time. If that happens, and we don't catch it, let us know
 and we'll update ours.
 
 ## Feedback
 
 If you have any feedback, please reach out to us:
-- in the [discussions area](https://github.com/bgri/m100LE/discussions) for general conversation about m100LE
-- in the [issues area](https://github.com/bgri/m100LE/issues) for bugs and feature requests
+- in the [discussions area](https://github.com/bgri/m100LE/discussions)
+  for general conversation about **m100le**
+- in the [issues area](https://github.com/bgri/m100LE/issues) 
+  for bugs and feature requests
 
 
 
@@ -550,7 +554,9 @@ If you have any feedback, please reach out to us:
  - [Josh Wardle - Wordle's creator](https://en.wikipedia.org/wiki/Josh_Wardle)
  - [hackerb9](https://github.com/hackerb9) - significant optimization and improvements. This thing rocks!!
  - [TRS-80 Model 100 BASIC - based on Microsoft BASIC, with special support for the RAM file store, LCD display, and other built-in hardware of the TRS-80 Model 100 and Tandy 102 portable computers](https://archive.org/details/MasteringBasicOnTheTrs80Model100/page/n5/mode/2up)
-
+ - [Heathkit H19 escape codes](https://terminals-wiki.org/wiki/index.php/Heathkit_H19)
+   which allowed this program to run cross platform, despite
+   superficial differences in BASIC.
 
 ## Authors
 
