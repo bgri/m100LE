@@ -5,6 +5,60 @@ Tandy TRS-80 Model 100. Runs on any of the eight Kyotronic Sisters.
 
 ![M100LE on a NEC PC-8201](https://user-images.githubusercontent.com/14062627/157380662-b14b5225-cd50-479e-8fc5-f1fa1faf0162.png)
 
+
+## Quickstart
+
+If you already know how to transfer binary files to your Model 100,
+you only need two files: the tokenized basic for your system (e.g.,
+[M100LE.BA][4]), and the compressed wordlist for the current year
+(e.g., [WL2023.CO][23]). Pick one from each of the tables below. 
+
+<ul><details><summary>
+Table of all code versions.
+</summary>
+
+| Filename                |  Size | Meaning                                                         |
+|-------------------------|------:|-----------------------------------------------------------------|
+| **ALL PLATFORMS**       |       |                                                                 |
+| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
+| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
+| **TANDY / TRS-80**      | <hr/> | <hr/>                                                           |
+| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
+| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
+| **NEC**                 | <hr/> | <hr/>                                                           |
+| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
+| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
+
+(Note that the .BA files above are _tokenized BASIC_ and cannot be
+transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
+need ASCII.)
+</details></ul>
+
+<ul><details><summary>
+Table of compressed daily Word Lists.
+</summary>
+
+| Filename          | Size | Notes                                                         |
+|-------------------|-----:|---------------------------------------------------------------|
+| **ALL PLATFORMS** |      |                                                               |
+| [WL2021.CO][21]   |   1K | Words before June 19th, 2021 are bonus words, added by M100LE |
+| [WL2022.CO][22]   |   1K |                                                               |
+| [WL2023.CO][23]   |   1K |                                                               |
+| [WL2024.CO][24]   |   1K |                                                               |
+| [WL2025.CO][25]   |   1K |                                                               |
+| [WL2026.CO][26]   |   1K |                                                               |
+| [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
+
+(Note that the .CO files above are _compressed binary_ and cannot be
+transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
+.DO versions if you need ASCII.)
+</details></ul>
+
+**Tip**: You can transfer all of the above files, and more, to a modern
+computer by downloading the most recent .zip file from the 
+[RELEASES section](https://github.com/bgri/m100LE/releases).
+
+
 ## Updates v0.m
 ### A note about this update
 Though the look of the game hasn't changed much, a lot has gone on
@@ -59,7 +113,6 @@ ____
 **m100le** is an implementation of
 [WORDLE](https://en.wikipedia.org/wiki/Wordle) for the TRS-80
 Model 100 and related computers. 
-
 <ul><details><summary>
 The same code runs unmodified on all eight of the Kyotronic sisters.
 </summary>
@@ -73,12 +126,9 @@ The same code runs unmodified on all eight of the Kyotronic sisters.
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details></ul>
-
 It is written in the unit's on-board BASIC, a subset of [Microsoft
 BASIC](https://en.wikipedia.org/wiki/Microsoft_BASIC) included with
 the device.
-
-As far as possible, we have attempted to remain faithful to the original game and gameplay.
 
 WORDLE'S instructions are very simple:
 
@@ -90,9 +140,16 @@ WORDLE'S instructions are very simple:
 ![image](https://user-images.githubusercontent.com/14062627/159618578-ef980bb7-de0f-47d1-a496-b3f191d9700f.png)
 
 ## Differences from Wordle
+
+As far as possible, we have attempted to remain faithful to the
+original game and gameplay. The following features were changed.
+
+
 ### Valid 5 letter word
 We've chosen to eliminate this constraint, given the limited onboard
 memory of the Model 100.
+
+<ul><details>
 
 WORDLE initially checks the date and loads today's word from the
 wordlist. When a guess is submitted, WORDLE checks the guess to verify
@@ -106,19 +163,27 @@ is made.
 today's word, and provides the resultant clue. **m100le** does _not_
 test to verify the word appears in the wordlist. A guess of 'MOIST' is
 valid, as is a guess of 'DDDDD'.
+</details></ul>
 
-### Every possible daily word
+
+### All six years of daily words
 WORDLE contains a wordlist of over 2000 five-letter words, one per day
-for six years. Uncompressed, the data is over 17 Kbytes; over half of
-the memory on a TRS-80 Model 100.
+for six years. **m100le** has split the wordlist into seven files,
+based on the year, so you need only download the _current_ year's
+wordfile.
 
-Rather than impose this burden, **m100le** has split the wordlist into
-seven files, based on the year so you need only download the **current
-year's** wordfile. For example, in the year 2023, **m100le** sees the
-two digit year of "23" in **DATE$** and loads the wordfile
-`WL2023.CO`. If you've enabled the Manual Date Entry function (see
-below), then the program will attempt to load whatever wordlist file
-that corresponds to the year entered.
+<ul><details>
+
+Uncompressed, the data is over 17 KBytes; over half of the memory on a
+TRS-80 Model 100. Separately, each year's data is only about 2.5 KB,
+uncompressed, or 1 KB, compressed.
+
+For example, in the year 2023, **m100le** sees the two digit year of
+"23" in **DATE$** and loads the wordfile `WL2023.CO`. If you've
+enabled the Manual Date Entry function (see below), then the program
+will attempt to load whatever wordlist file that corresponds to the
+year entered. 
+</details></ul>
 
 ### Coloured tiles
 As the Model 100 uses a monochrome LCD display, we don't have the
@@ -128,49 +193,39 @@ For each guess, a line in the **Clue Panel** will be filled in with
 the clue for that guess, and the cumulative **Alphabet Panel** will be
 updated.
 
-| Clue | Meaning                            |
-|:----:|:-----------------------------------|
-| .    | Wrong letter                       |
-| ?    | Letter is in word, wrong location  |
-| */X  | X = Any letter in proper location<sup>&ddagger;</sup> |
+| Clue                        | Meaning                                               |
+|:---------------------------:|:------------------------------------------------------|
+| <kbd>.</kbd>                | Wrong letter                                          |
+| <kbd>?</kbd>                | Letter is in word, wrong location                     |
+| _<kbd>X</kbd>_/<kbd>*</kbd> | X = Any letter in proper location<sup>&ddagger;</sup> |
 
 #### <sup>&ddagger;</sup> an asterisk will appear in the **Alphabet Panel**, and the actual correct letter will appear in the **Clue Panel**
 
 ![image](https://user-images.githubusercontent.com/14062627/159623555-542d1454-eb42-4dc9-be3b-e3264fb2ec91.png)
 
 
-### Setting the Date
+## Gameplay
+![image](https://user-images.githubusercontent.com/14062627/159623862-c2d431f8-f88a-48b0-ac1d-45fa83ce3df9.png)
+Daily, a five-letter word is selected and players have six tries to
+guess it. Each guess is rewarded with clues. After every guess, each
+letter is evaluated and marked in the **Clue Panel** as either
+<kbd>X</kbd>/<kbd>\*</kbd>, <kbd>?</kbd>, or <kbd>.</kbd> (CORRECT
+LETTER, QUESTION MARK, or PERIOD). 
 
-When you restart the game with the <kbd>A</kbd> (AGAIN) key, you will
-be prompted for the date you wish to play. If your DATE$ is never set
-correctly or you'd like to replay a specific game, you can change
-M100LE to always prompt for Manual Date Entry at startup by changing line
-16 to set `MD` to 1:
-```BASIC
-16 MD=1
-```
+_<kbd>X</kbd>_/<kbd>\*</kbd> CORRECT LETTER, a letter from A to Z in
+**Clue Panel** and an asterisk in **Alphabet Panel**, indicates that the
+letter is correct and in the correct position.
 
-This will allow you to play a game from any date from any word file
-loaded into your unit's memory. When enabled and run, the system will
-prompt you for the date **` YY/MM/DD `**. The date must be typed
-exactly in **` YY/MM/DD `** format. If you hit Enter, it will use the
-the system's date.
+<kbd>?</kbd> QUESTION MARK indicates that the letter is in the answer
+but not in the proper position.
 
-Alternately, you could enter the ordinal 'Day-of-Year' ex. `200` for
-the 200th day of the loaded year. You may also specify a year before
-the ordinal day. For example, `21/170` would give you the 170th day of
-the year 2021, which happens to be the first day in the official
-Wordle wordlist. The ordinal day is shown on the right side of the
-screen while playing. Subtract one to play the previous day's word.
+<kbd>.</kbd> PERIOD means that the letter is not in the answer at all. 
 
-### Y2K Compliance
-
-M100LE works fine whether or not your m100 has a [Y2K patched
-ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). The century
-number is just cosmetic as the m100 only keeps track of the last two
-digits and the game presumes you are in the 21st century. For example,
-if you set `DATE$="06/20/26"`, you'll get the same game no matter
-whether the MENU shows 1926 or 2026.
+Note that to play the same as the official Wordle, M100LE now marks
+multiple instances of the same letter in a guess, such as the "P"s in
+"POPPY", with a QUESTION MARK even if the letter only appears once in
+the answer. (In previous version of m100le, excess repeating letters
+were shown as a PERIOD.)
 
 ### End of game
 When either the word is guessed correctly, or no correct word is
@@ -184,86 +239,92 @@ guessed after six attempts, the game ends and you have a few options:
   your friends :)
 - [Q]UIT? - End the program execution and return to the main system menu.
 
-### Gameplay
-![image](https://user-images.githubusercontent.com/14062627/159623862-c2d431f8-f88a-48b0-ac1d-45fa83ce3df9.png)
-Daily, a five-letter word is selected and players have six tries to
-guess it. Each guess is rewarded with clues. After every guess, each
-letter is evaluated and marked in the **Clue Panel** as either
-<kbd>X</kbd>, <kbd>\*</kbd>, <kbd>?</kbd>, or <kbd>.</kbd> (CORRECT
-LETTER, QUESTION MARK, or PERIOD). CORRECT LETTER in **Clue Panel**
-indicates that letter is correct and in the correct position. QUESTION
-MARK indicates that the letter is in the answer but not in the proper
-position. PERIOD means that the letter is not in the answer at all. To
-play the same as the official Wordle, M100LE now marks multiple
-instances of the same letter in a guess, such as the "P"s in "POPPY",
-with a QUESTION MARK even if the letter only appears once in the
-answer. (In previous version of m100le, excess repeating letters were
-shown as a PERIOD.)
+
+## Today's game requires today's date
+
+Many Model 100 computers no longer have working internal battery
+backups for the clock and will have the wrong date set. You can fix
+this by setting DATE$ or by altering the program.
+
+<ul><details><summary>Setting the DATE$ in BASIC</summary>
+
+To set the date once, go to BASIC and type the following:
+
+``` BASIC
+DATE$="12/31/23"     :REM MM/DD/YY format, usually
+DATE$="23/12/31"     :REM YY/MM/DD for NEC portables
+```
+
+Note that this is only a temporary fix if your internal battery is
+shot. Tip: It's a good idea to replace it before it starts leaking and
+damages your unit. 
+</details></ul>
+
+<ul><details><summary>Enabling Manual Date Entry</summary>
+
+If your `DATE$` is never set correctly or you'd like to replay a
+specific game, you can change M100LE to always prompt for Manual Date
+Entry at startup by changing line 16 to set `MD` to 1:
+
+```BASIC
+16 MD=1
+```
+
+This will prevent the game loading today's game from DATE$ on startup
+and lets you play a game from any date, presuming you have the word
+file for that year loaded into your unit's memory.
+</details></ul>
+
+<ul><details><summary>Date entry format</summary>
+
+If you have enabled Manual Date Entry or if you restart the game with
+the <kbd>A</kbd> (AGAIN) key, you will be prompted for the date you
+wish to play.
+
+## TODO XXX date entry screenshot here XXX
+
+The system will prompt you for the date in **`MM/DD/YY`** format. (NEC
+portables use `YY/MM/DD`). Two digits _must_ be used for month, day,
+and year, so add a leading `0`, as needed.
+
+If you hit <kbd>Enter</kbd> without typing anything, it will use the
+default date which is either the previously played date (when the
+AGAIN option is used) or the system's DATE$ (when first run).
+
+Alternately, you may enter the ordinal 'Day-of-Year' ex. `200` for the
+200th day of the loaded year. Optionally, you may specify a year
+_before_ the ordinal day. For example, `21/170` would give you the
+170th day of the year 2021, which happens to be the first Wordle game
+in the official Wordle wordlist. The ordinal day is shown on the right
+side of the screen while playing. Subtract one to play the previous
+day's word.
+
+### Y2K Compliance
+
+M100LE works fine whether or not your m100 has a [Y2K patched
+ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). The century
+is just cosmetic as the m100 only keeps track of the last two digits
+and the game presumes you are in the 21<sup>st</sup> century. For
+example, if you set `DATE$="06/20/26"`, you'll get the same game no
+matter whether the main MENU shows 1926 or 2026.
+
+</details></ul>
+
 
 ## Installation
 
-### Quickstart
+If you know how to transfer binary files to your Model 100, just grab
+the two files mentioned above in the [Quickstart section](#Quickstart). 
+If you do not know how (or lack the tools), read on.
 
-If you already know how to transfer binary files to your Model 100,
-you only need two files: the tokenized basic for your system (e.g.,
-[M100LE.BA][4]), and the compressed wordlist for the current year
-(e.g., [WL2023.CO][23]). Pick one from each of the tables below. 
-
-<ul><details><summary>
-Table of all code versions.
-</summary>
-
-| Filename                |  Size | Meaning                                                         |
-|-------------------------|------:|-----------------------------------------------------------------|
-| **ALL PLATFORMS**       |       |                                                                 |
-| [M100LE+comments.DO][1] |  16KB | The actual source code, including all comments, in ASCII format |
-| [M100LE.DO][2]          | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**      | <hr/> | <hr/>                                                           |
-| [M100LE+comments.BA][3] |  14KB | Tokenized Tandy BASIC format, including all comments            |
-| [M100LE.BA][4]          | 6.6KB | All comments removed, in tokenized Tandy BASIC format           |
-| **NEC**                 | <hr/> | <hr/>                                                           |
-| M100LE+comments.BA.NEC  |       | Tokenized NEC N82 BASIC format, including all comments          |
-| M100LE.BA.NEC           |       | All comments removed, in tokenized NEC N82 BASIC format         |
-
-(Note that the .BA files above are _tokenized BASIC_ and cannot be
-transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
-need ASCII.)
-</details></ul>
-
-<ul><details><summary>
-Table of compressed daily Word Lists.
-</summary>
-
-| Filename          | Size | Notes                                                         |
-|-------------------|-----:|---------------------------------------------------------------|
-| **ALL PLATFORMS** |      |                                                               |
-| [WL2021.CO][21]   |   1K | Words before June 19th, 2021 are bonus words, added by M100LE |
-| [WL2022.CO][22]   |   1K |                                                               |
-| [WL2023.CO][23]   |   1K |                                                               |
-| [WL2024.CO][24]   |   1K |                                                               |
-| [WL2025.CO][25]   |   1K |                                                               |
-| [WL2026.CO][26]   |   1K |                                                               |
-| [WL2027.CO][27]   |   1K | Wordle's official list ends on October 14th, 2027             |
-
-(Note that the .CO files above are _compressed binary_ and cannot be
-transferred via BASIC's `LOAD` or the builtin TELCOM prgoram. See the
-.DO versions if you need ASCII.)
-</details></ul>
-
-**Tip**: You can transfer all of the above files, and more, to a modern
-computer by downloading the most recent .zip file from the 
-[RELEASES section](https://github.com/bgri/m100LE/releases).
 
 ### ASCII install 
 
-If you do not know how (or lack the tools) to transfer _binary_ files
-to your Model 100, read on. You will need to transfer both the M100LE
-program and at least one wordlist file in ASCII and convert them to
-binary. Because the ASCII versions are significantly larger, these
-instructions include some tricks to save memory.
+You will need to transfer both the M100LE program and at least one
+wordlist file in ASCII and convert them to binary. Because the ASCII
+versions are significantly larger, these instructions include some
+tricks to save memory.
 
-[Again, if you _do_ know how to transfer binary files, just grab the two
-files mentioned above in the [Quickstart section](#Quickstart).]
 
 <ul><details><summary>Click to see the steps for an ASCII install</summary>
 
