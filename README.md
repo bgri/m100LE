@@ -256,8 +256,8 @@ guessed after six attempts, the game ends and you have a few options:
 
 ## Today's game requires today's date
 
-Many Model 100 computers no longer have working internal battery
-backups for the clock and will have the wrong date set. You can fix
+Many Model 100 computers no longer have working internal backup
+batteries for the clock and will have the wrong date set. You can fix
 this by setting DATE$ or by altering the program.
 
 <ul><details><summary>Setting the DATE$ in BASIC</summary>
@@ -270,8 +270,9 @@ DATE$="23/12/31"     :REM YY/MM/DD for NEC portables
 ```
 
 Note that this is only a temporary fix if your internal battery is
-shot. Tip: It's a good idea to replace it before it starts leaking and
-damages your unit. 
+shot. Tip: It's a good idea to 
+[replace the battery](https://www.soigeneris.com/memory-backup-battery-mbat1) 
+before it starts leaking and damages your unit.
 </details></ul>
 
 <ul><details><summary>Enabling Manual Date Entry</summary>
@@ -312,15 +313,6 @@ _before_ the ordinal day. For example, `21/170` would give you the
 in the official Wordle wordlist. The ordinal day is shown on the right
 side of the screen while playing. Subtract one to play the previous
 day's word.
-
-### Y2K Compliance
-
-**m100le** works fine whether or not your m100 has a [Y2K patched
-ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). The century
-is just cosmetic as the m100 only keeps track of the last two digits
-and the game presumes you are in the 21<sup>st</sup> century. For
-example, if you set `DATE$="06/20/26"`, you'll get the same game no
-matter whether the main MENU shows 1926 or 2026.
 
 </details></ul>
 
@@ -562,6 +554,17 @@ Maybe. Mostly. It ought to, anyhow. The NYT may change their word
 list at any time. If that happens, and we don't catch it, let us know
 and we'll update ours.
 </details></ul>
+
+### My Model 100 says the date is 1926! Is **m100le** Y2K Compliant?
+<ul><details>
+
+Yes. **m100le** works fine whether or not your m100 has a 
+[Y2K patched ROM](http://bitchin100.com/wiki/index.php?title=REXsharp). 
+The century shown in the main MENU is just cosmetic as the m100 only
+keeps track of the last two digits and the game presumes you are in
+the 21<sup>st</sup> century. For example, if you set
+`DATE$="06/20/26"`, you'll get the same game no matter whether the
+main MENU shows 1926 or 2026.
 
 ## Feedback
 
