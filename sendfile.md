@@ -1,8 +1,9 @@
-# How to send an ASCII file to a Model 100 via RS232C serial
+# How to send an ASCII file to a Model 100 via RS232C
 
-To receive ASCII (plain text) files, no special program is needed on
-the Model 100. The instructions on the other end, however, depend upon
-what type of computer you are sending from.
+Receiving an ASCII (plain text) file over the serial port is easy on a
+Model 100 and no special program is needed. Sending a file to the
+Model 100 is also fairly simple, but the instructions depend upon what
+type of computer you are using.
 
 [Side note: For _binary_ files, you must use a special program, like
 [TEENY](https://youtu.be/H0xx9cOe97s).]
@@ -32,7 +33,9 @@ what type of computer you are sending from.
 
 ## Sending from another Model 100
 
-* Not written yet
+* If sending a BASIC program: `SAVE "COM:98N1ENN", A`
+
+* If sending a text file: use TELCOM's upload feature 
 
 ## Sending from an Android/Linux device
 
