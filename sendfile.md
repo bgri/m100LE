@@ -34,6 +34,10 @@ type of computer you are using.
 ## Sending from another Model 100
 
 * If sending a BASIC program: `SAVE "COM:98N1ENN", A`
+  <ul><details><summary>Side note: NEC portable</summary
+  
+  For the NEC PC-8201A, use `SAVE "COM:9N81XN", A`
+  </details></ul>
 
 * If sending a text file: use TELCOM's upload feature 
 
