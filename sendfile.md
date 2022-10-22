@@ -15,13 +15,32 @@ type of computer you are using.
 
 ## Sending from any UNIX box, logged in with getty
 
-* Turn on File Download in TELCOM, which captures everything sent to
-  the screen, and use `cat foo`, where foo is the name of the file you
-  want to transfer.
+<ul><details>
+
+Turn on Download in TELCOM, which starts a screen capture, and use
+`cat foo` on the UNIX host, where foo is the name of the file you want
+to transfer. Turn off Download when finished.
+  
+* Tip: To avoid having the command "cat foo" and the trailing prompt
+  embedded in the file, you can do this:
+  
+  1. Type `cat foo; read` but do _not_ press <kbd>Enter</kbd>.
+  1. Turn on TELCOM's Download.
+  1. Now press <kbd>Enter</kbd>.
+  1. Wait for the file to finish transferring.
+  1. Turn off Download.
+  1. Hit <kbd>Enter</kbd> a final time to get back to the prompt.
+ 
+* Tip: For large files, one can speed up transmission by disabling the
+  Model 100's screen scrolling. Use `echo -en "\eV"` to turn off
+  scrolling and `echo -en "\eW"` to turn it back on.
+
+</details></ul>
 
 ## Sending from Apple MacOS UNIX
 
-* The [sendtomodelt](adjunct/sendtomodelt) program may work. 
+* The [sendtomodelt](adjunct/sendtomodelt) program could work but it
+  will need to be tested and ported.
 
 ## Sending from Microsoft Windows (WSL UNIX)
 
@@ -32,14 +51,18 @@ type of computer you are using.
 * Not written yet
 
 ## Sending from another Model 100
+<ul><details>
 
 * If sending a BASIC program: `SAVE "COM:98N1ENN", A`
-  <ul><details><summary>Side note: NEC portable</summary
+  <ul><details><summary>Side note or NEC users</summary
   
   For the NEC PC-8201A, use `SAVE "COM:9N81XN", A`
   </details></ul>
 
-* If sending a text file: use TELCOM's upload feature 
+* If sending a text file: use TELCOM's "Upload" function
+  (<kbd>F3</kbd> on Tandy portables).
+
+</details>
 
 ## Sending from an Android/Linux device
 
