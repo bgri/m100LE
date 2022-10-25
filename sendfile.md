@@ -5,8 +5,13 @@ Model 100 and no special program is needed. Sending a file to the
 Model 100 is also fairly simple, but the instructions depend upon what
 type of computer you are using.
 
-[Side note: For _binary_ files, you must use a special program, like
-[TEENY](https://youtu.be/H0xx9cOe97s).]
+The rest of this page presumes you have already connected the two
+computers using an 
+[RS232C serial cable](https://www.google.com/search?q=db9f+to+db25m+null) 
+called a "null modem".
+
+_Side note_: For binary (non-ASCII) files, you must use a special program, like
+[TEENY](https://youtu.be/H0xx9cOe97s).
 
 ## Sending from a GNU/Linux UNIX box
 
