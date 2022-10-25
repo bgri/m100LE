@@ -519,13 +519,15 @@ for smaller file size and to ease installation.
 <ul><details>
 
 The current version of **m100le** (starting with v0.m) uses the New
-York Times Wordle word lists. Previously, the wordfiles used were based
-on the the **original** javascript WORDLE, which contained the entire
-set of daily words (the wordfile) within the program code. Over six
-years worth of words.
+York Times Wordle word lists. That means that every day there is a new
+word chosen and it is the same word for your Model 100 as every other
+computer on the planet. The game, written in Javascript, contains the
+entire set of daily words (the wordfile) within the program code. Over
+six years worth of words.
 
-While the order changed, there are
-[very few differences](https://github.com/jackgreenburg/wordle-wordlists)
+Previously, the wordfiles used were based on the the **original**
+javascript WORDLE. While the order changed, there are [very few
+differences](https://github.com/jackgreenburg/wordle-wordlists)
 between the original and the current word lists.
 
 </details></ul>
@@ -565,6 +567,8 @@ keeps track of the last two digits and the game presumes you are in
 the 21<sup>st</sup> century. For example, if you set
 `DATE$="06/20/26"`, you'll get the same game no matter whether the
 main MENU shows 1926 or 2026.
+</details></ul>
+
 
 ## Feedback
 
