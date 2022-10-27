@@ -17,23 +17,17 @@ you only need two files: the tokenized basic for your system (e.g.,
 Table of all code versions.
 </summary>
 
-| Filename                    |  Size | Meaning                                                         |
-|-----------------------------|------:|-----------------------------------------------------------------|
-| **ALL PLATFORMS**           | <hr/> | <hr/>                                                           |
-| [M100LE+comments.DO][1]     |  16KB | The actual source code, including all comments, in ASCII format |
-| [M100LE.DO][2]              | 8.5KB | All comments removed, in ASCII format                           |
-| **TANDY / TRS-80**          | <hr/> | <hr/>                                                           |
-| [M100LE+comments.BA][3]     |  14KB | Tokenized Tandy BASIC format, including all comments            |
-| [M100LE.BA][4]              | 6.6KB | Tokenized Tandy BASIC format, all comments removed              |
-| **NEC**                     | <hr/> | <hr/>                                                           |
-| [M100LE+comments.BA.NEC][5] |       | Tokenized NEC N82 BASIC format, including all comments          |
-| [M100LE.BA.NEC][6]          |       | Tokenized NEC N82 BASIC format, all comments removed            |
-| **Kyotronic-85**            | <hr/> | <hr/>                                                           |
-| M100LE+comments.BA.K85      |       | Tokenized Kyocera Kyotronic-85 BASIC format, including comments |
-| M100LE.BA.K85               |       | Tokenized Kyocera Kyotronic-85 BASIC, all comments removed      |
-| **M10**                     | <hr/> | <hr/>                                                           |
-| M100LE+comments.BA.M10      |       | Tokenized Olivetti M10 BASIC format, including all comments     |
-| M100LE.BA.M10               |       | Tokenized Olivetti M10 BASIC format, all comments removed       |
+| Filename                                |  Size | Meaning                                                         |
+|-----------------------------------------|------:|-----------------------------------------------------------------|
+| **ALL PLATFORMS**                       | <hr/> | <hr/>                                                           |
+| [M100LE+comments.DO][1]                 |  16KB | The actual source code, including all comments, in ASCII format |
+| [M100LE.DO][2]                          | 8.5KB | All comments removed, in ASCII format                           |
+| **TANDY / TRS-80 / Kyocera / Olivetti** | <hr/> | <hr/>                                                           |
+| [M100LE+comments.BA][3]                 |  14KB | Tokenized Tandy BASIC format, including all comments            |
+| [M100LE.BA][4]                          | 6.6KB | Tokenized Tandy BASIC format, all comments removed              |
+| **NEC**                                 | <hr/> | <hr/>                                                           |
+| [M100LE+comments.BA.NEC][5]             |       | Tokenized NEC N82 BASIC format, including all comments          |
+| [M100LE.BA.NEC][6]                      |       | Tokenized NEC N82 BASIC format, all comments removed            |
 
 (Note that the .BA files above are _tokenized BASIC_ and cannot be
 transferred via BASIC's `LOAD` or TELCOM. See the .DO versions if you
@@ -127,8 +121,8 @@ The same code runs unmodified on all eight of the Kyotronic sisters.
 
 * Kyocera Kyotronic-85<sup>&dagger;</sup>,
 * TRS-80 Model 100, Tandy 102, and Tandy 200,
-* NEC PC-8201, NEC PC-8201a, NEC PC-8300,
 * Olivetti M10<sup>&dagger;</sup>.
+* NEC PC-8201, NEC PC-8201a, NEC PC-8300,
 
 (<sup>&dagger;</sup> marks models not yet tested on actual hardware.)
 </details></ul>
@@ -496,11 +490,12 @@ for smaller file size and to ease installation.
    * **.BA** Tokenized BASIC format which saves memory during
      transfer, but requires using a program such as
      [TEENY](https://youtu.be/H0xx9cOe97s) which can download binary
-     files. Tokenization is specific to each family of machines.
-	 * **.BA** Runs only on Model 100, Tandy 102 (US and UK), and Tandy 200.
+     files. 
+	 * **.BA** Runs on all Model 100 type devices _except_ the NEC
+       portables. Specifically, the BASIC tokenization is the same for
+       the Model 100, Tandy 102 (US and UK), Tandy 200, Kyocera
+       Kyotronic-85, and Olivetti M10. 
 	 * **.BA.NEC** Runs only on NEC PC-8201, PC-8201A, and PC-8300.
-	 * **.BA.K85** Runs only on Kyocera Kyotronic-85
-	 * **.BA.M10** Runs only on Olivetti M10
 
 </details></ul>
 
