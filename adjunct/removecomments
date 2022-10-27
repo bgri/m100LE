@@ -25,7 +25,7 @@ cat "$input" | sort -n |
 	echo -n $lineno$'\r' >&2
 
 	# Make sure we have the next jump destination queued up.
-	while [[  $jumps[i]  &&  $lineno -gt ${jumps[i]}  ]]; do
+	while [[  ${jumps[i]}  &&  $lineno -gt ${jumps[i]}  ]]; do
 	    i=i+1
 	done
 
