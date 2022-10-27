@@ -127,7 +127,9 @@
 8010 ID=PEEK(1)
 8014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100 and 62034 for T200.)
 8015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-8016 RD=-( 63842*(ID=51) + 62034*(ID=171) + 63633*(ID=148) )
+8016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63841*(ID=35) )
+8017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
+
 8019 ' Search directory for WL$
 8020 FOR T1 = RD TO 65535 STEP 11
 8029 ' Attribute flag: See Oppedahl's "Inside the TRS-80 Model 100" for details.
