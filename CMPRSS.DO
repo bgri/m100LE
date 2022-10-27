@@ -83,8 +83,8 @@
 801 REM Set DX$ to default two character extension before calling this subroutine.
 802 IF DX$="" THEN DX$="CO"
 805 EX$=""
-809 ' Skip "COM:98N1ENN" 
-810 IF INSTR(1,A$,":") THEN RETURN: 
+809 ' Skip "COM:98N1ENN"
+810 IF INSTR(1,A$,":") THEN RETURN:
 819 ' Filename and extension if no dot
 820 DT=INSTR(1,A$,".") ' Find the dot
 830 IF DT>0 THEN FN$=MID$(A$,1,DT-1): EX$=MID$(A$,DT+1,2): ELSE FN$=A$
@@ -107,12 +107,14 @@
 999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .CO file to hold compressed wordlist
 7004 'For NEC, use BSAVE (at line 8201)
-7005 'For others, use SAVEM.
+7004 'For M10, use SAVEM (at line 8300)
+7006 'For others, use SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3
-7030 IF (ID=148) THEN GOSUB 8201:            ELSE SAVEM WL$, 0, SZ-1
-7040 NK=1     ' On error, kill .CO file
+7030 NK=1     ' On error, kill .CO file
+7039 'NEC and Olivetti need special handling
+7040 IF (ID=148) THEN GOSUB 8201:            ELSE IF (ID=35) GOSUB 8300:             ELSE SAVEM WL$, 0, SZ-1
 7050 RETURN
 8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
@@ -127,7 +129,7 @@
 8010 ID=PEEK(1)
 8014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100 and 62034 for T200.)
 8015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-8016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63841*(ID=35) )
+8016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35) )
 8017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
 
 8019 ' Search directory for WL$
@@ -168,7 +170,7 @@
 8203 ' running program. The solution is
 8204 ' to have the user type "RETURN"
 8205 ' and hit the Enter key to jump
-8206 ' back into the program. 
+8206 ' back into the program.
 8207 ' A nicer method is to fill the
 8208 ' keyboard buffer as if the user
 8209 ' had typed RETURN.
@@ -181,8 +183,22 @@
 8250 POKE KB+I*2, ASC(MID$(R$,I+1,1))
 8260 NEXT I
 8269 ' Number of keys "typed".
-8270 POKE KC, LEN(R$) 
+8270 POKE KC, LEN(R$)
 8280 BSAVE WL$,0,SZ
 8289 REM NEC BASIC NEVER GETS HERE
 8290 STOP: RETURN
-8300 END
+8300 REM OLIVETTI ALSO HAS THE BUG!
+8310 PRINT "Olivetti detected! Fixing SAVEM"
+8319 REM Olivetti Keyboard buffer and count.
+8320 KB=65390: KC=65389
+8330 R$="RETURN"+CHR$(13)
+8339 ' "Type" into keyboard buffer.
+8340 FOR I=0 TO LEN(R$)-1
+8350 POKE KB+I*2, ASC(MID$(R$,I+1,1))
+8360 NEXT I
+8369 ' Number of keys "typed".
+8370 POKE KC, LEN(R$)
+8380 SAVEM WL$,0,SZ
+8389 REM OLIVETTI BASIC NEVER GETS HERE
+8390 STOP: RETURN
+9999 END
