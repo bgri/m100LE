@@ -114,7 +114,7 @@
 7020 SZ=366 * 3
 7030 NK=1     ' On error, kill .CO file
 7039 'NEC and Olivetti need special handling
-7040 IF (ID=148) THEN GOSUB 8201:            ELSE IF (ID=35) GOSUB 8300:             ELSE SAVEM WL$, 0, SZ-1
+7040 IF (ID=148) THEN GOSUB 8201:            ELSE IF (ID=35) THEN GOSUB 8300:        ELSE SAVEM WL$, 0, SZ-1
 7050 RETURN
 8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
@@ -180,7 +180,7 @@
 8230 R$="RETURN"+CHR$(13)
 8239 ' "Type" into keyboard buffer.
 8240 FOR I=0 TO LEN(R$)-1
-8250 POKE KB+I*2, ASC(MID$(R$,I+1,1))
+8250 POKE KB+I, ASC(MID$(R$,I+1,1))
 8260 NEXT I
 8269 ' Number of keys "typed".
 8270 POKE KC, LEN(R$)
@@ -194,7 +194,7 @@
 8330 R$="RETURN"+CHR$(13)
 8339 ' "Type" into keyboard buffer.
 8340 FOR I=0 TO LEN(R$)-1
-8350 POKE KB+I*2, ASC(MID$(R$,I+1,1))
+8350 POKE KB+I, ASC(MID$(R$,I+1,1))
 8360 NEXT I
 8369 ' Number of keys "typed".
 8370 POKE KC, LEN(R$)
