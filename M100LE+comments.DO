@@ -343,7 +343,7 @@
 8120 IF MD<>1 THEN RETURN
 8130 CLS
 8140 PRINT "Input date as ";
-8145 IF DF$="EU" THEN PRINT "YY/MM/DD"; : ELSE PRINT "MM/DD/YY";
+8145 IF DF$="NEC" THEN PRINT "YY/MM/DD";:ELSE IF DF$="M10" THEN PRINT "DD/MM/YY";: ELSE PRINT "MM/DD/YY";
 8150 PRINT " or YY/DAY or DAY"
 8160 PRINT "hit ENTER for ";AD$: PRINT
 8170 PRINT "        DATE";
@@ -352,27 +352,28 @@
 8190 RETURN
 8199 '
 8200 REM Set YY$, two-digit year.
-8201 ' IN: AD$ is YY/MM/DD (NEC)                       or MM/DD/YY (US)                        or DD/MM/YY (Olivetti)
+8201 ' IN: AD$ is YY/MM/DD (NEC)                       or MM/DD/YY (US)                        or DD/MM/YY (M10)
 8202 '         or YY/ddd
 8203 '         or ddd  (ordinal day #)
 8204 ' OUT: YY$ is two-digit year.
-8205 '      DF$ is "EU" or "US"
+8205 '      DF$ is "NEC", "US", or "M10"
 8206 ' TEMP: ID, IX, DT$
 8209 '
 8210 ID=PEEK(1)
-8211 '  51=M100, 167=T102, 171=T200
-8213 ' 225=K85,  125=Olivetti M10 (US)
-8214 ' 148=NEC,   35=M10 (Europe)
+8211 '  51=M100, 167=T102, 171=T200,
+8212 ' 225=K85,  125=Olivetti M10 (US),
+8213 ' 148=NEC (YY/MM/DD),   
+8214 '  35=M10 (DD/MM/YY)
 8215 '
 8219 ' Use ID to determine date format
-8220 IF ID=148 OR ID=35 THEN DF$="EU"   :                       ELSE DF$="US"
-8229 ' Check for ordinal day w/o year
+8220 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="US"
+8229 ' Check for ordinal day w/out year
 8230 IX=INSTR(1, AD$, "/")
-8240 IF IX=0 THEN DT$=DATE$ ELSE DT$=AD$
-8249 ' Check for year / ordinal day
-8250 IF IX=3 AND INSTR(IX+1, AD$, "/")=0 THEN YY$=LEFT$(AD$, 2): RETURN
-8269 ' Format is either YY/MM/DD or MM/DD/YY
-8270 IF DF$="EU" THEN YY$=LEFT$(DT$,2)  :                ELSE YY$=RIGHT$(DT$,2)
+8239 ' Check for YY/ordinal-day
+8240 IF IX=3 AND INSTR(IX+1, AD$, "/")=0 THEN YY$=LEFT$(AD$, 2): RETURN
+8250 IF IX=0 THEN DT$=DATE$ ELSE DT$=AD$
+8269 ' Format is either YY/MM/DD (NEC) or DD/MM/YY (M10) or MM/DD/YY (US)
+8270 IF DF$="NEC" THEN YY$=LEFT$(DT$,2):                  ELSE YY$=RIGHT$(DT$,2)
 8290 RETURN
 8299 '
 8300 'CALCULATE DAY (#) OF THE YEAR
@@ -383,10 +384,10 @@
 8309 IF RF=1 THEN PRINT "Debugging Assertion failed. Random DY cannot have two slashes in AD$. ": PRINT DY, AD$: STOP
 8310 '
 8319 'GET NUMBER OF THE CURRENT MONTH'
-8320 IF DF$="EU" THEN CM$=MID$(AD$,4,2): ELSE CM$=LEFT$(AD$,2)
+8320 IF DF$="NEC" THEN CM$=MID$(AD$,4,2): ELSE CM$=LEFT$(AD$,2)
 8321 CM=VAL(CM$)
 8324 'GET NUMBER OF THE CURRENT DAY
-8325 IF DF$="EU" THEN DY$=RIGHT$(AD$,2): ELSE DY$=MID$(AD$,4,2)
+8325 IF DF$="NEC" THEN DY$=RIGHT$(AD$,2): ELSE DY$=MID$(AD$,4,2)
 8326 DY=VAL(DY$)
 8330 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
 8335 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
