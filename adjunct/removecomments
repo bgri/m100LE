@@ -2,8 +2,12 @@
 
 # Remove comments to shrink the size of a Tandy Model 100 BASIC program.
 
-# Lines which start with a comment remain if they are used as jump
-# destinations by GOTO, GOSUB, or THEN. (See jumpdestinations program).
+# Lines which start with a comment remain (with an empty comment) if
+# they are used as jump destinations by GOTO, GOSUB, or THEN. (See
+# jumpdestinations program).
+
+# Any line which includes two singles quotes in a row will be kept verbatim.
+
 
 input=${1:-M100LE+comments.DO} # Default file to check if not specified
 output=${2:-/dev/stdout} # Write to stdout if not second file.
@@ -29,10 +33,13 @@ cat "$input" | sort -n |
 	    i=i+1
 	done
 
+	# If the line contains '' (two single quotes), do NOT remove the comment.
+	if [[ "$line" == *\'\'* ]]; then echo "$line"; continue; fi
+
 	# Is the line number equal (numerically) to the current jump point?
 	if [[ $lineno -eq ${jumps[i]} ]]; then
 	    # Keep this line as it is a jump destination.
-	    echo "$line" | sed -r "s/\s*(REM|')[^\r]*/ '/i" 
+	    echo "$line" | sed -r "s/\s*(REM|')[^\r']*/ '/i" 
 	else
 	    # Trim this line of comments. (Potentially removing it later).
 	    echo "$line" | sed -r "s/\s*(REM|')[^\r]*//i" 
