@@ -84,11 +84,13 @@
 2008 GOSUB 2100
 2009 ' HW ID 51=M100, 171=T200, 148=NEC, 167=T102,  35=M10,  225=K85
 2010 ID=PEEK(1)
-2014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
-2015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35) )
+2012 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
+2013 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
+2014 ' Italian manual for Olivetti was incorrect: RD should be 63849 not 63841. (At least, for the ID=35 ROM that Virtual T includes.)
+2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35 OR ID=125) )
 2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
-2019 ' Search directory for WL$
+2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 to 1000: NEXT T
+2019 ' Search directory for WL$ (characters are in IW() for speed) 
 2020 FOR T1 = RD TO 65535 STEP 11
 2029 ' Attribute flag: See Oppedahl's "Inside the TRS-80 Model 100" for details.
 2030 FL=PEEK(T1)
@@ -175,11 +177,11 @@
 5010 '
 5020 CLS:VX=16:VY=0:GOSUB 4200 'MVCURS
 5022 PRINT "-m100le-"
-5024 VY=1: VX=40-LEN(WF$):GOSUB 4200: PRINT WF$;
-5026 IF RF=1 THEN DY$=RIGHT$(STR$(DY), LEN(STR$(DY))-1): AD$=YY$+"/"+DY$
-5027 VY=VY+1: VX=40-LEN(AD$):GOSUB 4200:PRINT AD$;
-5028 VY=VY+1: VX=40-LEN(VR$):GOSUB 4200:PRINT VR$;
-5029 VY=VY+1: VX=40-LEN(STR$(DY)):GOSUB 4200:PRINT DY;
+5024 VY=1: VX=40-LEN(WF$):                   GOSUB 4200: PRINT WF$;
+5026 IF RF=1 THEN DY$=RIGHT$(STR$(DY),       LEN(STR$(DY))-1): AD$=YY$+"/"+DY$
+5027 VY=VY+1: VX=40-LEN(AD$):                GOSUB 4200: PRINT AD$;
+5028 VY=VY+1: VX=40-LEN(VR$):                GOSUB 4200: PRINT VR$;
+5029 VY=VY+1: VX=40-LEN(STR$(DY)):           GOSUB 4200:PRINT DY;
 5030 FOR I=1 TO 6: VX=13: VY=I
 5035 GOSUB 4200: PRINT I;"- ";:FOR J=1 TO 5:PRINT SO$(I,J);:NEXT J: NEXT I
 5038 IF WN=0 THEN GN=0
@@ -420,9 +422,9 @@
 8940 PRINT CO$LT$LT$;"        ":PRINT CO$DN$;"         ":PRINT CO$DN$DN$;"      ":PRINT CO$;"ENDING...";:FOR I = 1 TO DL: NEXT I: CLS: END
 9000 'ERROR HANDLING'
 9009 'FILE NOT FOUND
-9010 IF ERR=52 THEN CLS: PRINT "PROGAM STOP": PRINT "DATA FILE NOT FOUND (";WF$")": END
-9020 IF ERR=6 THEN CLS: PRINT"PROGRAM STOP": PRINT "DATE OUT OF RANGE (";AD$")": END
-9200 VX=30: VY=1: GOSUB 4200: PRINT RV$ ERR;"-";ERL NV$
-9210 PRINT"Error"; ERR ;"in line"; ERL
+9010 IF ERR=52 THEN CLS: PRINT "PROGAM STOP": PRINT "DATA FILE NOT FOUND (";WF$")": goto 9900
+9020 IF ERR=6 THEN CLS: PRINT"PROGRAM STOP": PRINT "DATE OUT OF RANGE (";AD$")": goto 9900
+9900 VX=30: VY=1: GOSUB 4200: PRINT RV$ ERR;"-";ERL NV$
+9910 PRINT"Error"; ERR ;"in line"; ERL
 9999 ERROR ERR
 10000 PRINT "ERROR - YOU SHOULD NOT HAVE GOTTEN SO FAR":STOP
