@@ -358,7 +358,7 @@
 8202 '         or YY/ddd
 8203 '         or ddd  (ordinal day #)
 8204 ' OUT: YY$ is two-digit year.
-8205 '      DF$ is "NEC", "US", or "M10"
+8205 '      DF$ is "NEC", "USA", or "M10"
 8206 ' TEMP: ID, IX, DT$
 8209 '
 8210 ID=PEEK(1)
@@ -368,14 +368,20 @@
 8214 '  35=M10 (DD/MM/YY)
 8215 '
 8219 ' Use ID to determine date format
-8220 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="US"
-8229 ' Check for ordinal day w/out year
-8230 IX=INSTR(1, AD$, "/")
-8239 ' Check for YY/ordinal-day
-8240 IF IX=3 AND INSTR(IX+1, AD$, "/")=0 THEN YY$=LEFT$(AD$, 2): RETURN
-8250 IF IX=0 THEN DT$=DATE$ ELSE DT$=AD$
-8269 ' Format is either YY/MM/DD (NEC) or DD/MM/YY (M10) or MM/DD/YY (US)
-8270 IF DF$="NEC" THEN YY$=LEFT$(DT$,2):                  ELSE YY$=RIGHT$(DT$,2)
+8220 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
+8229 ' Count number of slashes and split values into d()  
+8230 i=0: ix=0
+8240 D(I)=VAL(MID$(DT$, IX+1, 15))
+8250 IX=INSTR(IX+1, DT$, "/")
+8260 IF IX<>0 THEN I=I+1:GOTO 8240
+     IF NO SLASHES
+     IF ONE SLASH
+     IF TWO SLASHES
+     -- IF DF$="NEC"
+     -- IF DF$="M10"
+     -- IF DF$="USA"
+
+
 8290 RETURN
 8299 '
 8300 'CALCULATE DAY (#) OF THE YEAR
