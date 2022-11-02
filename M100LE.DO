@@ -253,6 +253,7 @@
 8270 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
 8280 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
 8290 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
+8295 YY=YY MOD 100
 8298 RETURN
 8300 '
 8310 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
