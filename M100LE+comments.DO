@@ -385,11 +385,12 @@
 8280 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
 8289 ' Two slashes and USA: MM/DD/YY
 8290 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
+8295 YY=YY MOD 100 ' Ignore century
 8298 RETURN
 8299 '
 8300 REM CALCULATE DAY (#) OF THE YEAR
 8301 ' INPUT: YY (2 digit year),                      CM (current month),                     DY (day of month, day of year if CM==0)
-8302 ' OUTPUT: DY is day of year (ordinal day)         Y is four digit year                    LP is 1 if Y is a leap year             WF$ is WL20yy.CO
+8302 ' OUTPUT:                                 DY is day of year (ordinal)             Y is four digit year                    YY$ is 2 digit year (str)               LP is 1 if Y is a leap year             WF$ is "WL20yy.CO"
 8309 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
 8310 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
 8320 Y=2000+YY: 'FOUR DIGIT YEAR
