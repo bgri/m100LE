@@ -15,7 +15,8 @@
 14 'AT : https://github.com/bgri/m100LE
 15 '
 16 ''MD=1 ' USE 1 TO MANUALLY ENTER DATE     DEFAULT OF 0 USES SYSTEM DATE$
-17 GOSUB 8100: 'SET AD$ TO DATE$ IF MD=0; ASK FOR DATE INPUT WHEN MD=1.
+17 GOSUB 8000: 'SET DF$ (date format) TO "USA", "NEC", or "M10".
+18 GOSUB 8100: 'SET AD$ TO DATE$ IF MD=0; ASK FOR DATE INPUT WHEN MD=1.
 19 RF=0: ' RANDOM FLAG
 20 DB=0:VR$="v0.l": 'V UPDATE
 21 WN=0: 'RESET WON FLAG
@@ -336,9 +337,24 @@
 7801 ' Speed test x100 = 6 seconds
 7810 IF ID<>148 THEN PRINT @(VY*40+VX), "_____":PRINT @(VY*40+VX), TM$;: ELSE LOCATE VX,VY: PRINT "_____":LOCATE VX,VY: PRINT TM$;
 7820 RETURN
-7999 GOTO 10000
-8000 'SMALL ROUTINES
-8100 'MANUAL DATE ENTRY. MD=1 TO ENABLE MANUAL DATE ENTRY. AD$=ALTERNATE DATE
+7900 GOTO 10000
+7999 'SMALL ROUTINES
+8000 REM Detect machine platform.
+8001 ' INPUT: None
+8002 ' OUTPUT: ID is PEEK(1) and 
+8003 '         DF$ is date format.
+8004 '         "NEC", "USA", or "M10"
+8005 '      YY/MM/DD, MM/DD/YY, DD/MM/YY   
+8010 ID=PEEK(1)
+8011 '  51=M100, 167=T102, 171=T200,
+8012 ' 225=K85,  125=Olivetti M10 (US),
+8013 ' 148=NEC (YY/MM/DD),   
+8014 '  35=M10 (DD/MM/YY)
+8019 ' Use ID to determine date format
+8020 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
+8030 RETURN
+8099 '
+8100 REM MANUAL DATE ENTRY. MD=1 TO ENABLE MANUAL DATE ENTRY. AD$=ALTERNATE DATE
 8101 'Note: AD$ may already be set from a previous game.
 8110 IF AD$ = "" THEN AD$=DATE$
 8120 IF MD<>1 THEN RETURN
@@ -358,32 +374,23 @@
 8203 '         or ddd  (ordinal day #)
 8204 ' OUT: DY is ordinal day (1 to 366)
 8205 '      YY is two-digit year. 
-8206 '     DF$ is "NEC", "USA", or "M10"
-8207 ' TEMP: ID, IX, DT$
-8209 '
-8210 ID=PEEK(1)
-8211 '  51=M100, 167=T102, 171=T200,
-8212 ' 225=K85,  125=Olivetti M10 (US),
-8213 ' 148=NEC (YY/MM/DD),   
-8214 '  35=M10 (DD/MM/YY)
-8215 '
-8219 ' Use ID to determine date format
-8220 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
-8229 ' Count number of slashes and split values into d()
-8230 I=0: IX=0
-8240 D(I)=VAL(MID$(AD$, IX+1, 15))
-8250 IX=INSTR(IX+1, AD$, "/")
-8260 IF IX<>0 THEN I=I+1:GOTO 8240
-8269 ' No slashes in input: Ordinal day.
-8270 IF I=0 THEN DY=D(0): IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
-8279 ' One slash. Year / Ordinal day.
-8280 IF I=1 THEN YY=D(0): DY=D(1)
-8289 ' Two slashes and NEC: YY/MM/DD
-8290 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
-8294 ' Two slashes and M10: DD/MM/YY
-8295 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
-8296 ' Two slashes and USA: MM/DD/YY
-8297 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
+8207 ' TEMP: IX, I, D(I)
+8208 '
+8209 ' Count number of slashes and split values into d()
+8210 I=0: IX=0
+8220 D(I)=VAL(MID$(AD$, IX+1, 15))
+8230 IX=INSTR(IX+1, AD$, "/")
+8240 IF IX<>0 THEN I=I+1:GOTO 8220
+8249 ' No slashes in input: Ordinal day.
+8250 IF I=0 THEN DY=D(0): IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
+8259 ' One slash. Year / Ordinal day.
+8260 IF I=1 THEN YY=D(0): DY=D(1)
+8269 ' Two slashes and NEC: YY/MM/DD
+8270 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
+8279 ' Two slashes and M10: DD/MM/YY
+8280 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
+8289 ' Two slashes and USA: MM/DD/YY
+8290 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
 8298 RETURN
 8299 '
 8300 REM CALCULATE DAY (#) OF THE YEAR
