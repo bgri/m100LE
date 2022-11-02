@@ -394,30 +394,20 @@
 8298 RETURN
 8299 '
 8300 REM CALCULATE DAY (#) OF THE YEAR
-8305 '' If user inputs a day # without a year (e.g., "213"), use current year.
-8306 'IF INSTR(1, AD$, "/")=0 THEN AD$=RIGHT$(STR$(Y), 2)+"/"+AD$
-8307 '' If user inputs "YR/DY" (e.g., "22/213"), then use DY as ordinal date.
-8308 'IF INSTR(4, AD$, "/")=0 THEN DY=VAL(MID$(AD$,4,3)): GOTO 8337
-8309 'IF RF=1 THEN PRINT "Debugging Assertion failed. Random DY cannot have two slashes in AD$. ": PRINT DY, AD$: STOP
-8310 ''
-8319 ''GET NUMBER OF THE CURRENT MONTH'
-8320 'IF DF$="NEC" THEN CM$=MID$(AD$,4,2): ELSE CM$=LEFT$(AD$,2)
-8321 'CM=VAL(CM$)
-8324 ''GET NUMBER OF THE CURRENT DAY
-8325 'IF DF$="NEC" THEN DY$=RIGHT$(AD$,2): ELSE DY$=MID$(AD$,4,2)
-8326 'DY=VAL(DY$)
-8330 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
-8335 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
-8337 Y=2000+YY: 'FOUR DIGIT YEAR
-8338 LP=-( (Y MOD 4 = 0) AND ( (Y MOD 100 <> 0) OR (Y MOD 400 = 0) ) ): ' LP is 1 in leap years, 0 otherwise.
-8339 IF CM>2 THEN DY=DY+LP
-8340 'PRINT "#DAYS=";DY: 'PRINT NUMBER OF DAYS IN YEAR TO TODAY - THIS IS THE NUMBER FOR TODAY'S WORD
+8301 ' INPUT: YY (2 digit year),                      CM (current month),                     DY (day of month, day of year if CM==0)
+8302 ' OUTPUT: DY is day of year (ordinal day)         Y is four digit year                    LP is 1 if Y is a leap year             WF$ is WL20yy.CO
+8309 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
+8310 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
+8320 Y=2000+YY: 'FOUR DIGIT YEAR
+8330 LP=-( (Y MOD 4 = 0) AND ( (Y MOD 100 <> 0) OR (Y MOD 400 = 0) ) ): ' LP is 1 in leap years, 0 otherwise.
+8339 ' If month is past February, leap.
+8340 IF CM>2 THEN DY=DY+LP
+8341 'PRINT "#DAYS=";DY: 'PRINT NUMBER OF DAYS IN YEAR TO TODAY - THIS IS THE NUMBER FOR TODAY'S WORD
 8345 IF DY<0 OR DY>365+LP THEN ERROR 6: ' Overflow error if DY is not in the calendar.
 8349 ' CREATE THE WORDLIST FILENAME
 8350 WF$="WL20"+RIGHT$(STR$(Y), 2)+".CO" '2-digit year
 8360 '
-8362 'VY=0
-8365 'IF RF=1 THEN VX=36: GOSUB 4200: PRINT "RAND";: ELSE VX=40-LEN(WF$): GOSUB 4200: PRINT WF$;
+8362 'VY=0: IF RF=1 THEN VX=36: GOSUB 4200: PRINT "RAND";: ELSE VX=40-LEN(WF$): GOSUB 4200: PRINT WF$;
 8370 VY=0: VX=40-LEN(WF$): GOSUB 4200: PRINT WF$;
 8390 RETURN
 8399 '
