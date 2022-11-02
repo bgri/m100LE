@@ -16,7 +16,6 @@
 15 '
 16 ''MD=1 ' USE 1 TO MANUALLY ENTER DATE     DEFAULT OF 0 USES SYSTEM DATE$
 17 GOSUB 8100: 'SET AD$ TO DATE$ IF MD=0; ASK FOR DATE INPUT WHEN MD=1.
-18 GOSUB 8200: 'SET YY$ (2-digit year)
 19 RF=0: ' RANDOM FLAG
 20 DB=0:VR$="v0.l": 'V UPDATE
 21 WN=0: 'RESET WON FLAG
@@ -178,7 +177,7 @@
 5020 CLS:VX=16:VY=0:GOSUB 4200 'MVCURS
 5022 PRINT "-m100le-"
 5024 VY=1: VX=40-LEN(WF$):                   GOSUB 4200: PRINT WF$;
-5026 IF RF=1 THEN DY$=RIGHT$(STR$(DY),       LEN(STR$(DY))-1): AD$=YY$+"/"+DY$
+5026 IF RF=1 THEN DY$=RIGHT$(STR$(DY),       LEN(STR$(DY))-1):                       AD$=RIGHT$(STR$(Y), 2)+"/"+DY$
 5027 VY=VY+1: VX=40-LEN(AD$):                GOSUB 4200: PRINT AD$;
 5028 VY=VY+1: VX=40-LEN(VR$):                GOSUB 4200: PRINT VR$;
 5029 VY=VY+1: VX=40-LEN(STR$(DY)):           GOSUB 4200:PRINT DY;
@@ -353,13 +352,14 @@
 8180 INPUT "";AD$
 8190 RETURN
 8199 '
-8200 REM Set YY$, two-digit year.
+8200 REM Set YY, two-digit year and                  DY, Ordinal ("Julian") day
 8201 ' IN: AD$ is YY/MM/DD (NEC)                       or MM/DD/YY (US)                        or DD/MM/YY (M10)
 8202 '         or YY/ddd
 8203 '         or ddd  (ordinal day #)
-8204 ' OUT: YY$ is two-digit year.
-8205 '      DF$ is "NEC", "USA", or "M10"
-8206 ' TEMP: ID, IX, DT$
+8204 ' OUT: DY is ordinal day (1 to 366)
+8205 '      YY is two-digit year. 
+8206 '     DF$ is "NEC", "USA", or "M10"
+8207 ' TEMP: ID, IX, DT$
 8209 '
 8210 ID=PEEK(1)
 8211 '  51=M100, 167=T102, 171=T200,
@@ -369,43 +369,45 @@
 8215 '
 8219 ' Use ID to determine date format
 8220 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
-8229 ' Count number of slashes and split values into d()  
-8230 i=0: ix=0
-8240 D(I)=VAL(MID$(DT$, IX+1, 15))
-8250 IX=INSTR(IX+1, DT$, "/")
+8229 ' Count number of slashes and split values into d()
+8230 I=0: IX=0
+8240 D(I)=VAL(MID$(AD$, IX+1, 15))
+8250 IX=INSTR(IX+1, AD$, "/")
 8260 IF IX<>0 THEN I=I+1:GOTO 8240
-     IF NO SLASHES
-     IF ONE SLASH
-     IF TWO SLASHES
-     -- IF DF$="NEC"
-     -- IF DF$="M10"
-     -- IF DF$="USA"
-
-
-8290 RETURN
+8269 ' No slashes in input: Ordinal day.
+8270 IF I=0 THEN DY=D(0): IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
+8279 ' One slash. Year / Ordinal day.
+8280 IF I=1 THEN YY=D(0): DY=D(1)
+8289 ' Two slashes and NEC: YY/MM/DD
+8290 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
+8294 ' Two slashes and M10: DD/MM/YY
+8295 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
+8296 ' Two slashes and USA: MM/DD/YY
+8297 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
+8298 RETURN
 8299 '
-8300 'CALCULATE DAY (#) OF THE YEAR
-8305 ' If user inputs a day # without a year (e.g., "213"), use current year.
-8306 IF INSTR(1, AD$, "/")=0 THEN AD$=YY$+"/"+AD$
-8307 ' If user inputs "YR/DY" (e.g., "22/213"), then use DY as ordinal date.
-8308 IF INSTR(4, AD$, "/")=0 THEN DY=VAL(MID$(AD$,4,3)): GOTO 8337
-8309 IF RF=1 THEN PRINT "Debugging Assertion failed. Random DY cannot have two slashes in AD$. ": PRINT DY, AD$: STOP
-8310 '
-8319 'GET NUMBER OF THE CURRENT MONTH'
-8320 IF DF$="NEC" THEN CM$=MID$(AD$,4,2): ELSE CM$=LEFT$(AD$,2)
-8321 CM=VAL(CM$)
-8324 'GET NUMBER OF THE CURRENT DAY
-8325 IF DF$="NEC" THEN DY$=RIGHT$(AD$,2): ELSE DY$=MID$(AD$,4,2)
-8326 DY=VAL(DY$)
+8300 REM CALCULATE DAY (#) OF THE YEAR
+8305 '' If user inputs a day # without a year (e.g., "213"), use current year.
+8306 'IF INSTR(1, AD$, "/")=0 THEN AD$=RIGHT$(STR$(Y), 2)+"/"+AD$
+8307 '' If user inputs "YR/DY" (e.g., "22/213"), then use DY as ordinal date.
+8308 'IF INSTR(4, AD$, "/")=0 THEN DY=VAL(MID$(AD$,4,3)): GOTO 8337
+8309 'IF RF=1 THEN PRINT "Debugging Assertion failed. Random DY cannot have two slashes in AD$. ": PRINT DY, AD$: STOP
+8310 ''
+8319 ''GET NUMBER OF THE CURRENT MONTH'
+8320 'IF DF$="NEC" THEN CM$=MID$(AD$,4,2): ELSE CM$=LEFT$(AD$,2)
+8321 'CM=VAL(CM$)
+8324 ''GET NUMBER OF THE CURRENT DAY
+8325 'IF DF$="NEC" THEN DY$=RIGHT$(AD$,2): ELSE DY$=MID$(AD$,4,2)
+8326 'DY=VAL(DY$)
 8330 'LOOP MONTH # OF TIMES - 1: 'ADD DAYS FROM EACH MONTH PREVIOUS: 'ADD DAYS OF CURRENT MONTH
 8335 IF CM>1 THEN: FOR I = 1 TO CM-1: DY=DY+DA(I): NEXT I
-8337 Y=2000+VAL(YY$): 'FOUR DIGIT YEAR
+8337 Y=2000+YY: 'FOUR DIGIT YEAR
 8338 LP=-( (Y MOD 4 = 0) AND ( (Y MOD 100 <> 0) OR (Y MOD 400 = 0) ) ): ' LP is 1 in leap years, 0 otherwise.
 8339 IF CM>2 THEN DY=DY+LP
 8340 'PRINT "#DAYS=";DY: 'PRINT NUMBER OF DAYS IN YEAR TO TODAY - THIS IS THE NUMBER FOR TODAY'S WORD
 8345 IF DY<0 OR DY>365+LP THEN ERROR 6: ' Overflow error if DY is not in the calendar.
 8349 ' CREATE THE WORDLIST FILENAME
-8350 WF$="WL20"+YY$+".CO" '2-digit year
+8350 WF$="WL20"+RIGHT$(STR$(Y), 2)+".CO" '2-digit year
 8360 '
 8362 'VY=0
 8365 'IF RF=1 THEN VX=36: GOSUB 4200: PRINT "RAND";: ELSE VX=40-LEN(WF$): GOSUB 4200: PRINT WF$;
@@ -422,14 +424,14 @@
 8915 ''
 8920 K$ = INKEY$: IF K$="" GOTO 8920
 8925 IF K$="a" OR K$="A" THEN CLS:MD=1: GOTO 10: 'COMPLETE RESTART, ASK FOR DATE
-8930 IF K$="r" OR K$="R" THEN CLS: RF=1:RT=VAL(RIGHT$(TIME$,2)): FOR I=1 TO RT:DY=FIX(RND(RT)*(365+LP)):NEXT I: DY$=RIGHT$(STR$(DY), LEN(STR$(DY))-1): AD$=YY$+"/"+DY$: MD=0: GOTO 20
+8930 IF K$="r" OR K$="R" THEN CLS: RF=1:RT=VAL(RIGHT$(TIME$,2)): FOR I=1 TO RT:DY=FIX(RND(RT)*(365+LP)):NEXT I: DY$=RIGHT$(STR$(DY), LEN(STR$(DY))-1): AD$=RIGHT$(STR$(Y), 2)+"/"+DY$: MD=0: GOTO 20
 8935 IF K$="s" OR K$="S" THEN GOTO 5000: 'GOTO SOCIAL THEN END
 8938 IF K$="q" OR K$="Q" THEN MENU
 8940 PRINT CO$LT$LT$;"        ":PRINT CO$DN$;"         ":PRINT CO$DN$DN$;"      ":PRINT CO$;"ENDING...";:FOR I = 1 TO DL: NEXT I: CLS: END
 9000 'ERROR HANDLING'
 9009 'FILE NOT FOUND
-9010 IF ERR=52 THEN CLS: PRINT "PROGAM STOP": PRINT "DATA FILE NOT FOUND (";WF$")": goto 9900
-9020 IF ERR=6 THEN CLS: PRINT"PROGRAM STOP": PRINT "DATE OUT OF RANGE (";AD$")": goto 9900
+9010 IF ERR=52 THEN CLS: PRINT "PROGAM STOP": PRINT "DATA FILE NOT FOUND (";WF$")": GOTO 9900
+9020 IF ERR=6 THEN CLS: PRINT"PROGRAM STOP": PRINT "DATE OUT OF RANGE (";AD$")": GOTO 9900
 9900 VX=30: VY=1: GOSUB 4200: PRINT RV$ ERR;"-";ERL NV$
 9910 PRINT"Error"; ERR ;"in line"; ERL
 9999 ERROR ERR
