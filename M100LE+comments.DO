@@ -382,9 +382,9 @@
 8230 IX=INSTR(IX+1, AD$, "/")
 8240 IF IX<>0 THEN I=I+1:GOTO 8220
 8249 ' No slashes in input: Ordinal day.
-8250 IF I=0 THEN DY=D(0): IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
+8250 IF I=0 THEN DY=D(0): CM=0: IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
 8259 ' One slash. Year / Ordinal day.
-8260 IF I=1 THEN YY=D(0): DY=D(1)
+8260 IF I=1 THEN YY=D(0): DY=D(1): CM=0
 8269 ' Two slashes and NEC: YY/MM/DD
 8270 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
 8279 ' Two slashes and M10: DD/MM/YY
