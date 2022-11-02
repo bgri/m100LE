@@ -7,7 +7,7 @@
 6 'LOAD NUMBER OF DAYS FOR EACH MONTH INTO THE ARRAY DA()
 7 DATA 31,28,31,30,31,30,31,31,30,31,30,31: 'DAYS IN EACH MONTH
 8 FOR I = 1 TO 12: READ DA(I):NEXT I: 'POPULATE ARRAY'
-
+9 YY=-1	       'Year starts unset
 10 'WORDLE FOR THE TANDY M100
 11 'ADAPTED BY BRAD GRIER
 12 'BLOG.BRADGRIER.COM
@@ -26,18 +26,17 @@
 26 DL=400: 'DELAY'
 27 CC=1:   'WITTY COMMENT VALUE
 28 SV=0:   'SOCIAL SCREEN VIEWED? BOOL
-
+29 '
 30 'Row positions for guesses and hints
 31 FOR I=1 TO 6
 32 G$(I)=AT$+CHR$(32+I)+CHR$(32+1)
 33 H$(I)=AT$+CHR$(32+I)+CHR$(32+7)
 34 NEXT I
-
-36 PX=14:PY=4	' Alphabet position
+35 ' Alphabet position
+36 PX=14:PY=4
 37 P1$=AT$+CHR$(32+PY)  +CHR$(32+PX): A1$="ABCDEFGHIJKLM": 'ALPHABET BOARD
 38 P2$=AT$+CHR$(32+PY+1)+CHR$(32+PX): A2$="NOPQRSTUVWXYZ"
 39 FOR I=1 TO 6:FOR J=1 TO 5:SO$(I,J)=".":NEXT J:NEXT I
-
 40 'SET UP SCREEN
 41 SCREEN 0,0       ' Hide F-key labels
 42 CLS:		' WORD AND RESULT BOXES
@@ -54,7 +53,8 @@
 75 GN=1: 'GUESS ATTEMPT NUMBER
 78 TW$="":TM$="" 'TODAY'S WORD/TEMP WORD
 79 N=0:I=0:R=0:C=0: 'LOCAL VARIABLES
-
+80 '
+82 GOSUB 8200: 'SET YY, CM, DY
 84 GOSUB 8300: 'LOAD THE DATE/DAY/NUMBER & YEAR FOR WORDFILE (WF$)
 90 ' RESERVED LINE NUMBERS FOR FUTURE FEATURES
 100 '
@@ -62,12 +62,11 @@
 300 'LOAD PLAYER STATS
 400 'LOAD WORD LIST
 410 GOSUB 6000: 'LOAD WORD FILE AND GET TODAY'S WORD (TW$)
-
 500 '
 900 'POSITION CURSOR BEFORE MAIN LOOP
 910 VX=1: VY=GN
 920 GOSUB 4200
-
+999 '
 1000 'MAIN LOOP
 1010 GOSUB 7000: 'GET KEYBOARD INPUT
 1015 '
@@ -82,14 +81,14 @@
 2006 REM
 2007 ' Normalize WL$ to 8 chars, no dot
 2008 GOSUB 2100
-2009 ' HW ID 51=M100, 171=T200, 148=NEC, 167=T102,  35=M10,  225=K85
+2009 'HW ID 51=M100, 171=T200, 167=T102,           148=NEC,  225=K85,                       35=M10 (Italy), 125=M10 (US)
 2010 ID=PEEK(1)
 2012 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
 2013 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
 2014 ' Italian manual for Olivetti was incorrect: RD should be 63849 not 63841. (At least, for the ID=35 ROM that Virtual T includes.)
 2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35 OR ID=125) )
 2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
-2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 to 1000: NEXT T
+2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 TO 1000: NEXT T
 2019 ' Search directory for WL$ (characters are in IW() for speed) 
 2020 FOR T1 = RD TO 65535 STEP 11
 2029 ' Attribute flag: See Oppedahl's "Inside the TRS-80 Model 100" for details.
@@ -122,7 +121,7 @@
 2173 WL$=WL$+CHR$(T2)
 2175 NEXT T1
 2180 RETURN
-
+2999 '
 3000 'WITTY COMMENTS
 3009 ' COMMENT DISPLAY LOCATION
 3010 CO$=AT$+CHR$(32+2)+CHR$(32+30)
@@ -134,7 +133,7 @@
 3090 FOR NQ=1 TO DL: NEXT NQ
 3095 PRINT CO$;"          ";
 3099 RETURN
-
+3999 '
 4000 REM VT52 CURSOR MOVEMENT
 4001 ' IN: None, OUT: Strings defined
 4002 ' AT$ positions cursor at X, Y.
@@ -164,15 +163,15 @@
 4169 ' Second prepend the underlines.
 4170 UL$(I)=STRING$(I, "_")+UL$(I)
 4180 NEXT I
-4199 RETURN
-
+4190 RETURN
+4199 '
 4200 REM Position cursor at VX, VY
 4201 '  IN: 0<=VX<=39, 0<=VY<=7.
 4202 ' OUT: NONE
 4203 ' (On Tandy 200, VY<=15.)
 4210 PRINT AT$;CHR$(32+VY);CHR$(32+VX);
 4220 RETURN
-
+4999 '
 5000 'SOCIAL
 5010 '
 5020 CLS:VX=16:VY=0:GOSUB 4200 'MVCURS
@@ -194,13 +193,12 @@
 5510 VY=0:VX=16:GOSUB 4200
 5520 PRINT "-m100le-"
 5560 SV=1:GOTO 8910
-
 6000 '
 6001 'LOAD WORD OF THE DAY
 6002 VY=1: VX=32: GOSUB 4200
 6003 PRINT RV$ "LOADING" NV$;
 6005 WL$=WF$
-6009 ' Search directory for "WL20xx.CO",set WA to its address in RAM.
+6009 ' Search directory for "WL20xx.CO",       set WA to its address in RAM.
 6010 GOSUB 2000
 6015 IF WA=0 THEN PRINT "Error: File '";WF$;"' File not found.": END
 6016 GOSUB 4200: PRINT "LOADING";
@@ -210,7 +208,7 @@
 6065 GOSUB 4200: PRINT "       ": VY=1: VX=40-LEN(STR$(DY)): GOSUB 4200: PRINT DY;: 'CLEAR LOADING TEXT, PRINT WORD SEQ. NUM
 6067 IF DB=1 THEN TW$="HIPPY": 'OVERRIDE CURRENT WORD IF DB=1(DEBUG ON)'
 6070 RETURN
-
+6099 '
 6100 REM READ WORD FROM BINARY .CO FILE
 6101 ' INPUT: WA is address of file,                  DY is day of the year
 6102 ' OUTPUT: TW$ is today's word
@@ -225,7 +223,7 @@
 6170 A=B
 6180 NEXT I
 6190 RETURN
-
+6199 '
 6200 REM READ WORD FROM ASCII .DO FILE
 6201 ' INPUT: WA is address of file,                   DY is day of the year
 6202 ' OUTPUT: TW$ is today's word
@@ -238,8 +236,7 @@
 6250 TW$=TW$+CHR$(A)
 6270 NEXT I
 6290 RETURN
-6999 GOTO 10000: 'WENT TOO FAR -- abort, abort.
-
+6990 GOTO 10000: 'WENT TOO FAR -- abort, abort.
 7000 '
 7001 'GET KEYBOARD INPUT
 7002 '
@@ -253,7 +250,6 @@
 7040 IF K$="" THEN GOTO 7010
 7050 IF ASC(K$)>=97 THEN K$=CHR$(X-32): 'CONVERT LC TO UC
 7060 RETURN
-
 7070 '
 7100 ' PROCESS KEYBOARD INPUT (K$ AND X)
 7105 IF X=8 THEN GOSUB 7200:RETURN' BKSP
@@ -266,7 +262,6 @@
 7190 REM RETURN FROM ENTER CHECK AND UPDATE' DON'T DELETE ME
 7195 RETURN
 7199 '
-
 7200 'PROCESS BACKSPACE'
 7210 N=LEN(TM$)
 7219 ' Remove last letter
@@ -275,7 +270,6 @@
 7230 PRINT LT$"_"LT$;
 7290 RETURN
 7299 '
-
 7300 'PROCESS ENTER KEY. THIS CAME FROM A GOTO IN LINE 7107
 7301 'UPDATE HINTS AND ALPHABET SCREEN &
 7302 'IF WORD MATCHES GOTO WIN
@@ -304,19 +298,19 @@
 7382 GOSUB 3000:CC=1: 'GET COMMENTS AND RESET COMMENT INCREMENT
 7384 IF WN=1 THEN GOTO 8900: 'GO TO WIN SCREEN'
 7395 IF GN=6 THEN GOTO 8900
-7399 GN=GN+1: TM$="":GOSUB 7600:GOTO 7190: 'RESET AND GET NEXT GUESS'
-
+7390 GN=GN+1: TM$="":GOSUB 7600:GOTO 7190: 'RESET AND GET NEXT GUESS'
+7399 '
 7400 ' UPDATE ALPHABET BOARD
 7401 ' IN: TM$: the word guessed.
 7402 '     GN: guess number
 7403 '     SO$(GN,I): symbols to draw
 7404 ' OUT: None
 7405 ' For each letter (I) in TM$,
-7406 ' SO$(GN,I) is replacement symbol,"*" for right place,"?" for wrong place,"." for wrong letter.
+7406 ' SO$(GN,I) is replacement symbol,        "*" for right place,                    "?" for wrong place,                    "." for wrong letter.
 7410 FOR I = 1 TO 5
 7420 T=ASC(MID$(TM$,I,1))-64
 7429 ' Place cursor in alphabet
-7430 IF T<=13 THEN VY=PY:VX=PX-1+T:ELSE VY=PY+1: VX=PX-14+T
+7430 IF T<=13 THEN VY=PY  : VX=PX-1+T:                ELSE VY=PY+1: VX=PX-14+T
 7440 GOSUB 4200
 7450 PRINT SO$(GN,I);
 7451 ' move clue letter above/below alphabet board
@@ -326,7 +320,7 @@
 7456 IF SO$(GN,I)="?" THEN PRINT CHR$(T+64);
 7460 NEXT I
 7499 RETURN
-
+7599 '
 7600 'REDRAW WORD, POSITION CURSOR
 7601 ' Speed test x100 = 6 seconds
 7610 GOSUB 4200
