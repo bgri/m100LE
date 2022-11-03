@@ -54,7 +54,7 @@
 2000 '
 2008 GOSUB 2100
 2010 ID=PEEK(1)
-2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35 OR ID=125) )
+2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=225 OR ID=35 OR ID=125) )
 2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
 2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 TO 1000: NEXT T
 2020 FOR T1 = RD TO 65535 STEP 11
@@ -230,14 +230,14 @@
 7900 GOTO 10000
 8000 '
 8010 ID=PEEK(1)
-8020 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
+8020 IF ID=148 THEN DF$="NEC":          ELSE IF (ID=225 OR ID=35) THEN DF$="K85":                         ELSE DF$="USA"
 8030 RETURN
 8100 '
 8110 IF AD$ = "" THEN AD$=DATE$
 8120 IF MD<>1 THEN RETURN
 8130 CLS
 8140 PRINT "Input date as ";
-8145 IF DF$="NEC" THEN PRINT "YY/MM/DD";:ELSE IF DF$="M10" THEN PRINT "DD/MM/YY";: ELSE PRINT "MM/DD/YY";
+8145 IF DF$="NEC" THEN PRINT "YY/MM/DD";:ELSE IF DF$="K85" THEN PRINT "DD/MM/YY";: ELSE PRINT "MM/DD/YY";
 8150 PRINT " or YY/DAY or DAY"
 8160 PRINT "hit ENTER for ";AD$: PRINT
 8170 PRINT "        DATE";
@@ -251,7 +251,7 @@
 8250 IF I=0 THEN DY=D(0): CM=0: IF YY=-1 THEN IF DF$="NEC" THEN YY=VAL(LEFT$(DATE$, 2)): ELSE YY=VAL(RIGHT$(DATE$, 2))
 8260 IF I=1 THEN YY=D(0): DY=D(1): CM=0
 8270 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
-8280 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
+8280 IF I=2 AND DF$="K85" THEN               YY=D(2): CM=D(1): DY=D(0)
 8290 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
 8295 YY=YY MOD 100
 8298 RETURN
