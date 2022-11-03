@@ -3,7 +3,7 @@
 5 REM Read five letter words from one file and output a three byte representations to a new .CO file.
 6 REM Uses Ram Directory to POKE the          data directly into the .CO file.
 7 REM Note The .CO file is currently hardcoded to fit 366 three-byte words.
-9 ON ERROR GOTO 990
+9 ON ERROR GOTO 9990
 10 IN$="COM:98N1ENN"
 14 ID=PEEK(1) ' ID=148 on NEC machines.
 15 IF (ID=148) THEN IN$="COM:9N81XN"
@@ -29,26 +29,26 @@
 180 WL$=A$
 190 IF A$="" THEN GOTO 110 'Not sane
 200 REM OPEN FILES
-205 ON ERROR GOTO 910
+205 ON ERROR GOTO 9910
 207 PRINT "Waiting for ";IN$;CHR$(13);
 210 OPEN IN$ FOR INPUT AS #1
-212 ON ERROR GOTO 940 ' IO error
+212 ON ERROR GOTO 9940 ' IO error
 213 IF EOF(1) THEN GOTO 400
-215 ON ERROR GOTO 920
+215 ON ERROR GOTO 9920
 220 GOSUB 7000 ' Create .CO file
-225 ON ERROR GOTO 930
+225 ON ERROR GOTO 9930
 230 GOSUB 8000 ' WA=addr of .CO file
-240 IF WA=0 THEN GOTO 930
-250 ON ERROR GOTO 990
+240 IF WA=0 THEN GOTO 9930
+250 ON ERROR GOTO 9990
 255 B(0)=223:B(1)=73:B(2)=168
 256 FOR I=0 TO 2: POKE WA+6+365*3+I, B(I): NEXT I
 300 REM LOOP: Read, Encode, Write
 305 DY=0
-308 ON ERROR GOTO 940
+308 ON ERROR GOTO 9940
 310 IF EOF(1) THEN GOTO 400
 315 IF DY>=366 THEN PRINT "Stopped reading at 366 words": GOTO 400
 320 LINE INPUT #1, A$
-325 ON ERROR GOTO 990
+325 ON ERROR GOTO 9990
 330 GOSUB 500 'compress to 3 bytes=
 340 PRINT INT(100*DY/366)"%",
 345 PRINT B(0) ", " B(1) ", " B(2) "     " CHR$(13);
@@ -95,24 +95,15 @@
 870 IF LEN(EX$) = 0 THEN EX$=DX$
 880 A$=FN$+"."+EX$
 890 RETURN
-900 REM Error handling
-910 PRINT "Could not open "IN$" for reading": GOTO 996
-920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 996
-930 PRINT "Error finding address of "WL$: GOTO 996
-940 PRINT "Error reading from "IN$: GOTO 996
-989 REM Generic error handler
-990 PRINT"Got error" ERR "in line" ERL
-995 ' Do we need to remove the .CO file?
-996 IF NK=1 THEN KILL WL$
-999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .CO file to hold compressed wordlist
-7004 'For NEC, fix BSAVE,
+7004 'For NEC, fix bug in BSAVE.
 7004 'For K85 & M10, fix SAVEM.
 7006 'For Tandy, use ordinary SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3
 7030 NK=1     ' On error, kill .CO file
+7039 '148=NEC 225=K85 35=M10 125=M10-US
 7040 IF (ID=148 OR ID=225 OR ID=35 OR ID=125) THEN GOSUB 8500: ELSE SAVEM WL$, 0, SZ-1
 7050 RETURN
 8000 REM Random Access subroutine
@@ -165,7 +156,7 @@
 8175 NEXT T1
 8180 RETURN
 8499 '
-8500 REM K85/M10 SAVEM/NEC BSAVE BUG
+8500 REM SAVEM KLUDGE
 8501 ' Workaround a bug that drops the
 8502 ' user into DIRECT MODE, halting
 8503 ' the running program. The solution
@@ -176,11 +167,11 @@
 8508 ' keyboard buffer as if the user
 8509 ' had typed RETURN.
 8510 PRINT "Bug detected! Fixing SAVEM/BSAVE."
-8530 R$="RETURN"+CHR$(13)
-8520 GOSUB 8800	      ' "Type " R$
-8580 IF ID=148 THEN BSAVE WL$,0,SZ:     ELSE SAVEM WL$,0,SZ-1
-8589 REM BASIC NEVER GETS HERE!
-8590 STOP: RETURN
+8520 R$="RETURN"+CHR$(13)
+8530 GOSUB 8800	      ' "Type" R$
+8540 IF ID=148 THEN BSAVE WL$,0,SZ:     ELSE SAVEM WL$,0,SZ-1
+8549 REM BASIC NEVER GETS HERE!
+8550 STOP: RETURN
 8799 '
 8800 REM INSERT R$ INTO KEYBOARD BUFFER
 8801 ' INPUT: R$, a string of <=32 char
@@ -188,23 +179,31 @@
 8805 ' TEMP: ID: Machine platform
 8806 '       KC: Key count address
 8807 '       KB: Keyboard buffer addrss
-8808 '    I, ST: Loop iterator, step
+8808 '    I, SK: Loop iterator, skip
 8809 '
 8810 ID=PEEK(1)
-8819 ' Address of keyboard buffer count
 8820 KC=-( 65128*(ID=148)                        + 65389*(ID=35 OR ID=125)               + 65387*(ID=225)               + 64799*(ID=171)                        + 65450*(ID=51 OR ID=167) )
 8830 IF KC=0 THEN PRINT "Error: Keyboard buffer address not known for machine ID";ID;". Please file a bug report.": END
-8839 ' Address of keyboard buffer
 8840 KB=KC+1
 8850 IF (LEN(R$) > 32) THEN PRINT "Error: String too long to fit in keyboard buffer: ";R$: END
-8852 ST=1
-8853 ' K85 & Tandy use every other byte
-8854 IF (ID=225 OR ID=51 OR ID=167 OR ID=171) THEN ST=2
-8859 ' "Type" into keyboard buffer.
-8860 FOR I=0 TO LEN(R$)-1
-8870 POKE KB+I*ST, ASC(MID$(R$,I+1,1))
-8880 NEXT I
-8889 ' Number of keys "typed".
-8890 POKE KC, LEN(R$)
-8895 RETURN
-9999 END
+8860 IF (LEN(R$) = 0) THEN RETURN
+8870 SK=2 'Read every other byte
+8879 ' Olivetti reads every byte
+8880 IF (ID=35 OR ID=125) THEN SK=1
+8889 ' "Type" into keyboard buffer.
+8890 FOR I=0 TO LEN(R$)-1
+8900 POKE KB+I*SK, ASC(MID$(R$,I+1,1))
+8910 NEXT I
+8919 ' Number of keys "typed".
+8920 POKE KC, LEN(R$)
+8930 RETURN
+9900 REM Error handling
+9910 PRINT "Could not open "IN$" for reading": GOTO 9990
+9920 PRINT "Could not allocate" SZ "bytes for " WL$: GOTO 9990
+9930 PRINT "Error finding address of "WL$: GOTO 9990
+9940 PRINT "Error reading from "IN$: GOTO 9990
+9989 REM Generic error handler
+9990 PRINT"Got error" ERR "in line" ERL
+9995 ' Do we need to remove the .CO file?
+9996 IF NK=1 THEN KILL WL$
+9999 ON ERROR GOTO 0: ERROR ERR: END
