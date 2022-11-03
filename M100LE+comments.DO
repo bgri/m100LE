@@ -15,7 +15,7 @@
 14 'AT : https://github.com/bgri/m100LE
 15 '
 16 ''MD=1 ' USE 1 TO MANUALLY ENTER DATE     DEFAULT OF 0 USES SYSTEM DATE$
-17 GOSUB 8000: 'SET DF$ (date format) TO "USA", "NEC", or "M10".
+17 GOSUB 8000: 'SET DF$ (date format) TO "USA", "NEC", or "K85".
 18 GOSUB 8100: 'SET AD$ TO DATE$ IF MD=0; ASK FOR DATE INPUT WHEN MD=1.
 19 RF=0: ' RANDOM FLAG
 20 DB=0:VR$="v0.l": 'V UPDATE
@@ -86,7 +86,7 @@
 2012 ' RD: RAM DIRECTORY ADDRESS. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
 2013 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
 2014 ' (Hackerb9 found K85 and M10 (with ROM ID=35) as having RD=63849)
-2015 ' (Note: Italian Olivetti M10 manual incorrectly says 63841. Perhaps that is for the M10 USA ROM with ID=125?)
+2015 ' (Note: Strangely, the Italian-language Olivetti M10 manual says 63841, which is wrong. Perhaps that is for a different regional ROM, such as ID=125?)
 2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=225 OR ID=35 OR ID=125) )
 2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
 2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 TO 1000: NEXT T
@@ -338,15 +338,16 @@
 8001 ' INPUT: None
 8002 ' OUTPUT: ID is PEEK(1) and 
 8003 '         DF$ is date format.
-8004 '         "NEC", "USA", or "M10"
-8005 '      YY/MM/DD, MM/DD/YY, DD/MM/YY   
+8004 '         "NEC", "USA", or "K85"
+8005 '      YY/MM/DD, MM/DD/YY, DD/MM/YY
+8006 '
+8009 'Use ID to determine date format
 8010 ID=PEEK(1)
-8011 '  51=M100, 167=T102, 171=T200,
-8012 ' 225=K85,  125=Olivetti M10 (US),
-8013 ' 148=NEC (YY/MM/DD),   
-8014 '  35=M10 (DD/MM/YY)
-8019 ' Use ID to determine date format
-8020 IF ID=148 THEN DF$="NEC":          ELSE IF ID= 35 THEN DF$="M10":                         ELSE DF$="USA"
+8011 '  51=M100, 167=T102, 171=T200 (US)
+8012 ' 125=Olivetti US M10 (US?)
+8013 ' 148=NEC (YY/MM/DD)
+8014 ' 225=K85, 35=M10 (DD/MM/YY)
+8020 IF ID=148 THEN DF$="NEC":          ELSE IF (ID=225 OR ID=35) THEN DF$="K85":                         ELSE DF$="USA"
 8030 RETURN
 8099 '
 8100 REM MANUAL DATE ENTRY. MD=1 TO ENABLE MANUAL DATE ENTRY. AD$=ALTERNATE DATE
@@ -355,7 +356,7 @@
 8120 IF MD<>1 THEN RETURN
 8130 CLS
 8140 PRINT "Input date as ";
-8145 IF DF$="NEC" THEN PRINT "YY/MM/DD";:ELSE IF DF$="M10" THEN PRINT "DD/MM/YY";: ELSE PRINT "MM/DD/YY";
+8145 IF DF$="NEC" THEN PRINT "YY/MM/DD";:ELSE IF DF$="K85" THEN PRINT "DD/MM/YY";: ELSE PRINT "MM/DD/YY";
 8150 PRINT " or YY/DAY or DAY"
 8160 PRINT "hit ENTER for ";AD$: PRINT
 8170 PRINT "        DATE";
@@ -364,7 +365,7 @@
 8190 RETURN
 8199 '
 8200 REM Set YY, two-digit year and                  DY, Ordinal ("Julian") day
-8201 ' IN: AD$ is YY/MM/DD (NEC)                       or MM/DD/YY (US)                        or DD/MM/YY (M10)
+8201 ' IN: AD$ is YY/MM/DD (NEC)                       or MM/DD/YY (US)                        or DD/MM/YY (K85)
 8202 '         or YY/ddd
 8203 '         or ddd  (ordinal day #)
 8204 ' OUT: DY is ordinal day (1 to 366)
@@ -382,8 +383,8 @@
 8260 IF I=1 THEN YY=D(0): DY=D(1): CM=0
 8269 ' Two slashes and NEC: YY/MM/DD
 8270 IF I=2 AND DF$="NEC" THEN               YY=D(0): CM=D(1): DY=D(2)
-8279 ' Two slashes and M10: DD/MM/YY
-8280 IF I=2 AND DF$="M10" THEN               YY=D(2): CM=D(1): DY=D(0)
+8279 ' Two slashes and K85: DD/MM/YY
+8280 IF I=2 AND DF$="K85" THEN               YY=D(2): CM=D(1): DY=D(0)
 8289 ' Two slashes and USA: MM/DD/YY
 8290 IF I=2 AND DF$="USA" THEN               YY=D(2): CM=D(0): DY=D(1)
 8295 YY=YY MOD 100 ' Ignore century
