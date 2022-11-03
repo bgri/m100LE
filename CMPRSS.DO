@@ -1,8 +1,11 @@
 0 CLEAR
 1 REM CMPRSS By hackerb9, 2022
-5 REM Read five letter words from one file and output a three byte representations to a new .CO file.
-6 REM Uses Ram Directory to POKE the          data directly into the .CO file.
-7 REM Note The .CO file is currently hardcoded to fit 366 three-byte words.
+2 ' Read five letter words from one
+3 ' file and output a three byte
+4 ' representations to a new .CO file.
+6 ' Uses Ram Directory to POKE the
+7 ' data directly into the .CO file.
+8 ' Note The .CO file is currently      hardcoded to fit 366 three-byte words.
 9 ON ERROR GOTO 9990
 10 IN$="COM:98N1ENN"
 14 ID=PEEK(1) ' ID=148 on NEC machines.
@@ -170,8 +173,8 @@
 8520 R$="RETURN"+CHR$(13)
 8530 GOSUB 8800	      ' "Type" R$
 8540 IF ID=148 THEN BSAVE WL$,0,SZ:     ELSE SAVEM WL$,0,SZ-1
-8549 REM BASIC NEVER GETS HERE!
-8550 STOP: RETURN
+8550 ERROR BASIC NEVER GETS HERE!
+8560 RETURN
 8799 '
 8800 REM INSERT R$ INTO KEYBOARD BUFFER
 8801 ' INPUT: R$, a string of <=32 char
