@@ -83,10 +83,11 @@
 2008 GOSUB 2100
 2009 'HW ID 51=M100, 171=T200, 167=T102,           148=NEC,  225=K85,                       35=M10 (Italy), 125=M10 (US)
 2010 ID=PEEK(1)
-2012 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
+2012 ' RD: RAM DIRECTORY ADDRESS. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
 2013 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-2014 ' Italian manual for Olivetti was incorrect: RD should be 63849 not 63841. (At least, for the ID=35 ROM that Virtual T includes.)
-2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35 OR ID=125) )
+2014 ' (Hackerb9 found K85 and M10 (with ROM ID=35) as having RD=63849)
+2015 ' (Note: Italian Olivetti M10 manual incorrectly says 63841. Perhaps that is for the M10 USA ROM with ID=125?)
+2016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=225 OR ID=35 OR ID=125) )
 2017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
 2018 IF RD=125 THEN PRINT "This is an M10 (USA)! Please file a bug report if this works or not.": FOR T=0 TO 1000: NEXT T
 2019 ' Search directory for WL$ (characters are in IW() for speed) 
