@@ -106,14 +106,14 @@
 996 IF NK=1 THEN KILL WL$
 999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .CO file to hold compressed wordlist
-7004 'For NEC, fix BSAVE (at line 8201)
-7004 'For K85 & M10, fix SAVEM (8500)
+7004 'For NEC, fix BSAVE,
+7004 'For K85 & M10, fix SAVEM.
 7006 'For Tandy, use ordinary SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3
 7030 NK=1     ' On error, kill .CO file
-7040 IF (ID=148) THEN GOSUB 8201:       ELSE IF (ID=225 OR ID=35 OR ID=125) THEN GOSUB 8500: ELSE SAVEM WL$, 0, SZ-1
+7040 IF (ID=148 OR ID=225 OR ID=35 OR ID=125) THEN GOSUB 8500: ELSE SAVEM WL$, 0, SZ-1
 7050 RETURN
 8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
@@ -164,34 +164,22 @@
 8173 WL$=WL$+CHR$(T2)
 8175 NEXT T1
 8180 RETURN
-8199 '
-8200 REM NEC BSAVE BUG WORKAROUND
-8201 ' BSAVE on the NEC drops the user
-8202 ' into DIRECT MODE, halting the
-8203 ' running program. The solution is
-8204 ' to have the user type "RETURN"
-8205 ' and hit the Enter key to jump
-8206 ' back into the program.
-8207 ' A nicer method is to fill the
-8208 ' keyboard buffer as if the user
-8209 ' had typed RETURN.
-8210 PRINT "NEC detected! Fixing BSAVE."
-8220 R$="RETURN"+CHR$(13)
-8230 GOSUB 8800
-8240 BSAVE WL$,0,SZ
-8250 REM N82 BASIC NEVER GETS HERE
-8260 STOP: RETURN
 8499 '
-8500 REM KYOTRONIC & OLIVETTI KLUDGE
-8501 ' The K85 and M10 have the same
-8502 ' bug as the NEC portables, but
-8503 ' use SAVEM instead of BSAVE.
-8505 ' We fix the bug in the same way.
-8510 PRINT "Bug detected! Fixing SAVEM."
+8500 REM K85/M10 SAVEM/NEC BSAVE BUG
+8501 ' Workaround a bug that drops the
+8502 ' user into DIRECT MODE, halting
+8503 ' the running program. The solution
+8504 ' is to have the user type "RETURN"
+8505 ' and hit the Enter key to jump
+8506 ' back into the program.
+8507 ' A nicer method is to fill the
+8508 ' keyboard buffer as if the user
+8509 ' had typed RETURN.
+8510 PRINT "Bug detected! Fixing SAVEM/BSAVE."
 8530 R$="RETURN"+CHR$(13)
 8520 GOSUB 8800	      ' "Type " R$
-8580 SAVEM WL$,0,SZ
-8589 REM K85 BASIC NEVER GETS HERE
+8580 IF ID=148 THEN BSAVE WL$,0,SZ:     ELSE SAVEM WL$,0,SZ-1
+8589 REM BASIC NEVER GETS HERE!
 8590 STOP: RETURN
 8799 '
 8800 REM INSERT R$ INTO KEYBOARD BUFFER
