@@ -106,15 +106,14 @@
 996 IF NK=1 THEN KILL WL$
 999 ON ERROR GOTO 0: ERROR ERR: END
 7000 REM Create .CO file to hold compressed wordlist
-7004 'For NEC, use BSAVE (at line 8201)
-7004 'For M10, use SAVEM (at line 8300)
-7006 'For others, use SAVEM.
+7004 'For NEC, fix BSAVE (at line 8201)
+7004 'For K85 & M10, fix SAVEM (8500)
+7006 'For Tandy, use ordinary SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
 7020 SZ=366 * 3
 7030 NK=1     ' On error, kill .CO file
-7039 'NEC and Olivetti need special handling
-7040 IF (ID=148) THEN GOSUB 8201:            ELSE IF (ID=35) THEN GOSUB 8300:        ELSE SAVEM WL$, 0, SZ-1
+7040 IF (ID=148) THEN GOSUB 8201:       ELSE IF (ID=225 OR ID=35 OR ID=125) THEN GOSUB 8500: ELSE SAVEM WL$, 0, SZ-1
 7050 RETURN
 8000 REM Random Access subroutine
 8001 REM Input: WL$ is file to locate.
@@ -125,13 +124,14 @@
 8006 REM
 8007 ' Set WL$ to 8 chars, no dot
 8008 GOSUB 8100
-8009 ' HW ID:51=M100, 171=T200, 148=NEC,       35=M10, 225=K85
+8009 ' HW ID 51=M100, 171=T200, 167=T102           148=NEC,  225=K85,                       35=M10 (Italy), 125=M10 (US)
 8010 ID=PEEK(1)
-8014 ' Ram Directory address. (Anderson's "Programming Tips" gives RD=63842 for M100 and 62034 for T200.)
-8015 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
-8016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=35) )
+8012 ' RD: RAM DIRECTORY ADDRESS. (Anderson's "Programming Tips" gives RD=63842 for M100/102 and 62034 for T200.)
+8013 ' (Gary Weber's NEC.MAP gives RD=63567, but we can skip the system files by starting at 63633.)
+8014 ' (Hackerb9 found K85 and M10 (with ROM ID=35) as having RD=63849)
+8015 ' (Is M10 USA (ROM ID=125) the same as K85?)
+8016 RD=-( 63842*(ID=51 OR ID=167)               + 62034*(ID=171)                        + 63633*(ID=148)                        + 63849*(ID=225 OR ID=35 OR ID=125) )
 8017 IF RD=0 THEN PRINT "Error: Unknown machine ID";ID;". Please file a bug report.": END
-
 8019 ' Search directory for WL$
 8020 FOR T1 = RD TO 65535 STEP 11
 8029 ' Attribute flag: See Oppedahl's "Inside the TRS-80 Model 100" for details.
@@ -164,6 +164,7 @@
 8173 WL$=WL$+CHR$(T2)
 8175 NEXT T1
 8180 RETURN
+8199 '
 8200 REM NEC BSAVE BUG WORKAROUND
 8201 ' BSAVE on the NEC drops the user
 8202 ' into DIRECT MODE, halting the
@@ -175,30 +176,47 @@
 8208 ' keyboard buffer as if the user
 8209 ' had typed RETURN.
 8210 PRINT "NEC detected! Fixing BSAVE."
-8219 REM NEC Keyboard buffer and count.
-8220 KB=65129: KC=65128
-8230 R$="RETURN"+CHR$(13)
-8239 ' "Type" into keyboard buffer.
-8240 FOR I=0 TO LEN(R$)-1
-8250 POKE KB+I, ASC(MID$(R$,I+1,1))
-8260 NEXT I
-8269 ' Number of keys "typed".
-8270 POKE KC, LEN(R$)
-8280 BSAVE WL$,0,SZ
-8289 REM NEC BASIC NEVER GETS HERE
-8290 STOP: RETURN
-8300 REM OLIVETTI ALSO HAS THE BUG!
-8310 PRINT "Olivetti detected! Fixing SAVEM"
-8319 REM Olivetti Keyboard buffer and count.
-8320 KB=65390: KC=65389
-8330 R$="RETURN"+CHR$(13)
-8339 ' "Type" into keyboard buffer.
-8340 FOR I=0 TO LEN(R$)-1
-8350 POKE KB+I, ASC(MID$(R$,I+1,1))
-8360 NEXT I
-8369 ' Number of keys "typed".
-8370 POKE KC, LEN(R$)
-8380 SAVEM WL$,0,SZ
-8389 REM OLIVETTI BASIC NEVER GETS HERE
-8390 STOP: RETURN
+8220 R$="RETURN"+CHR$(13)
+8230 GOSUB 8800
+8240 BSAVE WL$,0,SZ
+8250 REM N82 BASIC NEVER GETS HERE
+8260 STOP: RETURN
+8499 '
+8500 REM KYOTRONIC & OLIVETTI KLUDGE
+8501 ' The K85 and M10 have the same
+8502 ' bug as the NEC portables, but
+8503 ' use SAVEM instead of BSAVE.
+8505 ' We fix the bug in the same way.
+8510 PRINT "Bug detected! Fixing SAVEM."
+8530 R$="RETURN"+CHR$(13)
+8520 GOSUB 8800	      ' "Type " R$
+8580 SAVEM WL$,0,SZ
+8589 REM K85 BASIC NEVER GETS HERE
+8590 STOP: RETURN
+8799 '
+8800 REM INSERT R$ INTO KEYBOARD BUFFER
+8801 ' INPUT: R$, a string of <=32 char
+8802 ' OUTPUT: None. Types R$ on kbd.
+8805 ' TEMP: ID: Machine platform
+8806 '       KC: Key count address
+8807 '       KB: Keyboard buffer addrss
+8808 '    I, ST: Loop iterator, step
+8809 '
+8810 ID=PEEK(1)
+8819 ' Address of keyboard buffer count
+8820 KC=-( 65128*(ID=148)                        + 65389*(ID=35 OR ID=125)               + 65387*(ID=225)               + 64799*(ID=171)                        + 65450*(ID=51 OR ID=167) )
+8830 IF KC=0 THEN PRINT "Error: Keyboard buffer address not known for machine ID";ID;". Please file a bug report.": END
+8839 ' Address of keyboard buffer
+8840 KB=KC+1
+8850 IF (LEN(R$) > 32) THEN PRINT "Error: String too long to fit in keyboard buffer: ";R$: END
+8852 ST=1
+8853 ' K85 & Tandy use every other byte
+8854 IF (ID=225 OR ID=51 OR ID=167 OR ID=171) THEN ST=2
+8859 ' "Type" into keyboard buffer.
+8860 FOR I=0 TO LEN(R$)-1
+8870 POKE KB+I*ST, ASC(MID$(R$,I+1,1))
+8880 NEXT I
+8889 ' Number of keys "typed".
+8890 POKE KC, LEN(R$)
+8895 RETURN
 9999 END
