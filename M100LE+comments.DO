@@ -344,7 +344,7 @@
 8009 'Use ID to determine date format
 8010 ID=PEEK(1)
 8011 '  51=M100, 167=T102, 171=T200 (US)
-8012 ' 125=Olivetti US M10 (US?)
+8012 ' 125=Olivetti US M10 (?MM/DD/YY?)
 8013 ' 148=NEC (YY/MM/DD)
 8014 ' 225=K85, 35=M10 (DD/MM/YY)
 8020 IF ID=148 THEN DF$="NEC":          ELSE IF (ID=225 OR ID=35) THEN DF$="K85":                         ELSE DF$="USA"
