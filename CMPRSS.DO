@@ -1,4 +1,4 @@
-0 CLEAR
+0 CLEAR 512
 1 REM CMPRSS By hackerb9, 2022
 2 ' Read five letter words from one
 3 ' file and output a three byte
