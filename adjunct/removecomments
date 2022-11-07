@@ -19,6 +19,11 @@ echo "Reading from $input, writing to $output" >&2
 declare -a jumps=($(`dirname $0`/jumpdestinations -l "$input"))
 declare -i i=0
 
+# Do not remove single ticks that appear after an odd-number of double-quotes.
+dq='"'				# A single double-quote 
+notdq="[^${dq}]"		# Regex for any char but a double-quote.
+dbldq="${notdq}*(${dq}${notdq}*${dq})*${notdq}*"	# Regex for dq pairs.
+
 # Remove all comments and lines with no content
 cat "$input" | sort -n |
     while read line; do
@@ -42,7 +47,7 @@ cat "$input" | sort -n |
 	    echo "$line" | sed -r "s/\s*(REM|')[^\r']*/ '/i" 
 	else
 	    # Trim this line of comments. (Potentially removing it later).
-	    echo "$line" | sed -r "s/\s*(REM|')[^\r]*//i" 
+	    echo "$line" | sed -r "s/^(${dbldq})\s*(REM|')[^\r]*/\1/i" 
 	fi
     done |
 
