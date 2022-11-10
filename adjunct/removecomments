@@ -21,8 +21,8 @@ declare -i i=0
 
 # Do not remove single ticks that appear after an odd-number of double-quotes.
 dq='"'				# A single double-quote 
-notdq="[^${dq}]"		# Regex for any char but a double-quote.
-dbldq="${notdq}*(${dq}${notdq}*${dq})*${notdq}*"	# Regex for dq pairs.
+# Regex for pairs of doubles quotes: .*".*".*
+dbldq="([^${dq}\']*(${dq}[^${dq}]*${dq})*[^${dq}:[:space:]\']*)"
 
 # Remove all comments and lines with no content
 cat "$input" | sort -n |
@@ -38,17 +38,20 @@ cat "$input" | sort -n |
 	    i=i+1
 	done
 
-	# If the line contains '' (two single quotes), do NOT remove the comment.
+	# If the line contains '' (two single quotes), do NOT remove anything.
 	if [[ "$line" == *\'\'* ]]; then echo "$line"; continue; fi
 
 	# Is the line number equal (numerically) to the current jump point?
 	if [[ $lineno -eq ${jumps[i]} ]]; then
-	    # Keep this line as it is a jump destination.
-	    echo "$line" | sed -r "s/\s*(REM|')[^\r']*/ '/i" 
+	    # Keep this line as it is a jump destination, remove comment.
+	    keep="'"
 	else
-	    # Trim this line of comments. (Potentially removing it later).
-	    echo "$line" | sed -r "s/^(${dbldq})\s*(REM|')[^\r]*/\1/i" 
+	    keep=""
 	fi
+	# Trim this line of comments. (Potentially removing it later).
+	echo "$line" |
+	    sed -r "s/(${dbldq}?)\s*(REM|')[^\r]*/\1${keep}/i;
+	            s/[ :	]*\r?$//" 
     done |
 
     # Remove ^Z, blank lines, and line numbers with no content
