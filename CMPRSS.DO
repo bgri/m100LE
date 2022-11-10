@@ -100,7 +100,7 @@
 890 RETURN
 7000 REM Create .CO file to hold compressed wordlist
 7004 'For NEC, fix bug in BSAVE.
-7004 'For K85 & M10, fix SAVEM.
+7005 'For K85 & M10, fix SAVEM.
 7006 'For Tandy, use ordinary SAVEM.
 7010 ID=PEEK(1)
 7019 ' Allocate space for 366 words
