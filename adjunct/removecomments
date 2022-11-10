@@ -51,7 +51,7 @@ cat "$input" | sort -n |
 	# Trim this line of comments. (Potentially removing it later).
 	echo "$line" |
 	    sed -r "s/(${dbldq}?)\s*(REM|')[^\r]*/\1${keep}/i;
-	            s/[ :	]*\r?$//" 
+	            s/[ :	]*(\r?)$/\1/" 
     done |
 
     # Remove ^Z, blank lines, and line numbers with no content
