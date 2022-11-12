@@ -84,20 +84,31 @@ fi
 
 # Configure serial port the way the Tandy portables like.
 #
-#   icanon: Read from serial port one line at a time. (For receiving).
+#   icanon: Read from serial port one line at a time. (For receiving, EOF).
+sttyargs+=(icanon)
 #     ixon: Enable processing of software flow control in received data.
-#    ixoff: Enable sending XON/XOFF if PC gets overwhelmed by Model T (unlikely).
+#    ixoff: Enable XON/XOFF if PC gets overwhelmed by Model T (unlikely).
 #  stop ^S: Use the standard software flow control character for XOFF...
 # start ^Q: ... same for XON.
+sttyargs+=(ixon ixoff stop ^S start ^Q)
 #   -onlcr: Do not turn newlines into carriage returns on output...
 #   -icrnl: ... nor vice versa.
+sttyargs+=(-onlcr -icrnl)
 #  susp '': Incoming ^Z is no longer bound to Suspend. (For receiving).
 #   eof ^Z: Incoming ^Z character is now End-of-File. (For receiving).
+sttyargs+=(susp '' eof ^Z)
+#    -echo: Do not echo received characters. (For receiving).
+sttyargs+=(-echo)
 #    19200: Bits per second ("baud rate").
-#
-stty -F $serial icanon ixon ixoff  stop ^S start ^Q  -onlcr -icrnl susp '' eof ^Z  19200
+#    pass8: 8-bit characters, no parity
+#  -cstopb: 1 stop bit
+sttyargs+=(19200 pass8 -cstopb)
 
-# Sidenote: Running with no filename sets up the serial port before exiting.
+#
+echo stty -F $serial "${sttyargs[@]}"
+stty -F $serial "${sttyargs[@]}"
+
+# Note: Running with no filename sets up the serial port before exiting.
 if [[ -z $1 ]]; then
     usage
     exit 1
