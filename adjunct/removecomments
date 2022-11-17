@@ -9,6 +9,12 @@
 # Any line which includes two singles quotes in a row will be kept verbatim.
 
 
+# For MacOS, we need gsed to work properly.
+if type gsed >/dev/null 2>&1; then
+    shopt -s expand_aliases
+    alias sed=gsed
+fi
+
 input=${1:-M100LE+comments.DO} # Default file to check if not specified
 output=${2:-/dev/stdout} # Write to stdout if not second file.
 
