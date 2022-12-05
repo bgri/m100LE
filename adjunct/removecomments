@@ -26,9 +26,13 @@ declare -a jumps=($(`dirname $0`/jumpdestinations -l "$input"))
 declare -i i=0
 
 # Do not remove single ticks that appear after an odd-number of double-quotes.
+# XXX this is broken. Should just use a proper lexer.
 dq='"'				# A single double-quote 
+notdq="[^${dq}]"		# Not a double-quote
+sq="'"				# A single single-quote 
+neither="[^${sq}${dq}]"		# Neither ' nor "
 # Regex for pairs of doubles quotes: .*".*".*
-dbldq="([^${dq}\']*(${dq}[^${dq}]*${dq})*[^${dq}:[:space:]\']*)"
+dbldq="(${neither}*(${dq}${notdq}*${dq})*[^${dq}:[:space:]\']*)"
 
 # Remove all comments and lines with no content
 cat "$input" | sort -n |
@@ -47,6 +51,9 @@ cat "$input" | sort -n |
 	# If the line contains '' (two single quotes), do NOT remove anything.
 	if [[ "$line" == *\'\'* ]]; then echo "$line"; continue; fi
 
+	# If the line contains a double quote, do NOT remove anything. (KLUDGE)
+	if [[ "$line" == *\"* ]]; then echo "$line"; continue; fi
+
 	# Is the line number equal (numerically) to the current jump point?
 	if [[ $lineno -eq ${jumps[i]} ]]; then
 	    # Keep this line as it is a jump destination, remove comment.
@@ -56,7 +63,7 @@ cat "$input" | sort -n |
 	fi
 	# Trim this line of comments. (Potentially removing it later).
 	echo "$line" |
-	    sed -r "s/(${dbldq}?)\s*(REM|')[^\r]*/\1${keep}/i;
+	    sed -r "s/(${neither}*)\s*(REM|${sq})[^\r]*/\1${keep}/i;
 	            s/[ :	]*(\r?)$/\1/" 
     done |
 
