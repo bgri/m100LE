@@ -34,7 +34,7 @@ if [[ $1 == "-c" ]]; then CFLAG=-c; shift; fi
 file=${1:-M100LE+comments.DO}	# Default file to check if not specified 
 
 cat "$file" |
-    egrep -io '(GO\s*TO|GOSUB|THEN|ELSE|RESTORE|RESUME|RETURN|RUN)(\s*,?\s*[0-9]+)+' |
+    egrep -io '(GO\s*TO|GOSUB|THEN|ELSE|RESTORE|RESUME|RETURN|RUN)((\s*,)+?\s*[0-9]+)+' |
     sed -r 's/GO\s*TO/GOTO/gi;			      # "GO TO" -> "GOTO"
     	    s/([A-Z,])([0-9]+)/\1 \2/gi;	      # Add " " in GOSUB4200 
     	    s/([^0-9])0+/\1/g' |	     	      # Remove leading zeroes
