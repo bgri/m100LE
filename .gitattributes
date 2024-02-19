@@ -1,1 +1,4 @@
 *.DO eol=crlf
+*.BA binary
+# M100LE.DO is generated from M100LE+comments.DO
+M100LE.DO binary
