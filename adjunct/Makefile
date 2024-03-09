@@ -4,12 +4,16 @@ tokenize: tandy-tokenize tandy-decomment
 tandy-tokenize: tandy-tokenize.c tandy-tokenize-main.c
 	gcc tandy-tokenize.c -o tandy-tokenize
 
-# Tokenizer that omits comments and spaces
-tandy-decomment: tandy-decomment.c tandy-tokenize-main.c
+# Lexer that omits comments
+tandy-decomment: tandy-decomment.c 
 	gcc tandy-decomment.c -o tandy-decomment
+
+# Lexer that omits whitespace
+tandy-crunch: tandy-crunch.c 
+	gcc tandy-crunch.c -o tandy-crunch
 
 
 
 clean:
-	rm tandy-tokenize tandy-decomment 2>/dev/null || true
+	rm tandy-tokenize tandy-decomment tandy-crunch 2>/dev/null || true
 
