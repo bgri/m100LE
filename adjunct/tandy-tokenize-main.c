@@ -4,11 +4,6 @@
  * For the actual tokenizer, see tandy-tokenize.lex.
  */
 
-/* Compile with:
- *   flex -o tandy-tokenize.yy.c tandy-tokenize.lex
- *   gcc tandy-tokenize.yy.c tandy-tokenize-main.c -o tandy-tokenize
-*/
-
   /* Usage: tandy-tokenize  [ input.ba [ output.ba ] ]
 
    * Examples:  

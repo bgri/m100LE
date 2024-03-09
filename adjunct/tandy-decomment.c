@@ -611,8 +611,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 136
-#define YY_END_OF_BUFFER 137
+#define YY_NUM_RULES 6
+#define YY_END_OF_BUFFER 7
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -620,63 +620,25 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[375] =
+static const flex_int16_t yy_accept[31] =
     {   0,
-        5,    5,    0,    0,    0,    0,  137,  136,    5,    4,
-      136,    2,    7,   91,   89,   90,   92,  136,  103,  102,
-      101,   44,  136,  136,  136,  136,  136,  136,  136,  136,
-      136,  136,  136,  136,  136,  136,  136,  136,  136,  136,
-      136,  136,  136,  136,  100,   93,    5,    4,  136,  136,
-        1,    3,    5,    4,    7,    0,    8,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,   19,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-
-        0,    0,    0,    0,    0,    0,    0,    0,   31,    0,
-       95,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,   74,    0,    0,    0,    0,    5,    0,    1,    4,
-        1,    8,    0,  106,   94,  130,  118,    0,    0,    0,
-        0,    0,    0,    0,   57,   54,    0,  115,    0,    0,
-        0,    0,    0,   41,   14,    0,    0,    0,    9,  120,
-       97,   77,   78,  114,    0,  126,   10,  107,    0,    0,
-        0,    0,   98,    0,  108,    0,  105,   68,   56,    0,
-        0,    0,  127,   16,    0,    0,    0,    0,    0,  121,
-
-      122,  113,    0,    0,   64,   55,    0,    0,    0,   99,
-        0,    0,   72,    0,   87,   84,    0,   30,    0,    0,
-      110,    0,    0,    0,    0,    0,    6,    0,    0,    0,
-      112,   18,    0,    0,  104,  116,    0,    0,  111,    0,
-        0,    0,    0,  117,    0,    0,    0,  129,    0,    0,
-       96,   58,   66,  125,  131,  123,    0,    0,    0,   45,
-        0,  124,    0,   12,    0,   53,    0,    0,   27,   25,
-        0,    0,    0,   17,    0,    0,    0,    0,   70,    0,
-        0,    0,   26,   46,    0,   35,  109,    0,   67,    0,
-      135,    0,   69,   11,   33,  119,   42,    0,    0,    0,
-
-       61,   15,    6,    0,    0,    0,    0,   38,    0,    0,
-        0,   88,   23,  128,    0,   73,   86,    0,    0,    0,
-        0,   48,   49,   34,   50,    0,   52,   81,   32,   28,
-       37,   21,   85,    0,   13,   80,   60,  133,    0,   47,
-        0,   36,   63,   65,    0,   43,    0,    0,    0,    0,
-        0,   59,    0,    0,   51,   75,    0,   24,   83,   82,
-       39,   40,   62,    0,   29,   22,  134,   71,  132,    0,
-       76,   20,   79,    0
+        0,    0,    0,    0,    7,    6,    6,    4,    6,    2,
+        5,    6,    6,    6,    3,    0,    5,    0,    4,    5,
+        0,    0,    0,    0,    0,    0,    0,    1,    0,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        4,    4,    5,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    4,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    6,    1,    7,    1,    8,    1,    1,    9,   10,
-        1,   11,   12,    1,   13,    1,   14,   15,   15,   15,
-       15,   15,   15,   15,   15,   15,   15,   16,    1,   17,
-       18,   19,   20,    1,   21,   22,   23,   24,   25,   26,
-       27,   28,   29,    1,   30,   31,   32,   33,   34,   35,
-       36,   37,   38,   39,   40,   41,   42,   43,   44,    1,
-        1,   45,    1,   46,    1,    1,    1,    1,    1,    1,
+        1,    2,    1,    5,    1,    1,    1,    1,    6,    1,
+        1,    1,    1,    1,    1,    1,    1,    7,    7,    7,
+        7,    7,    7,    7,    7,    7,    7,    2,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    8,    1,
+        1,    1,    1,    1,    1,    1,    9,    1,    1,    1,
+        1,   10,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
 
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -697,217 +659,47 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[47] =
+static const YY_CHAR yy_meta[11] =
     {   0,
-        1,    1,    2,    1,    2,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1
+        1,    1,    2,    2,    1,    1,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[379] =
+static const flex_int16_t yy_base[34] =
     {   0,
-        0,   45,   49,   50,   56,   59,  440,  441,   61,  441,
-      436,  441,    0,  441,  441,  441,  441,   63,  441,  441,
-      441,  441,   44,  413,   80,   49,   95,   39,  403,  407,
-       53,   46,  116,   68,   69,   80,   87,  115,  135,  125,
-      397,  413,  404,  398,  441,  441,  173,  178,  192,  197,
-       90,  441,   78,  441,    0,  128,    0,  406,  392,  405,
-      405,  394,  401,  394,  402,  386,  389,  179,  128,  152,
-       83,  395,  388,  389,  389,  379,  392,  389,  373,   79,
-      378,   64,  375,  386,  184,  378,  441,  374,  176,  377,
-      363,  375,  371,  110,  375,  119,  374,  198,  171,  359,
-
-      369,  130,  376,  148,  367,   56,  359,  371,  441,  371,
-      441,  356,  369,  188,  191,  368,  206,  365,  367,  357,
-      348,  351,  354,  353,  345,  363,  346,  203,  209,  357,
-      349,  441,  351,  198,  355,  341,  244,  249,  226,  263,
-      441,    0,  345,  441,  441,  441,  441,  341,  344,  343,
-      365,  333,  350,  171,  441,  441,  331,  441,  328,  341,
-      336,  218,  358,  441,  441,  227,  326,  339,  441,  441,
-      441,  441,  329,  441,  337,  441,  441,  441,  256,  321,
-      326,  334,  441,  333,  317,  317,  441,  441,  441,  324,
-      319,  314,  441,  441,  321,  326,  311,  311,  324,  441,
-
-      441,  441,  309,  317,  441,  441,  305,  317,  335,  441,
-      308,  316,  441,  301,  441,  441,  306,  441,  308,  312,
-      441,  311,  297,  301,  294,  308,    0,  194,  291,  302,
-      441,  441,  304,  303,  441,  441,  294,  303,  441,  290,
-      289,  228,  313,  441,  289,  296,  287,  441,  284,  279,
-      441,  441,  441,  441,  441,  441,  280,  292,  290,  441,
-      289,  441,  284,  441,  304,  441,  303,  302,  441,  441,
-      272,  270,  285,  441,  274,  261,  265,  266,  441,  258,
-      293,  275,  441,  441,  260,  441,  441,  265,  441,  269,
-      441,  256,  441,  441,  441,  441,  441,  255,  266,  251,
-
-      441,  441,    0,  255,  256,  250,  247,  441,  260,  260,
-      258,  441,  441,  441,  249,  441,  441,  273,  253,  240,
-      249,  441,  441,  441,  441,  243,  441,  441,  441,  441,
-      441,  441,  441,  267,  441,  441,  441,  441,  236,  441,
-      234,  441,  441,  441,  233,  441,  234,  245,  230,  252,
-      177,  441,  183,  141,  441,  441,   98,  441,  441,  441,
-      441,  441,  441,  108,  441,  441,  441,  441,  441,  115,
-      441,  441,  441,  441,  295,   90,   80,   57
+        0,    9,   15,    0,   27,   56,   24,   56,   21,   56,
+        0,   15,   33,   39,   56,    0,    0,   14,   56,    0,
+       10,    0,    0,   11,   47,    7,   49,    0,    5,   56,
+       12,   53,   10
     } ;
 
-static const flex_int16_t yy_def[379] =
+static const flex_int16_t yy_def[34] =
     {   0,
-      374,    1,  375,  375,  375,  375,  374,  374,  374,  374,
-      374,  374,  376,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  376,  374,  377,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  377,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  378,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-
-      374,  374,  378,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,    0,  374,  374,  374,  374
+       30,    1,    1,    3,   30,   30,   30,   30,   30,   30,
+       31,   30,    7,   30,   30,    7,   31,   30,   30,   31,
+       30,   13,   14,   14,   32,   30,   32,   33,   30,    0,
+       30,   30,   30
     } ;
 
-static const flex_int16_t yy_nxt[488] =
+static const flex_int16_t yy_nxt[67] =
     {   0,
-        8,    9,   10,    8,   11,    9,   12,    8,   13,    8,
-       14,   15,   16,   17,    8,   18,   19,   20,   21,   22,
-       23,   24,   25,   26,   27,   28,   29,   30,   31,   32,
-       33,   34,   35,   36,   37,    8,   38,   39,   40,   41,
-       42,   43,   44,    8,   45,   46,   47,   48,   49,   50,
-       47,   10,   10,   11,   11,   52,   52,  303,   10,   51,
-       11,   10,   53,   11,   56,   59,   53,   82,   56,   71,
-       91,   57,   83,   72,   92,   84,   60,   73,   87,   53,
-      142,   61,   62,   53,   88,   89,   74,   90,  100,  105,
-       55,  101,  102,  106,  175,  141,  103,  213,  214,   58,
-
-       64,  104,  107,   65,  139,  108,  176,   66,   67,  172,
-       68,  113,  109,   69,  110,  173,  111,   70,   75,  112,
-      114,  162,  373,  115,  116,   76,  163,   77,   78,   56,
-       79,   80,  372,   56,  371,  192,   57,   81,   93,  117,
-       94,   95,  193,  118,   96,  129,   97,  119,  194,   98,
-       99,  196,  130,  131,  120,  121,  197,  122,  132,  156,
-      157,  123,  207,  124,   58,  158,  208,  370,  125,  126,
-      127,  210,  159,  128,  137,  138,  138,  138,  137,  138,
-      138,  138,  138,  138,  160,  179,  211,  139,  161,  179,
-      369,  258,  139,  138,  138,  138,  138,  138,  138,  140,
-
-      138,  138,  138,  153,  203,  184,  139,  204,  259,  368,
-      185,  139,  154,  186,  187,  223,  155,  220,  199,  224,
-      200,  180,  181,  201,  202,  221,  226,  240,  248,  222,
-      243,  141,  304,  305,  249,  314,  241,  227,  264,  242,
-      139,  244,  265,  228,  229,  137,  138,  138,  138,  137,
-      138,  138,  138,  138,  138,  267,  315,  179,  139,  367,
-      268,  179,  366,  139,  138,  138,  138,  138,  138,  365,
-      364,  363,  362,  361,  360,  359,  358,  139,  357,  356,
-      355,  354,  353,  352,  351,  350,  349,  348,  347,  346,
-      345,  344,  343,  342,  181,    8,    8,  341,  340,  339,
-
-      338,  337,  336,  335,  334,  333,  332,  331,  330,  329,
-      328,  327,  326,  325,  324,  323,  322,  321,  320,  319,
-      318,  317,  316,  313,  312,  311,  310,  309,  308,  307,
-      306,  302,  301,  300,  299,  298,  297,  296,  295,  294,
-      293,  292,  291,  290,  289,  288,  287,  286,  285,  284,
-      283,  282,  281,  280,  279,  278,  277,  276,  275,  274,
-      273,  272,  271,  270,  269,  266,  263,  262,  261,  260,
-      257,  256,  255,  254,  253,  252,   57,  251,  250,  247,
-      246,  245,  239,  238,  237,  236,  235,  234,  233,  232,
-      231,  230,  225,  219,  218,  217,  216,  215,  212,  209,
-
-      206,  205,  198,  195,  191,  190,  189,  188,  183,  182,
-      178,  177,  174,  171,  170,  169,  168,  167,  166,  165,
-      164,  152,  151,  150,  149,  148,  147,  146,  145,  144,
-      143,  136,  135,  134,  133,   86,   85,   63,   54,  374,
-        7,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374
+        6,    7,    8,    9,   10,   11,    6,    6,    6,   12,
+       13,   28,   20,   25,   29,   14,    6,   30,   17,   15,
+        6,   21,   21,   19,    6,   16,   30,   30,   30,   17,
+       30,   30,   30,   18,   22,   30,   30,   30,   30,   23,
+       24,   30,   30,   30,   25,   23,   30,   30,   26,   28,
+       28,   28,   28,   27,   27,    5,   30,   30,   30,   30,
+       30,   30,   30,   30,   30,   30
     } ;
 
-static const flex_int16_t yy_chk[488] =
+static const flex_int16_t yy_chk[67] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    2,    2,    2,    2,
-        2,    3,    4,    3,    4,    3,    4,  378,    5,    2,
-        5,    6,    9,    6,   18,   23,    9,   28,   18,   26,
-       32,   18,   28,   26,   32,   28,   23,   26,   31,   53,
-      377,   23,   23,   53,   31,   31,   26,   31,   34,   35,
-      376,   34,   34,   35,   82,   51,   34,  106,  106,   18,
-
-       25,   34,   35,   25,   51,   36,   82,   25,   25,   80,
-       25,   37,   36,   25,   36,   80,   36,   25,   27,   36,
-       37,   71,  370,   37,   37,   27,   71,   27,   27,   56,
-       27,   27,  364,   56,  357,   94,   56,   27,   33,   38,
-       33,   33,   94,   38,   33,   40,   33,   38,   94,   33,
-       33,   96,   40,   40,   38,   39,   96,   39,   40,   69,
-       69,   39,  102,   39,   56,   69,  102,  354,   39,   39,
-       39,  104,   70,   39,   47,   47,   47,   47,   47,   48,
-       48,   48,   48,   48,   70,   85,  104,   47,   70,   85,
-      353,  154,   48,   49,   49,   49,   49,   49,   50,   50,
-
-       50,   50,   50,   68,   99,   89,   49,   99,  154,  351,
-       89,   50,   68,   89,   89,  115,   68,  114,   98,  115,
-       98,   85,   85,   98,   98,  114,  117,  128,  134,  114,
-      129,  139,  228,  228,  134,  242,  128,  117,  162,  128,
-      139,  129,  162,  117,  117,  137,  137,  137,  137,  137,
-      138,  138,  138,  138,  138,  166,  242,  179,  137,  350,
-      166,  179,  349,  138,  140,  140,  140,  140,  140,  348,
-      347,  345,  341,  339,  334,  326,  321,  140,  320,  319,
-      318,  315,  311,  310,  309,  307,  306,  305,  304,  300,
-      299,  298,  292,  290,  179,  375,  375,  288,  285,  282,
-
-      281,  280,  278,  277,  276,  275,  273,  272,  271,  268,
-      267,  265,  263,  261,  259,  258,  257,  250,  249,  247,
-      246,  245,  243,  241,  240,  238,  237,  234,  233,  230,
-      229,  226,  225,  224,  223,  222,  220,  219,  217,  214,
-      212,  211,  209,  208,  207,  204,  203,  199,  198,  197,
-      196,  195,  192,  191,  190,  186,  185,  184,  182,  181,
-      180,  175,  173,  168,  167,  163,  161,  160,  159,  157,
-      153,  152,  151,  150,  149,  148,  143,  136,  135,  133,
-      131,  130,  127,  126,  125,  124,  123,  122,  121,  120,
-      119,  118,  116,  113,  112,  110,  108,  107,  105,  103,
-
-      101,  100,   97,   95,   93,   92,   91,   90,   88,   86,
-       84,   83,   81,   79,   78,   77,   76,   75,   74,   73,
-       72,   67,   66,   65,   64,   63,   62,   61,   60,   59,
-       58,   44,   43,   42,   41,   30,   29,   24,   11,    7,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374,  374,  374,  374,
-      374,  374,  374,  374,  374,  374,  374
+        2,   33,   31,   29,   26,    2,    3,   24,   21,    3,
+        3,   18,   12,    9,    3,    7,    5,    0,    0,    7,
+        0,    0,    0,    7,   13,    0,    0,    0,    0,   13,
+       14,    0,    0,    0,   14,   14,    0,    0,   14,   25,
+       25,   27,   27,   32,   32,   30,   30,   30,   30,   30,
+       30,   30,   30,   30,   30,   30
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -927,29 +719,37 @@ char *yytext;
 #line 1 "tandy-decomment.lex"
 /* tandy-decomment.lex		TRS-80 Model 100 BASIC decommenter 
  *
- * Removes text of comments (REM) while tokenizing Model 100 BASIC.
- * + Completely removes comments that follow a colon.
- * + Whitespace between tokens are removed to further shrink filesize.
- * 
+ * Removes comments (REM, ') from Model 100 BASIC.
+ * Uses output from jumps.lex to decide which commented out lines to keep.
+ *			
  * Compile with:   flex tandy-decomment.lex && gcc lex.decomment.c
  */
-/* Change "yy" prefix to "decomment" for file names */
-/* Define states that simply copy text instead of lexing */  
+#line 10 "tandy-decomment.lex"
+ /* Change "yy" prefix to "decomment" for file names */
+    #include <string.h>
+    #include <ctype.h>
+    int insert(int set[], int n);
+    void print_set(int set[]);
+    void print_intersection(int seta[], int setb[]);
+    int insert(int set[], int n) {
+	set[0]++;
+	int len=set[0], i=1;
+	for (i=1; i<len; i++) {
+	    if (set[i] > n) break;
+	    if (set[i] == n) { set[0]--; return 0; }
+	}
+	memmove(set+i+1, set+i, (len-i)*sizeof(set[0]));
+	set[i] = n;
+    }
+ /* Define states that simply copy text instead of lexing */  
 
-
-#line 19 "tandy-decomment.lex"
-  /* Functions defined in tandy-tokenize-main.c */
-  int yyput(uint8_t);		/* putchar, but for yyout instead of stdout. */
-  uint8_t lastput=255;		/* last written character, for EOF without nl */
-  int fixup_ptrs();		/* rewrite line pointers, if possible. */
-  /* An array to store line pointers, to be fixed up at EOF */
-  uint16_t ptr[65536];
-  int nlines = 0;
-#line 949 "tandy-decomment.c"
+    /* Set of line numbers that should be kept despite only containing a REM statement */
+    /* jumps[0] is length of set. */
+    int jumps[65537] = {0,};
+#line 750 "tandy-decomment.c"
 
 #define INITIAL 0
 #define string 1
-#define remark 2
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -1167,10 +967,11 @@ YY_DECL
 		}
 
 	{
-#line 28 "tandy-decomment.lex"
+#line 38 "tandy-decomment.lex"
 
 
-#line 1174 "tandy-decomment.c"
+     /* A line which starts with REM or ' should be removed unless it is in the JUMPS list */
+#line 975 "tandy-decomment.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1198,13 +999,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 375 )
+				if ( yy_current_state >= 31 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 441 );
+		while ( yy_base[yy_current_state] != 56 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -1231,708 +1032,49 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 30 "tandy-decomment.lex"
+#line 41 "tandy-decomment.lex"
 {
-    ptr[nlines++] = ftell(yyout);   /* Cache the location of the current line */
-    yyput('*'); yyput('*');	    /* Dummy placeholder pointer to next line. */
-    uint16_t linenum=atoi(yytext);  /* BASIC line number. */
-    yyput(linenum & 0xFF);
-    yyput(linenum >> 8);
-  }
+    int n = atoi(yytext);
+    int i = 1, len = jumps[0];
+    for (i=1; i<=len; i++) {
+        if (jumps[i] == n) {
+            ECHO;
+            break;
+        }
+    }
+}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 38 "tandy-decomment.lex"
-yyput('"'); BEGIN(string);
+#line 52 "tandy-decomment.lex"
+ECHO; BEGIN(string);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 39 "tandy-decomment.lex"
-yyput('"'); BEGIN(INITIAL);
+#line 53 "tandy-decomment.lex"
+ECHO; BEGIN(INITIAL);
 	YY_BREAK
-/* Newline matches <string> and <remark> start conditions. */
+/* Newline also matches <string> start condition. */
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 42 "tandy-decomment.lex"
-yyput('\0'); BEGIN(INITIAL);
-	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(string):
-case YY_STATE_EOF(remark):
-#line 44 "tandy-decomment.lex"
-{
-    (lastput == '\0') || yyput('\0'); /* Handle EOF without preceding newline */
-    fixup_ptrs();
-    yyterminate();
-  }
+#line 56 "tandy-decomment.lex"
+ECHO; BEGIN(INITIAL);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 50 "tandy-decomment.lex"
-/* Delete whitespace. */
+#line 58 "tandy-decomment.lex"
+; 	/* Delete REM and tick comments at end of line. */
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 51 "tandy-decomment.lex"
-yyput(142);		/* Delete text of REM comments. */
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 52 "tandy-decomment.lex"
-yyput(':'); yyput(142); /* Delete text of tick comments */
-	YY_BREAK
-case 8:
-YY_RULE_SETUP
-#line 54 "tandy-decomment.lex"
-/* Entirely delete trailing comments.*/
-	YY_BREAK
-/* Slight glitch: a line number followed by a colon then a comment
-    will end up being a line number without *any* content. This is
-    legal in the tokenization, and will run, but cannot be edited. */
-case 9:
-YY_RULE_SETUP
-#line 61 "tandy-decomment.lex"
-yyput(128);
-	YY_BREAK
-case 10:
-YY_RULE_SETUP
-#line 62 "tandy-decomment.lex"
-yyput(129);
-	YY_BREAK
-case 11:
-YY_RULE_SETUP
-#line 63 "tandy-decomment.lex"
-yyput(130);
-	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 64 "tandy-decomment.lex"
-yyput(131);
-	YY_BREAK
-case 13:
-YY_RULE_SETUP
-#line 65 "tandy-decomment.lex"
-yyput(132);
-	YY_BREAK
-case 14:
-YY_RULE_SETUP
-#line 66 "tandy-decomment.lex"
-yyput(133);
-	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 67 "tandy-decomment.lex"
-yyput(134);
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 68 "tandy-decomment.lex"
-yyput(135);
-	YY_BREAK
-case 17:
-YY_RULE_SETUP
-#line 69 "tandy-decomment.lex"
-yyput(136);
-	YY_BREAK
-case 18:
-YY_RULE_SETUP
-#line 70 "tandy-decomment.lex"
-yyput(137);
-	YY_BREAK
-case 19:
-YY_RULE_SETUP
-#line 71 "tandy-decomment.lex"
-yyput(138);
-	YY_BREAK
-case 20:
-YY_RULE_SETUP
-#line 72 "tandy-decomment.lex"
-yyput(139);
-	YY_BREAK
-case 21:
-YY_RULE_SETUP
-#line 73 "tandy-decomment.lex"
-yyput(140);
-	YY_BREAK
-case 22:
-YY_RULE_SETUP
-#line 74 "tandy-decomment.lex"
-yyput(141);
-	YY_BREAK
-/* REM		yyput(142); BEGIN(remark); 	Unused in decommenter */
-case 23:
-YY_RULE_SETUP
-#line 76 "tandy-decomment.lex"
-yyput(143);
-	YY_BREAK
-case 24:
-YY_RULE_SETUP
-#line 77 "tandy-decomment.lex"
-yyput(144);
-	YY_BREAK
-case 25:
-YY_RULE_SETUP
-#line 78 "tandy-decomment.lex"
-yyput(':'); yyput(145);
-	YY_BREAK
-case 26:
-YY_RULE_SETUP
-#line 79 "tandy-decomment.lex"
-yyput(146);
-	YY_BREAK
-case 27:
-YY_RULE_SETUP
-#line 80 "tandy-decomment.lex"
-yyput(147);
-	YY_BREAK
-case 28:
-YY_RULE_SETUP
-#line 81 "tandy-decomment.lex"
-yyput(148);
-	YY_BREAK
-case 29:
-YY_RULE_SETUP
-#line 82 "tandy-decomment.lex"
-yyput(149);
-	YY_BREAK
-case 30:
-YY_RULE_SETUP
-#line 83 "tandy-decomment.lex"
-yyput(150);
-	YY_BREAK
-case 31:
-YY_RULE_SETUP
-#line 84 "tandy-decomment.lex"
-yyput(151);
-	YY_BREAK
-case 32:
-YY_RULE_SETUP
-#line 85 "tandy-decomment.lex"
-yyput(152);
-	YY_BREAK
-case 33:
-YY_RULE_SETUP
-#line 86 "tandy-decomment.lex"
-yyput(153);
-	YY_BREAK
-case 34:
-YY_RULE_SETUP
-#line 87 "tandy-decomment.lex"
-yyput(154);
-	YY_BREAK
-case 35:
-YY_RULE_SETUP
-#line 88 "tandy-decomment.lex"
-yyput(155);
-	YY_BREAK
-case 36:
-YY_RULE_SETUP
-#line 89 "tandy-decomment.lex"
-yyput(156);
-	YY_BREAK
-case 37:
-YY_RULE_SETUP
-#line 90 "tandy-decomment.lex"
-yyput(157);
-	YY_BREAK
-case 38:
-YY_RULE_SETUP
-#line 91 "tandy-decomment.lex"
-yyput(158);
-	YY_BREAK
-case 39:
-YY_RULE_SETUP
-#line 92 "tandy-decomment.lex"
-yyput(159);
-	YY_BREAK
-case 40:
-YY_RULE_SETUP
-#line 93 "tandy-decomment.lex"
-yyput(160);
-	YY_BREAK
-case 41:
-YY_RULE_SETUP
-#line 94 "tandy-decomment.lex"
-yyput(161);
-	YY_BREAK
-case 42:
-YY_RULE_SETUP
-#line 95 "tandy-decomment.lex"
-yyput(162);
-	YY_BREAK
-case 43:
-YY_RULE_SETUP
-#line 96 "tandy-decomment.lex"
-yyput(163);
-	YY_BREAK
-case 44:
-YY_RULE_SETUP
-#line 97 "tandy-decomment.lex"
-yyput(163);
-	YY_BREAK
-case 45:
-YY_RULE_SETUP
-#line 98 "tandy-decomment.lex"
-yyput(164);
-	YY_BREAK
-case 46:
-YY_RULE_SETUP
-#line 99 "tandy-decomment.lex"
-yyput(165);
-	YY_BREAK
-case 47:
-YY_RULE_SETUP
-#line 100 "tandy-decomment.lex"
-yyput(166);
-	YY_BREAK
-case 48:
-YY_RULE_SETUP
-#line 101 "tandy-decomment.lex"
-yyput(167);
-	YY_BREAK
-case 49:
-YY_RULE_SETUP
-#line 102 "tandy-decomment.lex"
-yyput(168);
-	YY_BREAK
-case 50:
-YY_RULE_SETUP
-#line 103 "tandy-decomment.lex"
-yyput(169);
-	YY_BREAK
-case 51:
-YY_RULE_SETUP
-#line 104 "tandy-decomment.lex"
-yyput(170);
-	YY_BREAK
-case 52:
-YY_RULE_SETUP
-#line 105 "tandy-decomment.lex"
-yyput(171);
-	YY_BREAK
-case 53:
-YY_RULE_SETUP
-#line 106 "tandy-decomment.lex"
-yyput(172);
-	YY_BREAK
-case 54:
-YY_RULE_SETUP
-#line 107 "tandy-decomment.lex"
-yyput(173);
-	YY_BREAK
-case 55:
-YY_RULE_SETUP
-#line 108 "tandy-decomment.lex"
-yyput(174);
-	YY_BREAK
-case 56:
-YY_RULE_SETUP
-#line 109 "tandy-decomment.lex"
-yyput(175);
-	YY_BREAK
-case 57:
-YY_RULE_SETUP
-#line 110 "tandy-decomment.lex"
-yyput(176);
-	YY_BREAK
-case 58:
-YY_RULE_SETUP
-#line 111 "tandy-decomment.lex"
-yyput(177);
-	YY_BREAK
-case 59:
-YY_RULE_SETUP
-#line 112 "tandy-decomment.lex"
-yyput(178);
-	YY_BREAK
-case 60:
-YY_RULE_SETUP
-#line 113 "tandy-decomment.lex"
-yyput(179);
-	YY_BREAK
-case 61:
-YY_RULE_SETUP
-#line 114 "tandy-decomment.lex"
-yyput(180);
-	YY_BREAK
-case 62:
-YY_RULE_SETUP
-#line 115 "tandy-decomment.lex"
-yyput(181);
-	YY_BREAK
-case 63:
-YY_RULE_SETUP
-#line 116 "tandy-decomment.lex"
-yyput(182);
-	YY_BREAK
-case 64:
-YY_RULE_SETUP
-#line 117 "tandy-decomment.lex"
-yyput(183);
-	YY_BREAK
-case 65:
-YY_RULE_SETUP
-#line 118 "tandy-decomment.lex"
-yyput(184);
-	YY_BREAK
-case 66:
-YY_RULE_SETUP
-#line 119 "tandy-decomment.lex"
-yyput(185);
-	YY_BREAK
-case 67:
-YY_RULE_SETUP
-#line 120 "tandy-decomment.lex"
-yyput(186);
-	YY_BREAK
-case 68:
-YY_RULE_SETUP
-#line 121 "tandy-decomment.lex"
-yyput(187);
-	YY_BREAK
-case 69:
-YY_RULE_SETUP
-#line 122 "tandy-decomment.lex"
-yyput(188);
-	YY_BREAK
-case 70:
-YY_RULE_SETUP
-#line 123 "tandy-decomment.lex"
-yyput(189);
-	YY_BREAK
-case 71:
-YY_RULE_SETUP
-#line 124 "tandy-decomment.lex"
-yyput(190);
-	YY_BREAK
-case 72:
-YY_RULE_SETUP
-#line 125 "tandy-decomment.lex"
-yyput(191);
-	YY_BREAK
-case 73:
-YY_RULE_SETUP
-#line 126 "tandy-decomment.lex"
-yyput(192);
-	YY_BREAK
-case 74:
-YY_RULE_SETUP
-#line 127 "tandy-decomment.lex"
-yyput(193);
-	YY_BREAK
-case 75:
-YY_RULE_SETUP
-#line 128 "tandy-decomment.lex"
-yyput(194);
-	YY_BREAK
-case 76:
-YY_RULE_SETUP
-#line 129 "tandy-decomment.lex"
-yyput(195);
-	YY_BREAK
-case 77:
-YY_RULE_SETUP
-#line 130 "tandy-decomment.lex"
-yyput(196);
-	YY_BREAK
-case 78:
-YY_RULE_SETUP
-#line 131 "tandy-decomment.lex"
-yyput(197);
-	YY_BREAK
-case 79:
-YY_RULE_SETUP
-#line 132 "tandy-decomment.lex"
-yyput(198);
-	YY_BREAK
-case 80:
-YY_RULE_SETUP
-#line 133 "tandy-decomment.lex"
-yyput(199);
-	YY_BREAK
-case 81:
-YY_RULE_SETUP
-#line 134 "tandy-decomment.lex"
-yyput(200);
-	YY_BREAK
-case 82:
-YY_RULE_SETUP
-#line 135 "tandy-decomment.lex"
-yyput(201);
-	YY_BREAK
-case 83:
-YY_RULE_SETUP
-#line 136 "tandy-decomment.lex"
-yyput(202);
-	YY_BREAK
-case 84:
-YY_RULE_SETUP
-#line 137 "tandy-decomment.lex"
-yyput(203);
-	YY_BREAK
-case 85:
-YY_RULE_SETUP
-#line 138 "tandy-decomment.lex"
-yyput(204);
-	YY_BREAK
-case 86:
-YY_RULE_SETUP
-#line 139 "tandy-decomment.lex"
-yyput(205);
-	YY_BREAK
-case 87:
-YY_RULE_SETUP
-#line 140 "tandy-decomment.lex"
-yyput(206);
-	YY_BREAK
-case 88:
-YY_RULE_SETUP
-#line 141 "tandy-decomment.lex"
-yyput(207);
-	YY_BREAK
-case 89:
-YY_RULE_SETUP
-#line 142 "tandy-decomment.lex"
-yyput(208);
-	YY_BREAK
-case 90:
-YY_RULE_SETUP
-#line 143 "tandy-decomment.lex"
-yyput(209);
-	YY_BREAK
-case 91:
-YY_RULE_SETUP
-#line 144 "tandy-decomment.lex"
-yyput(210);
-	YY_BREAK
-case 92:
-YY_RULE_SETUP
-#line 145 "tandy-decomment.lex"
-yyput(211);
-	YY_BREAK
-case 93:
-YY_RULE_SETUP
-#line 146 "tandy-decomment.lex"
-yyput(212);
-	YY_BREAK
-case 94:
-YY_RULE_SETUP
-#line 147 "tandy-decomment.lex"
-yyput(213);
-	YY_BREAK
-case 95:
-YY_RULE_SETUP
-#line 148 "tandy-decomment.lex"
-yyput(214);
-	YY_BREAK
-case 96:
-YY_RULE_SETUP
-#line 149 "tandy-decomment.lex"
-yyput(215);
-	YY_BREAK
-case 97:
-YY_RULE_SETUP
-#line 150 "tandy-decomment.lex"
-yyput(216);
-	YY_BREAK
-case 98:
-YY_RULE_SETUP
-#line 151 "tandy-decomment.lex"
-yyput(217);
-	YY_BREAK
-case 99:
-YY_RULE_SETUP
-#line 152 "tandy-decomment.lex"
-yyput(218);
-	YY_BREAK
-case 100:
-YY_RULE_SETUP
-#line 153 "tandy-decomment.lex"
-yyput(219);
-	YY_BREAK
-case 101:
-YY_RULE_SETUP
-#line 154 "tandy-decomment.lex"
-yyput(220);
-	YY_BREAK
-case 102:
-YY_RULE_SETUP
-#line 155 "tandy-decomment.lex"
-yyput(221);
-	YY_BREAK
-case 103:
-YY_RULE_SETUP
-#line 156 "tandy-decomment.lex"
-yyput(222);
-	YY_BREAK
-case 104:
-YY_RULE_SETUP
-#line 157 "tandy-decomment.lex"
-yyput(223);
-	YY_BREAK
-case 105:
-YY_RULE_SETUP
-#line 158 "tandy-decomment.lex"
-yyput(224);
-	YY_BREAK
-case 106:
-YY_RULE_SETUP
-#line 159 "tandy-decomment.lex"
-yyput(225);
-	YY_BREAK
-case 107:
-YY_RULE_SETUP
-#line 160 "tandy-decomment.lex"
-yyput(226);
-	YY_BREAK
-case 108:
-YY_RULE_SETUP
-#line 161 "tandy-decomment.lex"
-yyput(227);
-	YY_BREAK
-case 109:
-YY_RULE_SETUP
-#line 162 "tandy-decomment.lex"
-yyput(228);
-	YY_BREAK
-case 110:
-YY_RULE_SETUP
-#line 163 "tandy-decomment.lex"
-yyput(229);
-	YY_BREAK
-case 111:
-YY_RULE_SETUP
-#line 164 "tandy-decomment.lex"
-yyput(230);
-	YY_BREAK
-case 112:
-YY_RULE_SETUP
-#line 165 "tandy-decomment.lex"
-yyput(231);
-	YY_BREAK
-case 113:
-YY_RULE_SETUP
-#line 166 "tandy-decomment.lex"
-yyput(232);
-	YY_BREAK
-case 114:
-YY_RULE_SETUP
-#line 167 "tandy-decomment.lex"
-yyput(233);
-	YY_BREAK
-case 115:
-YY_RULE_SETUP
-#line 168 "tandy-decomment.lex"
-yyput(234);
-	YY_BREAK
-case 116:
-YY_RULE_SETUP
-#line 169 "tandy-decomment.lex"
-yyput(235);
-	YY_BREAK
-case 117:
-YY_RULE_SETUP
-#line 170 "tandy-decomment.lex"
-yyput(236);
-	YY_BREAK
-case 118:
-YY_RULE_SETUP
-#line 171 "tandy-decomment.lex"
-yyput(237);
-	YY_BREAK
-case 119:
-YY_RULE_SETUP
-#line 172 "tandy-decomment.lex"
-yyput(238);
-	YY_BREAK
-case 120:
-YY_RULE_SETUP
-#line 173 "tandy-decomment.lex"
-yyput(239);
-	YY_BREAK
-case 121:
-YY_RULE_SETUP
-#line 174 "tandy-decomment.lex"
-yyput(240);
-	YY_BREAK
-case 122:
-YY_RULE_SETUP
-#line 175 "tandy-decomment.lex"
-yyput(241);
-	YY_BREAK
-case 123:
-YY_RULE_SETUP
-#line 176 "tandy-decomment.lex"
-yyput(242);
-	YY_BREAK
-case 124:
-YY_RULE_SETUP
-#line 177 "tandy-decomment.lex"
-yyput(243);
-	YY_BREAK
-case 125:
-YY_RULE_SETUP
-#line 178 "tandy-decomment.lex"
-yyput(244);
-	YY_BREAK
-case 126:
-YY_RULE_SETUP
-#line 179 "tandy-decomment.lex"
-yyput(245);
-	YY_BREAK
-case 127:
-YY_RULE_SETUP
-#line 180 "tandy-decomment.lex"
-yyput(246);
-	YY_BREAK
-case 128:
-YY_RULE_SETUP
-#line 181 "tandy-decomment.lex"
-yyput(247);
-	YY_BREAK
-case 129:
-YY_RULE_SETUP
-#line 182 "tandy-decomment.lex"
-yyput(248);
-	YY_BREAK
-case 130:
-YY_RULE_SETUP
-#line 183 "tandy-decomment.lex"
-yyput(249);
-	YY_BREAK
-case 131:
-YY_RULE_SETUP
-#line 184 "tandy-decomment.lex"
-yyput(250);
-	YY_BREAK
-case 132:
-YY_RULE_SETUP
-#line 185 "tandy-decomment.lex"
-yyput(251);
-	YY_BREAK
-case 133:
-YY_RULE_SETUP
-#line 186 "tandy-decomment.lex"
-yyput(252);
-	YY_BREAK
-case 134:
-YY_RULE_SETUP
-#line 187 "tandy-decomment.lex"
-yyput(253);
-	YY_BREAK
-case 135:
-YY_RULE_SETUP
-#line 188 "tandy-decomment.lex"
-yyput(254);
-	YY_BREAK
-/* "'"		yyput(':'); yyput(0x8E); yyput(0xFF); BEGIN(remark); */
-case 136:
-YY_RULE_SETUP
-#line 191 "tandy-decomment.lex"
+#line 60 "tandy-decomment.lex"
 ECHO;
 	YY_BREAK
-#line 1936 "tandy-decomment.c"
+#line 1075 "tandy-decomment.c"
+case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(string):
+	yyterminate();
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2228,7 +1370,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 375 )
+			if ( yy_current_state >= 31 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -2256,11 +1398,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 375 )
+		if ( yy_current_state >= 31 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 374);
+	yy_is_jam = (yy_current_state == 30);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2938,9 +2080,34 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 191 "tandy-decomment.lex"
+#line 60 "tandy-decomment.lex"
 
 
-/* The main() routine, yyput(), fixup_ptrs() */
-#include "tandy-tokenize-main.c"
+int main(int argc, char *argv[]) {
+
+  ++argv, --argc; 		/* skip over program name */
+
+  /* First arg (if any) is input file name */
+  yyin = (argc>0) ? fopen( argv[0], "r" ) : stdin;
+  if (yyin == NULL) { perror(argv[0]); exit(1);  }
+
+  /* Second arg (if any) is output file name */
+  ++argv, --argc;
+  yyout = (argc>0) ? fopen( argv[0], "w+" ) : stdout;
+  if (yyout == NULL) { perror(argv[0]); exit(1);  }
+  
+  while (argc>0) {
+      insert(jumps, atoi(argv[0]));
+      ++argv, --argc;
+  }
+
+  while (yylex())
+    ;
+  return 0;
+}
+
+
+int yywrap() {
+  return 1;			/* Always only read one file */
+}
 
