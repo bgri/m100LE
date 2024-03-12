@@ -1,0 +1,138 @@
+#!/bin/bash -e
+
+# Usage: ./tokenize [-n] INPUT.DO [ OUTPUT.DO ]
+
+# Wrapper for m100-tokenize.
+
+# Unlike m100-tokenize, the input file is passed through a filter
+# that sorts the lines and removes duplicate line numbers.
+
+function shortusage() {
+    cat <<EOF
+tokenize: Create a tokenized BASIC file from an ASCII BASIC source file.
+
+Usage: tokenize INPUT.DO [ OUTPUT.BA ]
+       tokenize [-d | --decomment] INPUT.DO [ OUTPUT.BA ]
+       tokenize [-c | --crunch] INPUT.DO [ OUTPUT.BA ]
+
+(For more help try -h).
+EOF
+}
+
+function usage() {
+    cat <<EOF
+tokenize: Create a tokenized BASIC file from an ASCII BASIC source file.
+
+Usage: tokenize INPUT.DO [ OUTPUT.BA ]
+       tokenize [-d | --decomment] INPUT.DO [ OUTPUT.BA ]
+       tokenize [-c | --crunch] INPUT.DO [ OUTPUT.BA ]
+
+This is a wrapper for m100-tokenize. Using -d shrinks the output by
+omitting comments. Using -c removes comments and also whitespace. 
+
+Unlike calling m100-tokenize directly, the input file is passed
+through a sanity filter that sorts the lines and removes duplicate
+line numbers. This is the way the BASIC tokenizer on the Model T works
+and probably should be how any *sane* tokenizer should behave.
+However, tokenized programs with scrambled or redundant line numbers
+are actually valid on Model T computers and so hackerb9 has kept
+m100-tokenize as flexible as possible by allowing such files.
+
+The syntax is also slightly different from m100-tokenize. The input
+filename is mandatory and the output has a reasonable default (such as
+"FOO.BA" for "FOO.DO").
+
+EOF
+}
+
+function main() {
+    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+	usage
+	exit
+    fi
+    if [[ "$1" == "-d" || "$1" == "--decomment" ]]; then
+	dflag=YUP
+	shift
+    elif [[ "$1" == "-c" || "$1" == "--crunch" ]]; then
+	cflag=YUP
+	shift
+    fi
+
+    local f="$1"		# Input BASIC source filename 
+    local g="$2"		# Output tokenized BASIC filename
+
+    if [[ -z "$f" ]]; then shortusage; exit 1; fi
+
+    # Make a reasonable guess for an output filename, if none given.
+    if [[ -z "$g" ]]; then g=$(output_name "$f") || exit 1; fi
+
+    # Look first for the m100-tokenize binary in same dir as this script.
+    PATH=$(dirname "$0"):"$PATH"
+
+    if [[ "$dflag" ]]; then
+	echo "Decommenting and tokenizing '$f' into '$g'"
+	jumps=$(sanity.awk "$f" | jumps )
+	sanity.awk "$f" | m100-decomment /dev/stdin "$g" ${jumps}
+    elif [[ "$cflag" ]]; then
+	echo "Decommenting, crunching, and tokenizing '$f' into '$g'"
+	jumps=$(sanity.awk "$f" | jumps )
+	sanity.awk "$f" | m100-decomment /dev/stdin /dev/stdout ${jumps} | m100-crunch | m100-tokenize > $g
+    else
+	echo "Tokenizing '$f' into '$g'"
+	sanity.awk "$f" | m100-tokenize > "$g"
+    fi
+}
+
+function output_name() {
+    # Given an input filename in $1, print a reasonable output filename.
+
+    local f="$1" 		# Input filename
+    local g="$1"		# Output filename
+    if [[ "$g" =~ ^(.*)\.(DO|100|200|TXT) ]]; then
+	g="${BASH_REMATCH[1]}.BA"
+    elif [[ "$g" =~ ^(.*)\.(do|txt) ]]; then
+	g="${BASH_REMATCH[1]}.ba"
+    elif [[ "$g" =~ ^(.*)\.(BA|ba) ]]; then
+	g="${BASH_REMATCH[1]}-tokenized.ba"
+    else
+	g="$g".ba
+    fi
+
+    # If original filename was ALL CAPS, then keep it so on output  
+    if [[ $(basename "${f@U}") == $(basename "$f") ]]; then
+	dir=$(dirname "$f")
+	base=$(basename "$g")
+	g="$dir${dir:+/}${base@U}"
+    fi
+
+    # Don't overwrite existing files by default
+    if [[ -e "$g" ]]; then
+	if ! tty -s; then
+	    mv "$g" "$g~" || return -1
+	else
+	    echo -n "Output file '$g' already exists. " >&2
+	    read -e -p "Overwrite [yes/NO/rename]? " -n 1 >&2
+	    case ${REPLY@L} in
+		y)			# Yes
+	            ;;
+		r) 			# Rename
+		    if mv "$g" "$g~"; then
+			echo "Old file renamed to '$g~'" >&2
+		    else
+			return -1
+		    fi
+		    ;;
+		*)			# Anything else
+		    return -1
+		    ;;
+	    esac
+	fi
+    fi
+
+    echo "$g"
+    return 0
+}
+
+
+main "$@"
+
