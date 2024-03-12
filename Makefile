@@ -38,7 +38,7 @@ tokenize:
 
 # Convert M100LE+comments.DO -> M100LE+comments.BA, keeping comments.
 %.BA: %.DO
-	adjunct/m100-sanity $<  | adjunct/m100-tokenize > $@
+	adjunct/tokenize $< $@
 
 # Automatically convert M100LE+comments.DO -> M100LE.BA, removing comments & crunching.
 %.BA: %+comments.DO
