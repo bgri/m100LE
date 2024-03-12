@@ -71,15 +71,15 @@ function main() {
 
     if [[ "$dflag" ]]; then
 	echo "Decommenting and tokenizing '$f' into '$g'"
-	jumps=$(sanity.awk "$f" | jumps )
-	sanity.awk "$f" | m100-decomment /dev/stdin "$g" ${jumps}
+	jumps=$(m100-sanity "$f" | jumps )
+	m100-sanity "$f" | m100-decomment /dev/stdin "$g" ${jumps}
     elif [[ "$cflag" ]]; then
 	echo "Decommenting, crunching, and tokenizing '$f' into '$g'"
-	jumps=$(sanity.awk "$f" | jumps )
-	sanity.awk "$f" | m100-decomment /dev/stdin /dev/stdout ${jumps} | m100-crunch | m100-tokenize > $g
+	jumps=$(m100-sanity "$f" | jumps )
+	m100-sanity "$f" | m100-decomment /dev/stdin /dev/stdout ${jumps} | m100-crunch | m100-tokenize > $g
     else
 	echo "Tokenizing '$f' into '$g'"
-	sanity.awk "$f" | m100-tokenize > "$g"
+	m100-sanity "$f" | m100-tokenize > "$g"
     fi
 }
 
