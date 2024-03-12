@@ -1,6 +1,6 @@
-#line 2 "tandy-crunch.c"
+#line 2 "m100-crunch.c"
 
-#line 4 "tandy-crunch.c"
+#line 4 "m100-crunch.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -722,14 +722,14 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "tandy-crunch.lex"
-/* tandy-crunch.lex		TRS-80 Model 100 BASIC cruncher 
+#line 1 "m100-crunch.lex"
+/* m100-crunch.lex		TRS-80 Model 100 BASIC cruncher 
  *
  * Saves a few bytes by removing whitespace and other extraneous
- * characters but makes programs harder to read. See tandy-decommenter
+ * characters but makes programs harder to read. See m100-decommenter
  * for potentially much greater savings by removing all comments. 
  *			
- * Compile with:   flex tandy-crunch.lex && gcc lex.crunch.c
+ * Compile with:   flex m100-crunch.lex && gcc lex.crunch.c
  * 		
  * Note: Crunching is not always a good idea as the confusion it
  * causes may not be worth the few bytes saved. For example,
@@ -738,12 +738,12 @@ char *yytext;
  * 	    100 Z$="          
  * which runs exactly the same, but isn't understandable at sight.
  */
-#line 19 "tandy-crunch.lex"
+#line 19 "m100-crunch.lex"
  /* Change "yy" prefix to "crunch" for file names */
  /* Define states that simply copy text instead of lexing */  
 
 
-#line 747 "tandy-crunch.c"
+#line 747 "m100-crunch.c"
 
 #define INITIAL 0
 #define string 1
@@ -965,10 +965,10 @@ YY_DECL
 		}
 
 	{
-#line 28 "tandy-crunch.lex"
+#line 28 "m100-crunch.lex"
 
 
-#line 972 "tandy-crunch.c"
+#line 972 "m100-crunch.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1028,48 +1028,48 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 30 "tandy-crunch.lex"
+#line 30 "m100-crunch.lex"
 ECHO; BEGIN(string);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "tandy-crunch.lex"
+#line 31 "m100-crunch.lex"
 ECHO; BEGIN(INITIAL);
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 32 "tandy-crunch.lex"
+#line 32 "m100-crunch.lex"
 ECHO; BEGIN(INITIAL); /* Newline ends strings */
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "tandy-crunch.lex"
+#line 33 "m100-crunch.lex"
 ECHO; BEGIN(remark); 
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 34 "tandy-crunch.lex"
+#line 34 "m100-crunch.lex"
 ECHO; BEGIN(INITIAL);
 	YY_BREAK
 /* Omit close quote on strings at end of line */
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 37 "tandy-crunch.lex"
+#line 37 "m100-crunch.lex"
 fputc(yytext[yyleng-1], yyout) ; BEGIN(INITIAL);
 	YY_BREAK
 /* Elide whitespace between tokens (not in strings or remarks). */
 case 7:
 YY_RULE_SETUP
-#line 40 "tandy-crunch.lex"
+#line 40 "m100-crunch.lex"
 ;		      
 	YY_BREAK
 /* Delete leading colons */
 case 8:
 YY_RULE_SETUP
-#line 43 "tandy-crunch.lex"
+#line 43 "m100-crunch.lex"
 ;		      
 	YY_BREAK
 /* Delete trailing colons */
@@ -1078,27 +1078,27 @@ case 9:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 46 "tandy-crunch.lex"
+#line 46 "m100-crunch.lex"
 ;		      
 	YY_BREAK
 /* Replace 100 ' with 100 REM as it tokenizes to 1 instead of 2 bytes */
 case 10:
 YY_RULE_SETUP
-#line 49 "tandy-crunch.lex"
+#line 49 "m100-crunch.lex"
 fprintf(yyout, "%d REM", atoi(yytext));
 	YY_BREAK
 /* Remove redundant colon in  :'. */
 case 11:
 YY_RULE_SETUP
-#line 52 "tandy-crunch.lex"
+#line 52 "m100-crunch.lex"
 fprintf(yyout, "'"); 	
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 56 "tandy-crunch.lex"
+#line 56 "m100-crunch.lex"
 ECHO;
 	YY_BREAK
-#line 1102 "tandy-crunch.c"
+#line 1102 "m100-crunch.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(string):
 case YY_STATE_EOF(remark):
@@ -2108,7 +2108,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 56 "tandy-crunch.lex"
+#line 56 "m100-crunch.lex"
 
 
 int main(int argc, char *argv[]) {

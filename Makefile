@@ -4,20 +4,18 @@
 generated+=M100LE+comments.BA M100LE.BA
 generated+=CMPRSS.BA
 
-# Tokenizing and uncommenting requires hackerb9's tandy-tokenize program.
-# See https://github.com/hackerb9/tandy-tokenize
+# Tokenizing and uncommenting requires hackerb9's m100-tokenize program.
+# See https://github.com/hackerb9/m100-tokenize
 # If it is not installed, use 'make tokenize' to compile a
-# (possibly old) version of tandy-tokenize in the adjunct/ dir.
-TOKENIZE:=$(shell command -v tandy-tokenize 2>/dev/null)
-TKNZ	:=$(shell command -v tandy-decomment 2>/dev/null)
+# (possibly old) version of m100-tokenize in the adjunct/ dir.
+TOKENIZE:=$(shell command -v m100-tokenize 2>/dev/null)
 ifndef TOKENIZE
-    TOKENIZE	:=$(shell command -v adjunct/tandy-tokenize 2>/dev/null)
+    TOKENIZE	:=$(shell command -v adjunct/m100-tokenize 2>/dev/null)
     ifndef TOKENIZE
-        $(warning ${PATH} "Compiling tandy-tokenize in adjunct directory");
+        $(warning "Compiling m100-tokenize in adjunct directory");
         generated:=tokenize ${generated}
     endif
-    TOKENIZE	:=adjunct/tandy-tokenize
-    TKNZ	:=adjunct/tandy-decomment
+    TOKENIZE	:=adjunct/m100-tokenize
 endif
 
 
@@ -32,7 +30,7 @@ clean:
 	rm ${generated} 2>/dev/null || true
 	$(MAKE) -C adjunct clean
 
-### Compile hackerb9's tokenizer program (only if not already installed)
+### Compile hackerb9's tokenizer program
 tokenize:
 	$(MAKE) -C adjunct tokenize
 
@@ -40,9 +38,9 @@ tokenize:
 
 # Convert M100LE+comments.DO -> M100LE+comments.BA, keeping comments.
 %.BA: %.DO
-	${TOKENIZE} < $<  > $@
+	adjunct/m100-sanity $<  | adjunct/m100-tokenize > $@
 
 # Automatically convert M100LE+comments.DO -> M100LE.BA, removing comments.
 %.BA: %+comments.DO
-	${TKNZ} $<  $@
+	adjunct/m100-sanity $<  | adjunct/m100-decomment| adjunct/m100-tokenize > $@
 

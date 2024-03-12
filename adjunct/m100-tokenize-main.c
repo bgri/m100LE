@@ -1,15 +1,15 @@
-/* tandy-tokenize-main.c		Front end for Model 100 BASIC tokenizer
+/* m100-tokenize-main.c		Front end for Model 100 BASIC tokenizer
  * 
  * This is just the frontend. 
- * For the actual tokenizer, see tandy-tokenize.lex.
+ * For the actual tokenizer, see m100-tokenize.lex.
  */
 
-  /* Usage: tandy-tokenize  [ input.ba [ output.ba ] ]
+  /* Usage: m100-tokenize  [ input.ba [ output.ba ] ]
 
    * Examples:  
-   	(a) tandy-tokenize  FOO.DO  FOO.BA
-   	(b) tandy-tokenize  <FOO.DO  >FOO.BA
-   	(c) tandy-tokenize  FOO.DO | cat > FOO.BA
+   	(a) m100-tokenize  FOO.DO  FOO.BA
+   	(b) m100-tokenize  <FOO.DO  >FOO.BA
+   	(c) m100-tokenize  FOO.DO | cat > FOO.BA
 	
      Note that (a) and (b) are identical, but (c) is slightly different.
 

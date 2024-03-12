@@ -1,19 +1,15 @@
-tokenize: tandy-tokenize tandy-decomment
+tokenize: m100-tokenize m100-decomment m100-crunch 
 
 # Tokenizer that preserves comments
-tandy-tokenize: tandy-tokenize.c tandy-tokenize-main.c
-	gcc tandy-tokenize.c -o tandy-tokenize
+m100-tokenize: m100-tokenize.c
+	gcc $< -o $@
 
 # Lexer that omits comments
-tandy-decomment: tandy-decomment.c 
-	gcc tandy-decomment.c -o tandy-decomment
+m100-decomment: m100-decomment.c 
 
 # Lexer that omits whitespace
-tandy-crunch: tandy-crunch.c 
-	gcc tandy-crunch.c -o tandy-crunch
-
-
+m100-crunch: m100-crunch.c 
 
 clean:
-	rm tandy-tokenize tandy-decomment tandy-crunch 2>/dev/null || true
+	rm m100-tokenize m100-decomment m100-crunch 2>/dev/null || true
 
