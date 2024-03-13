@@ -558,7 +558,7 @@ char *yytext;
     /* First entry, jumps[0], is length of array. */
     int jumps[65537] = {0,};
     /* A set to store lines which contain only a REM statement */
-    int remarks[65537] = {0, };
+    int remset[65537] = {0, };
     /* Insert a number into the set, if it isn't already there. */
     /* Minor optimization: start at the end of the array since it is sorted. */
     int insert(int set[], int n) {
@@ -860,30 +860,31 @@ case 1:
 YY_RULE_SETUP
 #line 69 "m100-jumps.lex"
 {
-    insert(remarks, atoi(yytext));
+    insert(remset, atoi(yytext));
+    BEGIN(remark);
 }
 	YY_BREAK
-/* Skip over remarks and strings  */
+/* Skip over remset and strings  */
 case 2:
 YY_RULE_SETUP
-#line 74 "m100-jumps.lex"
+#line 75 "m100-jumps.lex"
 BEGIN(remark);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 75 "m100-jumps.lex"
+#line 76 "m100-jumps.lex"
 BEGIN(string);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 76 "m100-jumps.lex"
+#line 77 "m100-jumps.lex"
 BEGIN(INITIAL);
 	YY_BREAK
 /* Newline ends <string> and <remark> conditions. */
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 79 "m100-jumps.lex"
+#line 80 "m100-jumps.lex"
 BEGIN(INITIAL);
 	YY_BREAK
 /* GOTO & GOSUB take a line number list:
@@ -893,32 +894,32 @@ BEGIN(INITIAL);
   */
 case 6:
 YY_RULE_SETUP
-#line 88 "m100-jumps.lex"
-{ parse_linelist(yytext); }
+#line 89 "m100-jumps.lex"
+parse_linelist(yytext);
 	YY_BREAK
 case 7:
-YY_RULE_SETUP
-#line 90 "m100-jumps.lex"
-parse_linenumber(yytext);
-	YY_BREAK
-case 8:
 YY_RULE_SETUP
 #line 91 "m100-jumps.lex"
 parse_linenumber(yytext);
 	YY_BREAK
-case 9:
+case 8:
 YY_RULE_SETUP
 #line 92 "m100-jumps.lex"
 parse_linenumber(yytext);
 	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 93 "m100-jumps.lex"
+parse_linenumber(yytext);
+	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 94 "m100-jumps.lex"
+#line 95 "m100-jumps.lex"
 parse_linenumber(yytext);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 95 "m100-jumps.lex"
+#line 96 "m100-jumps.lex"
 parse_linenumber(yytext);
 	YY_BREAK
 /* LIST and EDIT take a line number range:
@@ -929,43 +930,43 @@ parse_linenumber(yytext);
   */
 case 12:
 YY_RULE_SETUP
-#line 103 "m100-jumps.lex"
+#line 104 "m100-jumps.lex"
 parse_linerange(yytext);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 104 "m100-jumps.lex"
+#line 105 "m100-jumps.lex"
 parse_linerange(yytext);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 105 "m100-jumps.lex"
+#line 106 "m100-jumps.lex"
 parse_linerange(yytext);
 	YY_BREAK
 /* ERL is a variable used to compare against a line number */
 case 15:
 YY_RULE_SETUP
-#line 108 "m100-jumps.lex"
+#line 109 "m100-jumps.lex"
 parse_erl(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 109 "m100-jumps.lex"
+#line 110 "m100-jumps.lex"
 parse_erl(yytext);
 	YY_BREAK
 /* Delete all else */
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 112 "m100-jumps.lex"
+#line 113 "m100-jumps.lex"
 ;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 114 "m100-jumps.lex"
+#line 115 "m100-jumps.lex"
 ECHO;
 	YY_BREAK
-#line 969 "m100-jumps.c"
+#line 970 "m100-jumps.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(string):
 case YY_STATE_EOF(remark):
@@ -1975,7 +1976,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 114 "m100-jumps.lex"
+#line 115 "m100-jumps.lex"
 
 
     int parse_linenumber(char *p) {       /* Example input: "RESTORE 1000" */
@@ -2101,7 +2102,7 @@ int main(int argc, char *argv[]) {
   if (printalljumps)
       print_set(jumps);				/* -j flag */
   else
-      print_intersection(jumps, remarks); 	/* Default */
+      print_intersection(jumps, remset); 	/* Default */
 
   return 0;
 }

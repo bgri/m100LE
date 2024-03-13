@@ -1,6 +1,6 @@
-#line 2 "tandy-decomment.c"
+#line 2 "m100-decomment.c"
 
-#line 4 "tandy-decomment.c"
+#line 4 "m100-decomment.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -716,15 +716,15 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "tandy-decomment.lex"
-/* tandy-decomment.lex		TRS-80 Model 100 BASIC decommenter 
+#line 1 "m100-decomment.lex"
+/* m100-decomment.lex		TRS-80 Model 100 BASIC decommenter 
  *
  * Removes comments (REM, ') from Model 100 BASIC.
  * Uses output from jumps.lex to decide which commented out lines to keep.
  *			
- * Compile with:   flex tandy-decomment.lex && gcc lex.decomment.c
+ * Compile with:   flex m100-decomment.lex && gcc lex.decomment.c
  */
-#line 10 "tandy-decomment.lex"
+#line 10 "m100-decomment.lex"
  /* Change "yy" prefix to "decomment" for file names */
     #include <string.h>
     #include <ctype.h>
@@ -746,7 +746,7 @@ char *yytext;
     /* Set of line numbers that should be kept despite only containing a REM statement */
     /* jumps[0] is length of set. */
     int jumps[65537] = {0,};
-#line 750 "tandy-decomment.c"
+#line 750 "m100-decomment.c"
 
 #define INITIAL 0
 #define string 1
@@ -967,11 +967,11 @@ YY_DECL
 		}
 
 	{
-#line 38 "tandy-decomment.lex"
+#line 38 "m100-decomment.lex"
 
 
      /* A line which starts with REM or ' should be removed unless it is in the JUMPS list */
-#line 975 "tandy-decomment.c"
+#line 975 "m100-decomment.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1032,7 +1032,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 41 "tandy-decomment.lex"
+#line 41 "m100-decomment.lex"
 {
     int n = atoi(yytext);
     int i = 1, len = jumps[0];
@@ -1046,32 +1046,32 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 52 "tandy-decomment.lex"
+#line 52 "m100-decomment.lex"
 ECHO; BEGIN(string);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 53 "tandy-decomment.lex"
+#line 53 "m100-decomment.lex"
 ECHO; BEGIN(INITIAL);
 	YY_BREAK
 /* Newline also matches <string> start condition. */
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 56 "tandy-decomment.lex"
+#line 56 "m100-decomment.lex"
 ECHO; BEGIN(INITIAL);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 58 "tandy-decomment.lex"
+#line 58 "m100-decomment.lex"
 ; 	/* Delete REM and tick comments at end of line. */
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 60 "tandy-decomment.lex"
+#line 60 "m100-decomment.lex"
 ECHO;
 	YY_BREAK
-#line 1075 "tandy-decomment.c"
+#line 1075 "m100-decomment.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(string):
 	yyterminate();
@@ -2080,30 +2080,36 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 60 "tandy-decomment.lex"
+#line 60 "m100-decomment.lex"
 
 
 int main(int argc, char *argv[]) {
 
-  ++argv, --argc; 		/* skip over program name */
+    char *inputfile, *outputfile;
+    yyin = stdin; yyout = stdout;
 
-  /* First arg (if any) is input file name */
-  yyin = (argc>0) ? fopen( argv[0], "r" ) : stdin;
-  if (yyin == NULL) { perror(argv[0]); exit(1);  }
+    /* First arg (if any) is input file name */
+    if ( (argc>1) && strcmp(argv[1], "-")) {
+	inputfile=argv[1];
+	yyin = fopen( inputfile, "r" );
+	if (yyin == NULL) { perror(inputfile); exit(1);  }
+    }
 
-  /* Second arg (if any) is output file name */
-  ++argv, --argc;
-  yyout = (argc>0) ? fopen( argv[0], "w+" ) : stdout;
-  if (yyout == NULL) { perror(argv[0]); exit(1);  }
-  
-  while (argc>0) {
-      insert(jumps, atoi(argv[0]));
-      ++argv, --argc;
-  }
+    /* Second arg (if any) is output file name */
+    if ( (argc>2) && strcmp(argv[2], "-")) {
+	outputfile=argv[2];
+	yyout = fopen( outputfile, "w+" );
+	if (yyout == NULL) { perror(outputfile); exit(1);  }
+    }
 
-  while (yylex())
-    ;
-  return 0;
+    /* Remaining args are line numbers to keep (from m100-jumps.lex) */
+    for (int i=3; argc>i; i++) {
+	insert(jumps, atoi(argv[i]));
+    }
+
+    while (yylex())
+	;
+    return 0;
 }
 
 

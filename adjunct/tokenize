@@ -1,9 +1,5 @@
 #!/bin/bash -e
-
-# Usage: ./tokenize [-n] INPUT.DO [ OUTPUT.DO ]
-
-# Wrapper for m100-tokenize.
-
+# Wrapper for m100-tokenize and friends.
 # Unlike m100-tokenize, the input file is passed through a filter
 # that sorts the lines and removes duplicate line numbers.
 
@@ -71,11 +67,11 @@ function main() {
 
     if [[ "$dflag" ]]; then
 	echo "Decommenting and tokenizing '$f' into '$g'"
-	jumps=$(m100-sanity "$f" | jumps )
+	jumps=$(m100-sanity "$f" | m100-jumps )
 	m100-sanity "$f" | m100-decomment /dev/stdin "$g" ${jumps}
     elif [[ "$cflag" ]]; then
 	echo "Decommenting, crunching, and tokenizing '$f' into '$g'"
-	jumps=$(m100-sanity "$f" | jumps )
+	jumps=$(m100-sanity "$f" | m100-jumps )
 	m100-sanity "$f" | m100-decomment /dev/stdin /dev/stdout ${jumps} | m100-crunch | m100-tokenize > $g
     else
 	echo "Tokenizing '$f' into '$g'"
