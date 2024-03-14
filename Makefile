@@ -40,12 +40,10 @@ tokenize:
 # Unfortunately, MacOS is recalcitrant.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
-	PATH := "/usr/local/opt/gawk/libexec/gnubin:$PATH"
-	PATH := "/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-	gnuxform := 
-else
-	gnuxform := --xform 's%^%m100le/%'
+	export PATH := /usr/local/opt/gawk/libexec/gnubin:$(PATH)
+	export PATH := /usr/local/opt/gnu-tar/libexec/gnubin:$(PATH)
 endif
+gnuxform := --xform 's%^%m100le/%'
 
 ### Create an archive of the final product for distribution.
 archivefiles := M100LE.BA M100LE+comments.DO WL*.CO README.md
