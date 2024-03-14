@@ -23,6 +23,6 @@ jobs:
             M100LE+comments.DO
             M100LE+comments.BA
             M100LE.BA
-	    WL*.CO
+            WL*.CO
             m100le.tar.gz
-	    m100le.zip
+            m100le.zip
