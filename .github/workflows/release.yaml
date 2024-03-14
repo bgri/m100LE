@@ -18,9 +18,9 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            M100LE+comments.DO
-            M100LE+comments.BA
-            M100LE.BA
-            WL*.CO
             m100le.tar.gz
             m100le.zip
+            M100LE.BA
+            WL*.CO
+            M100LE+comments.DO
+            M100LE+comments.BA
