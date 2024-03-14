@@ -14,7 +14,7 @@ jobs:
     - name: Install GNU awk
       run: |
           brew install gawk
-          brew install gcc
+          brew info gcc
     - name: make
       run: make
     - name: Create tar and zip files
