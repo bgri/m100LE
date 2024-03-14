@@ -14,9 +14,8 @@ jobs:
     - name: Install GNU tar and GNU awk
       run: |
           type gtar
-          type gawk
+          gtar --version
           brew install gawk
-          brew install gnu-tar
           ls /opt/homebrew/bin
           echo ${PATH}
           type tar
