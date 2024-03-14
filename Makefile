@@ -40,12 +40,11 @@ tokenize:
 # Unfortunately, MacOS's tar cannot do that.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
-	brew install gnu-awk
-	brew install gnu-tar
+	PATH := "/usr/local/opt/gawk/libexec/gnubin:$PATH"
+	PATH := "/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 	gnuxform := 
-else
-	gnuxform := --xform 's%^%m100le/%'
 endif
+gnuxform := --xform 's%^%m100le/%'
 
 ### Create an archive of the final product for distribution.
 archivefiles := M100LE.BA M100LE+comments.DO WL*.CO README.md
