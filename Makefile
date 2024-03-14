@@ -10,7 +10,7 @@ generated+=CMPRSS.BA
 # (possibly old) version of m100-tokenize in the adjunct/ dir.
 TOKENIZE:=$(shell command -v m100-tokenize 2>/dev/null)
 ifndef TOKENIZE
-    TOKENIZE	:=$(shell command -v adjunct/m100-tokenize 2>/dev/null)
+    TOKENIZE := $(shell command -v adjunct/m100-tokenize 2>/dev/null)
     ifndef TOKENIZE
         $(warning "Compiling m100-tokenize in adjunct directory");
         generated:=tokenize ${generated}
@@ -37,14 +37,15 @@ tokenize:
 
 
 # GNU tar lets us easily put the files into a subdirectory in the archive.
-# Unfortunately, MacOS's tar cannot do that.
+# Unfortunately, MacOS is recalcitrant.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
 	PATH := "/usr/local/opt/gawk/libexec/gnubin:$PATH"
 	PATH := "/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 	gnuxform := 
+else
+	gnuxform := --xform 's%^%m100le/%'
 endif
-gnuxform := --xform 's%^%m100le/%'
 
 ### Create an archive of the final product for distribution.
 archivefiles := M100LE.BA M100LE+comments.DO WL*.CO README.md
