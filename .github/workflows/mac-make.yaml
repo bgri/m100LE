@@ -13,7 +13,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install GNU tar and GNU awk
       run: |
-          brew update
+          type gtar
+          type gawk
           brew install gawk
           brew install gnu-tar
           ls /opt/homebrew/bin
