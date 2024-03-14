@@ -28,6 +28,7 @@ all:  ${generated}
 # 'make clean' to delete all generated files
 clean:
 	rm ${generated} 2>/dev/null || true
+	rm m100le.tar.gz m100le.zip 2>/dev/null || true
 	$(MAKE) -C adjunct clean
 
 ### Compile hackerb9's tokenizer program
