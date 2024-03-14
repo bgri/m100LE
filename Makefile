@@ -35,12 +35,22 @@ clean:
 tokenize:
 	$(MAKE) -C adjunct tokenize
 
+
+# GNU tar lets us easily put the files into a subdirectory in the archive.
+# Unfortunately, MacOS's tar cannot do that.
+UNAME := $(shell uname)
+ifeq ($(UNAME), Darwin)
+	gnuxform := 
+else
+	gnuxform := --xform 's%^%m100le/%'
+endif
+
 ### Create an archive of the final product for distribution.
 archivefiles := M100LE.BA M100LE+comments.DO WL*.CO README.md
-archive: all tar zip
-tar: 
-	tar -acf m100le.tar.gz --xform 's#^#m100le/#' ${archivefiles}
-zip: 
+archive: tar zip
+tar: all
+	tar -acf m100le.tar.gz ${gnuxform} ${archivefiles}
+zip: all
 	zip -q m100le.zip ${archivefiles}
 
 ### IMPLICIT RULES
