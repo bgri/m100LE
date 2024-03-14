@@ -40,6 +40,8 @@ tokenize:
 # Unfortunately, MacOS's tar cannot do that.
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
+	brew install gnu-awk
+	brew install gnu-tar
 	gnuxform := 
 else
 	gnuxform := --xform 's%^%m100le/%'
