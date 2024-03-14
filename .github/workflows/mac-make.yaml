@@ -11,10 +11,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: 'Exporting brew PATH'    
+      run: echo "/usr/local/opt" >> $GITHUB_PATH
     - name: Install GNU awk
       run: |
+          echo "${PATH}"
+          type cc || true
+          type gcc || true
           brew install gawk
-          brew --prefix gcc
     - name: make
       run: make
     - name: Create tar and zip files
