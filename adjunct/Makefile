@@ -1,4 +1,4 @@
-tokenize: m100-tokenize m100-decomment m100-crunch 
+tokenize: m100-tokenize m100-jumps m100-decomment m100-crunch
 
 # Tokenizer that preserves comments
 m100-tokenize: m100-tokenize.c
@@ -6,6 +6,9 @@ m100-tokenize: m100-tokenize.c
 
 # Lexer that omits comments
 m100-decomment: m100-decomment.c 
+
+# Lexer that finds jump targets (GOTO 10)
+m100-jumps: m100-jumps.c 
 
 # Lexer that omits whitespace
 m100-crunch: m100-crunch.c 
