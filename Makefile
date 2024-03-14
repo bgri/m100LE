@@ -20,7 +20,7 @@ endif
 
 
 ### FAKE TARGETS (not actual files)
-.PHONY: all clean
+.PHONY: all clean tar
 
 # By default, generate every file using the implicit rules
 all:  ${generated}
@@ -33,6 +33,14 @@ clean:
 ### Compile hackerb9's tokenizer program
 tokenize:
 	$(MAKE) -C adjunct tokenize
+
+### Create an archive of the final product for distribution.
+archivefiles := M100LE.BA M100LE+comments.DO WL*.CO README.md
+archive: all tar zip
+tar: 
+	tar -acf m100le.tar.gz --xform 's#^#m100le/#' ${archivefiles}
+zip: 
+	zip -q m100le.zip ${archivefiles}
 
 ### IMPLICIT RULES
 
