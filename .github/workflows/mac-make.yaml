@@ -11,6 +11,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Install GNU tar and GNU awk
+      run: |
+          brew update
+          brew install gnu-awk
+          brew install gnu-tar
+          ls /opt/homebrew/bin
+          echo ${PATH}
+          type tar
+          type gnu-tar
+          type gtar
     - name: make
       run: make
     - name: Create tar and zip files
