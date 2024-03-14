@@ -1,0 +1,28 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Make
+        run: make 
+      - name: Create tar and zip files
+        run: make archive
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            M100LE+comments.DO
+            M100LE+comments.BA
+            M100LE.BA
+	    WL*.CO
+            m100le.tar.gz
+	    m100le.zip
