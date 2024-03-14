@@ -91,9 +91,10 @@ sttyargs+=(icanon)
 #  stop ^S: Use the standard software flow control character for XOFF...
 # start ^Q: ... same for XON.
 sttyargs+=(ixon ixoff stop ^S start ^Q)
-#   -onlcr: Do not turn newlines into carriage returns on output...
-#   -icrnl: ... nor vice versa.
-sttyargs+=(-onlcr -icrnl)
+#    opost: Perform postprocessing of the output.
+#    onlcr: Translate newline into carriage return + newline on output.
+#   -icrnl: Do not turn carriage returns into newlines on input.
+sttyargs+=(opost onlcr -icrnl)
 #  susp '': Incoming ^Z is no longer bound to Suspend. (For receiving).
 #   eof ^Z: Incoming ^Z character is now End-of-File. (For receiving).
 sttyargs+=(susp '' eof ^Z)

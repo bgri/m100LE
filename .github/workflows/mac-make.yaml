@@ -1,0 +1,20 @@
+name: MacOS compilation test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install GNU awk
+      run: |
+          brew install gawk
+    - name: make
+      run: make
+    - name: Create tar and zip files
+      run: make archive
